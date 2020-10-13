@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' display-mode='raw'>
+    <pages>
+        <page name='Router'/>
+        <page name='ProtocolOptionalFunction'/>
+        <page name='Number'/>
+        <page name='NSDecimalNumber'/>
+        <page name='Router002'/>
+        <page name='Decimal'/>
+        <page name='Untitled Page'/>
+        <page name='randomString'/>
+        <page name='UTF8'/>
+        <page name='GBK'/>
+        <page name='defer'/>
+        <page name='T'/>
+        <page name='String'/>
+        <page name='DynamicMemberLookup'/>
+        <page name='OptionalChain'/>
+        <page name='AccessControl'/>
+        <page name='Bool_Imp'/>
+        <page name='Inout'/>
+        <page name='ClosureExpression'/>
+        <page name='ClosureCapturingValues'/>
+        <page name='Swift5Assiciate'/>
+        <page name='ListNode'/>
+        <page name='Hexagon'/>
+        <page name='GetTheFirstDigit'/>
+        <page name='Mirror&amp;Dictionary'/>
+    </pages>
+</playground>
