@@ -26,5 +26,7 @@
         <page name='Hexagon'/>
         <page name='GetTheFirstDigit'/>
         <page name='Mirror&amp;Dictionary'/>
+        <page name='SnakeGame'/>
+        <page name='SnakeGame2'/>
     </pages>
 </playground>
