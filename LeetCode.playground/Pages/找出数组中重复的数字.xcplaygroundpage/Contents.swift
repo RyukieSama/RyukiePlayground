@@ -27,7 +27,7 @@
 
 import Foundation
 
-var nums: [Int] =  [2, 3, 1, 0, 2, 5, 3]
+var nums: [Int] =  [4, 3, 1, 0, 2, 5, 3]
 
 // MARK: - 1. 超时了
 /// 时间复杂度O(n) 空间O(n)
@@ -78,18 +78,20 @@ var nums: [Int] =  [2, 3, 1, 0, 2, 5, 3]
 // MARK: - 这里限定了长度和范围，可以一个萝卜一个坑，不会越界 每个数值对应的下标都可以有个对应的，如果发现里面有了一样的就试重复的了 O(n) O(1)
 func findSame(in nums: [Int]) -> Int {
     var temp = nums
-    for (index, item) in temp.enumerated() {
-        while item != index {
-            // 如果相同就说明一样
-            if item == temp[item] {
-                return item
-            }
-            
-            // 原地交换
-            let tp = item
-            temp[index] = temp[tp]
-            temp[tp] = tp
+    for (index, _) in temp.enumerated() {
+        let currentNum = temp[index] // 这里用item的话有快照机制，会错
+        print("CurrentNum：\(currentNum)")
+        print("Before：\(temp)")
+        // 如果相同就说明一样
+        if currentNum == temp[currentNum], index != currentNum {
+            return currentNum
         }
+        
+        // 原地交换
+        let oldNumAtItem = temp[currentNum]
+        temp[currentNum] = currentNum
+        temp[index] = oldNumAtItem
+        print("After：\(temp)\n")
     }
     return -1
 }
