@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <playground version='6.0' target-platform='ios' buildActiveScheme='true'>
     <pages>
-        <page name='找出数组中重复的数字'/>
-        <page name='Untitled Page'/>
+        <page name='剑指offer_03 找出数组中重复的数字'/>
+        <page name='剑指offer_04 二维数组中的查找'/>
     </pages>
 </playground>
