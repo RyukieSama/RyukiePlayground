@@ -41,7 +41,7 @@
 
 import UIKit
 
-// MARK: - 暴力遍历 O(n*m) O(1)
+// MARK: - 暴力遍历 O(nm) O(1)
 func hard(_ matrix: [[Int]], _ target: Int) -> Bool {
     for arr in matrix {
         for item in arr {
@@ -58,7 +58,8 @@ func half(_ matrix: [[Int]], _ target: Int) -> Bool {
     return false
 }
 
-// MARK: - 根据排列规则遍历 最大O()
+// MARK: - 根据排列规则遍历 最大O(n + m) O(1)
+// TODO: WRQ 了解一下二叉搜索树
 func rule(_ matrix: [[Int]], _ target: Int) -> Bool {
     guard let firstLine = matrix.first else { return false }
     let yCount = matrix.count
@@ -83,6 +84,29 @@ func rule(_ matrix: [[Int]], _ target: Int) -> Bool {
     return false
 }
 
+func ruleWhile(_ matrix: [[Int]], _ target: Int) -> Bool {
+    guard let firstLine = matrix.first else { return false }
+    let yCount = matrix.count
+    let xCount = firstLine.count
+    
+    if xCount == 0 || yCount == 0 {
+        return false
+    }
+    var x = xCount - 1, y = 0
+    while x >= 0, y < yCount {
+        let num = matrix[y][x]
+        if (num == target) {
+            return true
+        }
+        else if (num > target) {
+            x -= 1
+        }
+        else {
+            y += 1
+        }
+    }
+    return false
+}
 // MARK: - Test
 var array =  [
     [1,   4,  7, 11, 15],
@@ -92,12 +116,13 @@ var array =  [
     [18, 21, 23, 26, 30]
 ]
 
-let target = 5
+let target = 23
 
 func findNumberIn2DArray(_ matrix: [[Int]], _ target: Int) -> Bool {
-//    return hard(array, target)
-//    return half(array, target)
-    return rule(array, target)
+    //    return hard(array, target)
+    //    return half(array, target)
+//        return rule(array, target)
+    return ruleWhile(array, target)
 }
 
 findNumberIn2DArray(array, target)
