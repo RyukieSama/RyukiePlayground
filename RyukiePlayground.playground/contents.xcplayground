@@ -29,5 +29,8 @@
         <page name='SnakeGame'/>
         <page name='SnakeGame2'/>
         <page name='Option Pattern'/>
+        <page name='Hanoi'/>
+        <page name='Key-path'/>
+        <page name='StaticDispatch'/>
     </pages>
 </playground>
