@@ -8,5 +8,6 @@
         <page name='剑指 Offer 03 找出数组中重复的数字'/>
         <page name='剑指 Offer 04 二维数组中的查找'/>
         <page name='排序01：冒泡'/>
+        <page name='781. 森林中的兔子'/>
     </pages>
 </playground>
