@@ -40,14 +40,20 @@ import Foundation
  */
 
 let nums = [2,5,6,0,0,1,2]
-
+// 简单二分
 func search(_ nums: [Int], _ target: Int) -> Bool {
-    
-    
-    
-    return true
+    var pre = 0
+    var aft = nums.count - 1
+    while pre < nums.count && aft >= pre {
+        if nums[aft] == target || nums[pre] == target {
+            return true
+        }
+        pre += 1
+        aft -= 1
+    }
+    return false
 }
 
-search(nums, 3)
+search(nums, 0)
 
 //: [Next](@next)
