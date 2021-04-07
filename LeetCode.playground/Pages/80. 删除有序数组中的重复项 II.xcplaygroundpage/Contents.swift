@@ -45,11 +45,25 @@ import Foundation
  -104 <= nums[i] <= 104
  nums 已按升序排列
 
- 来源：力扣（LeetCode）
  链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii
- 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
-var str = "Hello, playground"
+var nums = [0,0,1,1,1,1,2,3,3]
+
+func removeDuplicates( _ nums: inout [Int]) -> Int {
+    var index = 0, third = 2
+    while third < nums.count {
+        if nums[index] == nums[third] {
+            nums.remove(at:third)
+        }
+        else {
+            index += 1
+            third += 1
+        }
+    }
+    return nums.count
+}
+
+removeDuplicates(&nums)
 
 //: [Next](@next)
