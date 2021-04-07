@@ -16,5 +16,6 @@
         <page name='80. 删除有序数组中的重复项 II'/>
         <page name='81. 搜索旋转排序数组 II'/>
         <page name='33. 搜索旋转排序数组'/>
+        <page name='剑指 Offer 11. 旋转数组的最小数字'/>
     </pages>
 </playground>
