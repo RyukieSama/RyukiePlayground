@@ -22,7 +22,7 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
-let num = [1, 1]
+let num = [1]
 
 func minArray(_ numbers: [Int]) -> Int {
     // 正序 发现后一个比前一个小，就是后一个
@@ -62,5 +62,28 @@ func minArray(_ numbers: [Int]) -> Int {
 }
 
 minArray(num)
+
+func minArray2(_ numbers: [Int]) -> Int {
+    var pr = 0
+    var af = numbers.count - 1
+    
+    while af - pr > 0 {
+        
+        if numbers[pr] > numbers[pr + 1] {
+            return numbers[pr + 1]
+        }
+        
+        if numbers[af] < numbers[af - 1] {
+            return numbers[af]
+        }
+        
+        pr += 1
+        af -= 1
+    }
+    
+    return numbers[0]
+}
+
+minArray2(num)
 
 //: [Next](@next)
