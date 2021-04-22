@@ -25,7 +25,7 @@
  answers 的长度最大为1000。
  answers[i] 是在 [0, 999] 范围内的整数。
  
- 来源：力扣（LeetCode）
+ 
  链接：https://leetcode-cn.com/problems/rabbits-in-forest
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  

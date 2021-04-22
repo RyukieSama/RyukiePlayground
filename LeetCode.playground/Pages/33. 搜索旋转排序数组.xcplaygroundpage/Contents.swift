@@ -36,7 +36,7 @@ import Foundation
  
  进阶：你可以设计一个时间复杂度为 O(log n) 的解决方案吗？
  
- 来源：力扣（LeetCode）
+ 
  链接：https://leetcode-cn.com/problems/search-in-rotated-sorted-array
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */

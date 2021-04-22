@@ -34,7 +34,7 @@ import Foundation
  这是 搜索旋转排序数组 的延伸题目，本题中的 nums  可能包含重复元素。
  这会影响到程序的时间复杂度吗？会有怎样的影响，为什么？
  
- 来源：力扣（LeetCode）
+ 
  链接：https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
