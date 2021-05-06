@@ -39,7 +39,7 @@ import Foundation
 let stones = [0,1,3,5,6,8,12,17]
 
 // Wrong: 理解错误，不是一个个石头跳
-//func canCross(_ stones: [Int]) -> Bool {
+//func canCross1(_ stones: [Int]) -> Bool {
 //    var nextBaseDeta: Int?
 //    for index in 0...stones.count-2 {
 //        let current = stones[index]
@@ -64,8 +64,32 @@ let stones = [0,1,3,5,6,8,12,17]
 //}
 
 func canCross(_ stones: [Int]) -> Bool {
+    let m = stones.count
+    if m <= 1 {
+        return true
+    }
+    var dp = Dictionary<Int, Set<Int>>() // 到每一步的走法集合，到最后一步的走法为空的话就不行
     
-    return false
+    for stone in stones {
+        dp[stone] = Set<Int>()
+    }
+    
+    dp[stones[0]]?.insert(0)
+//    print(dp)
+    for i in 0 ..< m {
+        let curr = stones[i]
+        let si = dp[curr]!
+//        print("\(si)")
+        for k in si {
+            for j in k - 1 ... k + 1 {
+                if dp.keys.contains(curr + j) {
+                    dp[curr + j]?.insert(j)
+                }
+            }
+        }
+    }
+//    print(dp)
+    return !dp[stones[m - 1]]!.isEmpty
 }
 
 canCross(stones)
