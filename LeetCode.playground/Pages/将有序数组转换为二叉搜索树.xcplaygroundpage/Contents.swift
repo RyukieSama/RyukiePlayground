@@ -44,7 +44,7 @@ func getTree(_ nums: [Int], _ left: Int, _ right: Int) -> TreeNode? {
     guard left <= right else { return nil }
     let mid = (left + right) / 2
     let node = TreeNode(nums[mid])
-    //对mid索引的处理不能忘记
+    // 对mid索引的处理不能忘记，将左右两边分别看成一个整体
     node.left = getTree(nums, left, mid - 1)
     node.right = getTree(nums, mid + 1, right)
     return node
