@@ -33,18 +33,6 @@
 
 import Foundation
 
-class TreeNode {
-    var val: Int
-    var left: TreeNode?
-    var right: TreeNode?
-    
-    init(_ val: Int) {
-        self.val = val
-        self.left = nil
-        self.right = nil
-    }
-}
-
 class Solution {
     func buildTree(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
         if preorder.count == 0 || inorder.count == 0 {
