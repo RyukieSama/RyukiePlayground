@@ -53,14 +53,19 @@ import Foundation
 
 func decode(_ encoded: [Int]) -> [Int] {
     let len = encoded.count
-    var y = 0
-    for i in stride(from: 1, to: len, by: 2) {
-        y = y ^ encoded[i]
-    }
+    
+    // 原数组是前n个正整数的排列，x为依次异或的结果
     var x = 0
     for i in 1...(len+1) {
         x = x ^ i
     }
+    
+    // 结果是两个两个异或得到的，y通过跳位的异或的到，比x少一个起始位的，所以x、y异或会得到起始位的值。然后按位异或即可得到原数组
+    var y = 0
+    for i in stride(from: 1, to: len, by: 2) {
+        y = y ^ encoded[i]
+    }
+    
     var perm: [Int] = [], current = x ^ y
     perm.append(current)
     for n in encoded {
