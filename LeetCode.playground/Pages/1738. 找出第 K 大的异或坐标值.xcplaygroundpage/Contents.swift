@@ -45,8 +45,42 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
-func kthLargestValue(_ matrix: [[Int]], _ k: Int) -> Int {
-    
+struct MatrixIndex: Hashable {
+    let x: Int
+    let y: Int
 }
+
+func kthLargestValue(_ matrix: [[Int]], _ k: Int) -> Int {
+    var dp: [MatrixIndex : Int] = [ : ]
+    
+    let m = matrix.count, n = matrix[0].count
+    
+    for y in 0..<m {
+        for x in 0..<n {
+            dp[MatrixIndex(x: x, y: y)] = XORAll(matrix, dp, in: MatrixIndex(x: x, y: y))
+        }
+    }
+    
+    return dp.sorted {
+        $0.value > $1.value
+    }[k-1].value
+}
+
+func XORAll(_ matrix: [[Int]], _ dp: [MatrixIndex : Int], in index: MatrixIndex) -> Int {
+    let lastIndex = MatrixIndex(x: index.x - 1, y: index.y)
+    var value: Int = dp[lastIndex] ?? matrix[0][index.x]    
+    var y = (dp[lastIndex] == nil) ? 1 : 0
+    
+    while y <= index.y {
+        value ^= matrix[y][index.x]
+        y += 1
+    }
+    
+    return value
+}
+
+let matrix = [[5,2],[1,6]], k = 1
+
+kthLargestValue(matrix, k)
 
 //: [Next](@next)
