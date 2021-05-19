@@ -35,18 +35,43 @@ import Foundation
  著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
  */
 
+//func sortedArrayToBST(_ nums: [Int]) -> TreeNode? {
+//    if nums.isEmpty { return nil }
+//    return getTree(nums, 0, nums.count - 1)
+//}
+//
+//func getTree(_ nums: [Int], _ left: Int, _ right: Int) -> TreeNode? {
+//    guard left <= right else { return nil }
+//    let mid = (left + right) / 2
+//    let node = TreeNode(nums[mid])
+//    // 对mid索引的处理不能忘记，将左右两边分别看成一个整体
+//    node.left = getTree(nums, left, mid - 1)
+//    node.right = getTree(nums, mid + 1, right)
+//    return node
+//}
+
+// 我的
+
 func sortedArrayToBST(_ nums: [Int]) -> TreeNode? {
-    if nums.isEmpty { return nil }
-    return getTree(nums, 0, nums.count - 1)
+    // 其实就是要相对平均的进行分隔
+    if nums.isEmpty {
+        return nil
+    }
+    return createNode(nums)
 }
 
-func getTree(_ nums: [Int], _ left: Int, _ right: Int) -> TreeNode? {
-    guard left <= right else { return nil }
-    let mid = (left + right) / 2
-    let node = TreeNode(nums[mid])
-    // 对mid索引的处理不能忘记，将左右两边分别看成一个整体
-    node.left = getTree(nums, left, mid - 1)
-    node.right = getTree(nums, mid + 1, right)
+func createNode(_ nums: [Int]) -> TreeNode? {
+    if nums.isEmpty {
+        return nil
+    }
+    let midIndex = Int(ceil(Double((nums.count - 1) / 2)))
+    let node = TreeNode(nums[midIndex])
+    
+    if nums.count > 1 {
+        node.left = createNode(Array(nums[0..<midIndex]))
+        node.right = createNode(Array(nums[(midIndex + 1)...(nums.count - 1)]))
+    }
+    
     return node
 }
 
