@@ -40,10 +40,35 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+func sumInRange(start: Int, end: Int, in nums: [Int]) -> Int {
+    if end >= nums.count && start >= nums.count && start > end {
+        return 0
+    }
+    var result = 0
+    for n in nums[start...end] {
+        result += n
+    }
+    return result
+}
 
+// MARK: - 暴力 空间O(1) 时间最大O((n-2)*n)?
 func checkSubarraySum(_ nums: [Int], _ k: Int) -> Bool {
-    
-    
+    if nums.count < 2 {
+        return false
+    }
+    var length = 2
+
+    while length <= nums.count {
+        for i in 0..<nums.count {
+            let index = i + length - 1
+            
+            if index >= nums.count { continue }
+            if sumInRange(start: i, end: index, in: nums) % k == 0 {
+                return true
+            }
+        }
+        length += 1
+    }
     
     return false
 }
