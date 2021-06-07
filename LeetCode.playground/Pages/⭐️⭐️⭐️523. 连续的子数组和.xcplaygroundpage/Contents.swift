@@ -30,10 +30,10 @@ import Foundation
  
  提示：
  
- 1 <= nums.length <= 105
- 0 <= nums[i] <= 109
- 0 <= sum(nums[i]) <= 231 - 1
- 1 <= k <= 231 - 1
+ 1 <= nums.length <= 10^5
+ 0 <= nums[i] <= 10^9
+ 0 <= sum(nums[i]) <= 2^31 - 1
+ 1 <= k <= 2^31 - 1
  
  来源：力扣（LeetCode）
  链接：https://leetcode-cn.com/problems/continuous-subarray-sum
@@ -57,7 +57,7 @@ func checkSubarraySum(_ nums: [Int], _ k: Int) -> Bool {
         return false
     }
     var length = 2
-
+    
     while length <= nums.count {
         for i in 0..<nums.count {
             let index = i + length - 1
@@ -73,8 +73,58 @@ func checkSubarraySum(_ nums: [Int], _ k: Int) -> Bool {
     return false
 }
 
+// MARK: - 前缀和 O(n+m)
+func checkSubarraySum2(_ nums: [Int], _ k: Int) -> Bool {
+    var presum: [Int] = Array(repeating: 0, count: nums.count)
+    for i in 0..<nums.count {
+        if i == 0 {
+            presum[0] = nums[0]
+        }
+        else {
+            presum[i] = presum[i-1] + nums[i]
+        }
+    }
+    
+    
+    
+    
+    
+    return false
+}
+
+// MARK: - 同余性质
+func checkSubarraySum3(_ nums: [Int], _ k: Int) -> Bool {
+    if nums.count < 2{
+        return false
+    }
+    else{
+        var map = [Int:Int]()
+        map[0] = -1
+        var sum = 0
+        for i in 0..<nums.count{
+            sum += nums[i]
+            let res = sum%k
+            if map.keys.contains(res) {
+                let length = i - map[res]!
+                if length > 1{
+                    return true
+                }
+            }
+            else{
+                map[res] = i
+            }
+        }
+        return false
+    }
+}
+
+//let nums = [5,0,0,0,0], k = 3
 let nums = [23,2,6,4,7], k = 13
 
-checkSubarraySum(nums, k)
+//checkSubarraySum(nums, k)
+
+checkSubarraySum2(nums, k)
+
+checkSubarraySum3(nums, k)
 
 //: [Next](@next)
