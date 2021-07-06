@@ -40,96 +40,16 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
-//func sumInRange(start: Int, end: Int, in nums: [Int]) -> Int {
-//    if end >= nums.count && start >= nums.count && start > end {
-//        return 0
-//    }
-//    var result = 0
-//    for n in nums[start...end] {
-//        result += n
-//    }
-//    return result
-//}
-
-// MARK: - 暴力 空间O(1) 时间最大O((n-2)*n)?
-//func checkSubarraySum(_ nums: [Int], _ k: Int) -> Bool {
-//    if nums.count < 2 {
-//        return false
-//    }
-//    var length = 2
-//
-//    while length <= nums.count {
-//        for i in 0..<nums.count {
-//            let index = i + length - 1
-//
-//            if index >= nums.count { continue }
-//            if sumInRange(start: i, end: index, in: nums) % k == 0 {
-//                return true
-//            }
-//        }
-//        length += 1
-//    }
-//
-//    return false
-//}
-
-//// MARK: - 前缀和 O(n+m)
-//func checkSubarraySum2(_ nums: [Int], _ k: Int) -> Bool {
-//    var presum: [Int] = Array(repeating: 0, count: nums.count)
-//    for i in 0..<nums.count {
-//        if i == 0 {
-//            presum[0] = nums[0]
-//        }
-//        else {
-//            presum[i] = presum[i-1] + nums[i]
-//        }
-//    }
-//
-//
-//
-//
-//
-//    return false
-//}
-//
-// MARK: - 同余性质
-func checkSubarraySum3(_ nums: [Int], _ k: Int) -> Bool {
-    if nums.count < 2{
-        return false
-    }
-    else{
-        var map = [Int:Int]()
-        map[0] = -1
-        var sum = 0
-        for i in 0..<nums.count{
-            sum += nums[i]
-            let res = sum%k
-            print("sum\(sum) > \(res)")
-            if map.keys.contains(res) {
-                let length = i - map[res]!
-                if length > 1{
-                    return true
-                }
-            }
-            else{
-                map[res] = i
-            }
-        }
-        return false
-    }
-}
-
 //let nums = [5,0,0,0,0], k = 3
 //let nums = [23,2,6,4,7], k = 13
 let nums = [23,2,4,6,6], k = 7
 
-//checkSubarraySum(nums, k)
+func checkSubarraySum(_ nums: [Int], _ k: Int) -> Bool {
+    
+    return false
+}
 
-//checkSubarraySum2(nums, k)
-
-checkSubarraySum3(nums, k)
-
-// MARK: - 同余性质-我的
+// MARK: - 同余性质
 func checkSubarraySum4(_ nums: [Int], _ k: Int) -> Bool {
     if nums.count < 2 {
         return false
@@ -140,7 +60,6 @@ func checkSubarraySum4(_ nums: [Int], _ k: Int) -> Bool {
     for (index, n) in nums.enumerated() {
         sum += n
         let mo = sum % k
-        print("sum\(sum) > \(mo)")
         if moMap.keys.contains(mo) {
             if let sameMoIndex = moMap[mo], index - sameMoIndex > 1 { // 长度至少为2
                 return true
