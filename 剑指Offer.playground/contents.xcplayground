@@ -13,5 +13,7 @@
         <page name='12. 矩阵中的路径⭐️⭐️'/>
         <page name='25. 合并两个排序的链表'/>
         <page name='27. 二叉树的镜像'/>
+        <page name='28. 对称的二叉树'/>
+        <page name='21.调整数组顺序使奇数位于偶数前面'/>
     </pages>
 </playground>
