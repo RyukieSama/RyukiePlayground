@@ -10,12 +10,12 @@
         <page name='10- I. 斐波那契数列'/>
         <page name='10- II. 青蛙跳台阶问题'/>
         <page name='11. 旋转数组的最小数字'/>
-        <page name='12. 矩阵中的路径⭐️⭐️'/>
         <page name='25. 合并两个排序的链表'/>
         <page name='27. 二叉树的镜像'/>
         <page name='28. 对称的二叉树'/>
         <page name='21.调整数组顺序使奇数位于偶数前面'/>
         <page name='15.二进制中1的个数'/>
-        <page name='12.矩阵中的路径'/>
+        <page name='⭐️⭐️12.矩阵中的路径（回溯法）'/>
+        <page name='29. 顺时针打印矩阵'/>
     </pages>
 </playground>
