@@ -17,5 +17,7 @@
         <page name='15.二进制中1的个数'/>
         <page name='⭐️⭐️12.矩阵中的路径（回溯法）'/>
         <page name='29. 顺时针打印矩阵'/>
+        <page name='22.链表中倒数第k个节点'/>
+        <page name='24.反转链表'/>
     </pages>
 </playground>
