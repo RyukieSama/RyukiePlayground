@@ -39,9 +39,7 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
-/**
- 回溯法
- */
+// MARK: - 深度优先
 
 func movingCount(_ m: Int, _ n: Int, _ k: Int) -> Int {
     if m <= 0 || n <= 0 || k < 0 {
@@ -81,11 +79,55 @@ func digitSum(_ num: Int) -> Int {
     return result
 }
 
+// MARK: - 深度优先优化
+/*:
+ 在深度优先的解法中，我们才拆分为了`上下左右`四个方向的子问题。
+
+ 但实际上本题只需要`右下`两个方向就可以，因为上左一定是走过的。
+ */
+func moveTo2(_ x: Int, _ y: Int, _ k: Int, flags: inout [[Bool]]) -> Int {
+    if (x < 0 || x >= flags.first?.count ?? 0) ||
+        (y < 0 || y >= flags.count) ||
+        (flags[y][x] == true) ||
+        (digitSum(x) + digitSum(y) > k)
+    {
+        return 0
+    }
+    
+    flags[y][x] = true
+    
+    let count = 1
+        + moveTo(x + 1, y, k, flags: &flags)
+        + moveTo(x, y + 1, k, flags: &flags)
+    
+    return count
+}
+
+// MARK: - 广度优先
+func movingCount_bfs(_ m: Int, _ n: Int, _ k: Int) -> Int {
+    var visited = Array(repeating: Array(repeating: false, count: n), count: m)
+    var result = 0
+    
+    var queue:Array = [(0,0,0,0)]//
+    while !queue.isEmpty{
+        let (y,x,si,sj) = queue.removeFirst()
+        if y >= m || x >= n || k < si + sj || visited[y][x]{
+            continue
+        }
+        visited[y][x] = true
+        result = result + 1
+        queue.append((y + 1, x, digitSum(y + 1), sj))
+        queue.append((y, x + 1, si, digitSum(x + 1)))
+    }
+    return result
+}
+
 digitSum(191111111)
 
 let m = 2, n = 3, k = 1
 //let m = 3, n = 1, k = 0
 
 movingCount(m, n, k)
+movingCount_bfs(m, n, k)
 
 //: [Next](@next)
