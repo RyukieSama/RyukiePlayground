@@ -126,8 +126,6 @@ func cuttingRope2(_ n: Int) -> Int {
     
     let twoCount = (n - threeCount * 3) / 2
     
-    
-    
     return Int(truncating: NSDecimalNumber(decimal: pow(3, threeCount))) * Int(truncating: NSDecimalNumber(decimal: pow(2, twoCount)))
 }
 
