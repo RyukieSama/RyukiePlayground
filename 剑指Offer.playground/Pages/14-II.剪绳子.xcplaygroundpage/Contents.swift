@@ -94,6 +94,47 @@ func cuttingRope3(_ n: Int) -> Int {
     return res * n % 1_000_000_007
 }
 
-cuttingRope3(255)
+//cuttingRope3(255)
+
+/**
+ 快速幂
+ */
+func cuttingRope4(_ n: Int) -> Int {
+    if n < 4 {
+        return n - 1
+    }
+    let a = n / 3, b = n % 3
+    
+    if b == 0 {
+        return modPow(3, a) % 1_000_000_007
+    }
+    else if b == 1 {
+        return modPow(3, a - 1) * 4 % 1_000_000_007
+    }
+    else {
+        return modPow(3, a) * 2 % 1_000_000_007
+    }
+}
+
+func modPow(_ x: Int, _ n: Int) -> Int {
+    var res = 1
+    var x = x
+    var n = n
+    
+    while n > 0 {
+        if n & 1 == 1 {
+            res *= x
+            res %= 1_000_000_007 // 限制了数据范围
+        }
+        x *= x
+        x %= 1_000_000_007 // 限制了数据范围
+        n >>= 1
+    }
+    
+    return res
+}
+
+cuttingRope4(255)
+cuttingRope4(5)
 
 //: [Next](@next)
