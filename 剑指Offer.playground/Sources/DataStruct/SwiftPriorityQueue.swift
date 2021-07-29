@@ -19,6 +19,10 @@ public struct SwiftPriorityQueue<Element> {
     public func peek() -> Element? {
         return _elements.first
     }
+    
+    public func array() -> [Element] {
+        return _elements
+    }
 
     public var isEmpty: Bool {
         return _elements.count == 0
