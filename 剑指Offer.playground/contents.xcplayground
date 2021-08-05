@@ -24,5 +24,6 @@
         <page name='14-II.剪绳子'/>
         <page name='18.删除链表的节点'/>
         <page name='40.最小的k个数'/>
+        <page name='30.包含min函数的栈'/>
     </pages>
 </playground>
