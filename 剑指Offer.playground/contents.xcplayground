@@ -25,5 +25,6 @@
         <page name='18.删除链表的节点'/>
         <page name='40.最小的k个数'/>
         <page name='30.包含min函数的栈'/>
+        <page name='20.表示数值的字符串'/>
     </pages>
 </playground>
