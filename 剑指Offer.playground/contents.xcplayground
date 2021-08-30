@@ -27,5 +27,8 @@
         <page name='30.包含min函数的栈'/>
         <page name='20.表示数值的字符串'/>
         <page name='26.树的子结构'/>
+        <page name='16.数值的整数次方'/>
+        <page name='31.栈的压入、弹出序列'/>
+        <page name='32-I.从上到下打印二叉树'/>
     </pages>
 </playground>
