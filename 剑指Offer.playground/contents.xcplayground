@@ -30,5 +30,7 @@
         <page name='16.数值的整数次方'/>
         <page name='31.栈的压入、弹出序列'/>
         <page name='32-I.从上到下打印二叉树'/>
+        <page name='32-II.从上到下打印二叉树II'/>
+        <page name='32-III.从上到下打印二叉树III'/>
     </pages>
 </playground>
