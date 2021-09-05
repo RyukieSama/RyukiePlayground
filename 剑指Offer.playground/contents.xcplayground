@@ -32,5 +32,6 @@
         <page name='32-I.从上到下打印二叉树'/>
         <page name='32-II.从上到下打印二叉树II'/>
         <page name='32-III.从上到下打印二叉树III'/>
+        <page name='33.二叉搜索树的后序遍历序列'/>
     </pages>
 </playground>
