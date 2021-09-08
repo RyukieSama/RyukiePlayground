@@ -32,5 +32,6 @@
         <page name='Hanoi'/>
         <page name='Key-path'/>
         <page name='StaticDispatch'/>
+        <page name='propertyWrapper'/>
     </pages>
 </playground>
