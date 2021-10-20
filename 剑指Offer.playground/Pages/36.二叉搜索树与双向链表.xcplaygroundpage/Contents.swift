@@ -3,26 +3,26 @@
 import Foundation
 
 /*:
-输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。要求不能创建任何新的节点，只能调整树中节点指针的指向。
-
-为了让您更好地理解问题，以下面的二叉搜索树为例：
- 
-
-我们希望将这个二叉搜索树转化为双向循环链表。链表中的每个节点都有一个前驱和后继指针。对于双向循环链表，第一个节点的前驱是最后一个节点，最后一个节点的后继是第一个节点。
-
-下图展示了上面的二叉搜索树转化成的链表。“head” 表示指向链表中有最小元素的节点。
- 
-
-特别地，我们希望可以就地完成转换操作。当转化完成以后，树中节点的左指针需要指向前驱，树中节点的右指针需要指向后继。还需要返回链表中的第一个节点的指针。
-
-来源：[力扣（LeetCode）](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof)
-*/
+ 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。要求不能创建任何新的节点，只能调整树中节点指针的指向。
+ 
+ 为了让您更好地理解问题，以下面的二叉搜索树为例：
+   
+ 
+ 我们希望将这个二叉搜索树转化为双向循环链表。链表中的每个节点都有一个前驱和后继指针。对于双向循环链表，第一个节点的前驱是最后一个节点，最后一个节点的后继是第一个节点。
+ 
+ 下图展示了上面的二叉搜索树转化成的链表。“head” 表示指向链表中有最小元素的节点。
+   
+ 
+ 特别地，我们希望可以就地完成转换操作。当转化完成以后，树中节点的左指针需要指向前驱，树中节点的右指针需要指向后继。还需要返回链表中的第一个节点的指针。
+ 
+ 来源：[力扣（LeetCode）](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof)
+ */
 
 
 var head: TreeNode?, last: TreeNode?
 
 func treeToDoublyList(root: TreeNode) -> TreeNode {
-    handle(root: root)
+    dfs(root)
     last?.right = head
     head?.left = last
     return root
@@ -59,7 +59,27 @@ func handle(root: TreeNode) -> TreeNode {
     
     return root
 }
- 
+
+func dfs(_ node: TreeNode?) {
+    guard let node = node else { return }
+    
+    // 便利左子树
+    dfs(node.left)
+    if head == nil { // 执行到这里为 head
+        head = node
+    }
+    // 当前节点左连上一个
+    node.left = last
+    // 上一个右连当前节点
+    if let l = last {
+        l.right = node
+    }
+    // 平移 last 节点
+    last = node
+    // 遍历右子树
+    dfs(node.right)
+}
+
 let t1 = TreeNode(1)
 let t2 = TreeNode(2)
 let t3 = TreeNode(3)
