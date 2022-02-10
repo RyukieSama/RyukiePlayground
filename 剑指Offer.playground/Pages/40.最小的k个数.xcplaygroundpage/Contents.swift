@@ -147,13 +147,64 @@ func getLeastNumbers4(_ arr: [Int], _ k: Int) -> [Int] {
     return stack.array()
 }
 
-var arr = [0,0,0,2,0,5], k = 5
+//var arr = [0,0,0,2,0,5], k = 5
+var arr = [0,0,1,2,4,2,2,3,1,4], k = 8
 //getLeastNumbers(arr, k)
 //getLeastNumbers3(arr, k)
-getLeastNumbers4(arr, k)
-
+//getLeastNumbers4(arr, k)
+getLeastNumbers5(arr, k)
 //quickSort(arr)
 
 //quickSort(data: arr)
+
+/*:
+ 创建固定容量的容器
+ 遍历元素
+ 存满后冒泡排序
+ 
+ 继续插入到头
+ 遍历直到遇到大于等于自己的就停止
+ 移除最后一个元素
+ 
+ */
+func getLeastNumbers5(_ arr: [Int], _ k: Int) -> [Int] {
+    var result: [Int] = []
+    
+    guard k > 0 else {
+        return result
+    }
+    
+    arr.forEach { item in
+        if result.count == k, let min = result.first {
+            
+            if item <= min {
+                result.insert(item, at: 0)
+                result.removeLast()
+            }
+            else {
+                result.insert(item, at: 0)
+                
+                for i in 0..<(result.count - 1) {
+                    if result[i] > result[i+1] {
+                        result.swapAt(i, i+1)
+                    }
+                    else {
+                        break
+                    }
+                }
+                
+                result.removeLast()
+            }
+        }
+        else {
+            result.append(item)
+            if result.count == k {
+                result = result.sorted()
+            }
+        }
+    }
+    
+    return result
+}
 
 //: [Next](@next)
