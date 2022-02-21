@@ -108,7 +108,6 @@ obj.addNum(-3)
 obj.addNum(-4)
 obj.addNum(-5)
 obj.addNum(6)
-//obj.addNum(6)
 
 let ret_2: Double = obj.findMedian()
 
