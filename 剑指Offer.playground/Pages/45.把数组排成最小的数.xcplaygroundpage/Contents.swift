@@ -31,6 +31,7 @@
 
 import Foundation
 
+// 优先队列
 func minNumber(_ nums: [Int]) -> String {
     var queue = SwiftPriorityQueue<Int>.init(hasHigherPriority: {
         return hasHigher(x: $0, compare: $1)
@@ -39,28 +40,31 @@ func minNumber(_ nums: [Int]) -> String {
     })
     
     var result: String = ""
-    
     nums.forEach {
         queue.enqueue($0)
     }
         
     while let value = queue.dequeue() {
-        print(value)
         result.append("\(value)")
     }
-    
-    print("结果：\(result)")
-    
+        
+    return result
+}
+
+func minNumber2(_ nums: [Int]) -> String {
+    let queue = nums.sorted { return hasHigher(x: $0, compare: $1) }
+    var result: String = ""
+    queue.forEach {
+        result.append("\($0)")
+    }
     return result
 }
 
 func hasHigher(x: Int, compare y: Int) -> Bool {
     let aArr = [Character](String(x))
     let bArr = [Character](String(y))
-    
     let resultA = Int(String(aArr + bArr)) ?? 0
     let resultB = Int(String(bArr + aArr)) ?? 0
-    
     return resultA <= resultB
 }
 
@@ -69,5 +73,6 @@ let arr = [34,3,30,5,9]
 //let arr = [12, 121]
 
 minNumber(arr)
+minNumber2(arr)
 
 //: [Next](@next)
