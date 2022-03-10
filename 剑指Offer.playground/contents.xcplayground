@@ -45,5 +45,6 @@
         <page name='44.数字序列中某一位的数字'/>
         <page name='45.把数组排成最小的数'/>
         <page name='46.把数字翻译成字符串'/>
+        <page name='47.礼物的最大价值'/>
     </pages>
 </playground>
