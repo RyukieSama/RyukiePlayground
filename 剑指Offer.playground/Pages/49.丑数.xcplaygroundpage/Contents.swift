@@ -78,12 +78,29 @@ func nthUglyNumberMinStack(_ n: Int) -> Int {
 }
 
 func nthUglyNumberDP(_ n: Int) -> Int {
-
-    return 1
+    var p2 = 0, p3 = 0, p5 = 0
+    var dp: [Int] = Array(repeating: 1, count: n)
+    
+    for i in 1..<n {
+        let num2 = dp[p2] * 2, num3 = dp[p3] * 3, num5 = dp[p5] * 5
+        dp[i] = min(min(num2, num3), num5)
+        if dp[i] == num2 {
+            p2 += 1
+        }
+        if dp[i] == num3 {
+            p3 += 1
+        }
+        if dp[i] == num5 {
+            p5 += 1
+        }
+    }
+    print(dp)
+    return dp[n-1]
 }
 
 let num = 10
 //nthUglyNumber(num)
-nthUglyNumberMinStack(num)
+//nthUglyNumberMinStack(num)
+nthUglyNumberDP(num)
 
 //: [Next](@next)
