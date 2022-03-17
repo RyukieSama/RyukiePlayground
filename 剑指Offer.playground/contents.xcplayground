@@ -47,5 +47,6 @@
         <page name='46.把数字翻译成字符串'/>
         <page name='47.礼物的最大价值'/>
         <page name='48.最长不含重复字符的子字符串'/>
+        <page name='49.丑数'/>
     </pages>
 </playground>
