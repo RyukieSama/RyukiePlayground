@@ -48,5 +48,6 @@
         <page name='47.礼物的最大价值'/>
         <page name='48.最长不含重复字符的子字符串'/>
         <page name='49.丑数'/>
+        <page name='50.第一个只出现一次的字符'/>
     </pages>
 </playground>
