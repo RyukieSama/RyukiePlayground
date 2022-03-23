@@ -34,13 +34,13 @@ import Foundation
  */
 
 func firstUniqChar(_ s: String) -> Character {
-    var strArr = Array(s)
+    let strArr = Array(s)
     var dp: [Character : Int] = [:]
     var indexs: [Character] = []
     
     strArr.forEach {
-        if let count = dp[$0] {
-            if let idx = indexs.index(of: $0) {
+        if dp[$0] != nil {
+            if let idx = indexs.firstIndex(of: $0) {
                 indexs.remove(at: idx)                
             }
         }
@@ -53,8 +53,8 @@ func firstUniqChar(_ s: String) -> Character {
     return indexs.first ?? " "
 }
 
-//let s = "abaccdeff"
-let s = "aadadaad"
+let s = "abaccdeff"
+//let s = "aadadaad"
 firstUniqChar(s)
 
 //: [Next](@next)

@@ -39,7 +39,9 @@ import Foundation
 
 func levelOrder(_ root: TreeNode?) -> [[Int]] {
     var queue: [TreeNode] = []
+    // 当前行需要打印的
     var toBePrint = 0
+    // 下一行需要打印的
     var nextLevelCount = 0
     var result: [[Int]] = []
     var temp: [Int] = []
