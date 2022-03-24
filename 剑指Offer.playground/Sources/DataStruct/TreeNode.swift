@@ -1,5 +1,5 @@
 
-public class TreeNode {
+public class TreeNode: Equatable {
     public var val: Int
     public var left: TreeNode?
     public var right: TreeNode?
@@ -10,4 +10,8 @@ public class TreeNode {
         self.left = left
         self.right = right
     }
+    public static func == (lhs: TreeNode, rhs: TreeNode) -> Bool {
+        Unmanaged.passUnretained(lhs).toOpaque() == Unmanaged.passUnretained(rhs).toOpaque()
+    }
+        
 }

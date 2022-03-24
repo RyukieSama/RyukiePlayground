@@ -55,5 +55,7 @@
         <page name='53-II.0～n-1中缺失的数字'/>
         <page name='54.二叉搜索树的第k大节点'/>
         <page name='55-I.二叉树的深度'/>
+        <page name='55-II.平衡二叉树'/>
+        <page name='56-I.数组中数字出现的次数'/>
     </pages>
 </playground>
