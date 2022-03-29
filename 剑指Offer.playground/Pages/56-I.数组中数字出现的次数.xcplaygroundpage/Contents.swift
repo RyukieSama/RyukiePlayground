@@ -48,6 +48,8 @@ func singleNumbers(_ nums: [Int]) -> [Int] {
 }
 
 /*:
+ HashMap 解法很容易想到，但是不符合空间复杂度的要求。
+ 
  0001
  0010
  1010

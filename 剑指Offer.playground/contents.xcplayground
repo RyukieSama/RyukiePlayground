@@ -57,5 +57,6 @@
         <page name='55-I.二叉树的深度'/>
         <page name='55-II.平衡二叉树'/>
         <page name='56-I.数组中数字出现的次数'/>
+        <page name='56-II.数组中数字出现的次数II'/>
     </pages>
 </playground>
