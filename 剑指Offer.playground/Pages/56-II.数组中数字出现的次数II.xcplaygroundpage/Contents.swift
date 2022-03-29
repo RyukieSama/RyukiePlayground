@@ -37,19 +37,19 @@ import Foundation
  暴力
  */
 func singleNumber(_ nums: [Int]) -> Int {
-    var tempArr: [Int] = []
+    var queue: [Int] = []
     
     for item in nums {
-        if let lastIdx = tempArr.firstIndex(of: item) {
-            tempArr.remove(at: lastIdx)
-            tempArr.append(item)
+        if let lastIdx = queue.firstIndex(of: item) {
+            queue.remove(at: lastIdx)
+            queue.append(item)
         }
         else {
-            tempArr.insert(item, at: 0)
+            queue.insert(item, at: 0)
         }
     }
     
-    return tempArr[0]
+    return queue[0]
 }
 
 /*:
