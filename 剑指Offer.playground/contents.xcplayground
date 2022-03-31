@@ -58,6 +58,7 @@
         <page name='55-II.平衡二叉树'/>
         <page name='56-I.数组中数字出现的次数'/>
         <page name='56-II.数组中数字出现的次数II'/>
+        <page name='57-II.和为s的连续正数序列'/>
         <page name='57.和为s的两个数字'/>
     </pages>
 </playground>
