@@ -62,5 +62,6 @@
         <page name='57.和为s的两个数字'/>
         <page name='58-I.翻转单词顺序'/>
         <page name='58-II.左旋转字符串'/>
+        <page name='59-I.滑动窗口的最大值'/>
     </pages>
 </playground>
