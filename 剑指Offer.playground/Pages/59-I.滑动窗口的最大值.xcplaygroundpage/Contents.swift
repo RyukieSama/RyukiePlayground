@@ -34,6 +34,9 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+/*:
+ 动态规划
+ */
 func maxSlidingWindow(_ nums: [Int], _ k: Int) -> [Int] {
     var res: [Int] = []
     guard nums.isEmpty == false else {
@@ -45,7 +48,7 @@ func maxSlidingWindow(_ nums: [Int], _ k: Int) -> [Int] {
     
     while right < nums.count {
         let newItem = nums[right]
-        if let lastmaxIdx = dp[right - 1], lastmaxIdx >= left {
+        if let lastmaxIdx = dp[right - 1], lastmaxIdx >= left {// 上一个最大值在当前范围内
             let lastMax = nums[lastmaxIdx]
             if lastMax > newItem {
                 res.append(lastMax)
