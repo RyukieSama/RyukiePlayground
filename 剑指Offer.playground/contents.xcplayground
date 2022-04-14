@@ -66,5 +66,6 @@
         <page name='59-II.队列的最大值'/>
         <page name='60.n个骰子的点数'/>
         <page name='61.扑克牌中的顺子'/>
+        <page name='62.圆圈中最后剩下的数字'/>
     </pages>
 </playground>
