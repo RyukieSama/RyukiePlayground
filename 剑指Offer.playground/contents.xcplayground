@@ -69,5 +69,6 @@
         <page name='62.圆圈中最后剩下的数字'/>
         <page name='63.股票的最大利润'/>
         <page name='64.求1+2+…+n'/>
+        <page name='65.不用加减乘除做加法'/>
     </pages>
 </playground>
