@@ -70,5 +70,7 @@
         <page name='63.股票的最大利润'/>
         <page name='64.求1+2+…+n'/>
         <page name='65.不用加减乘除做加法'/>
+        <page name='66.构建乘积数组'/>
+        <page name='67.把字符串转换成整数'/>
     </pages>
 </playground>
