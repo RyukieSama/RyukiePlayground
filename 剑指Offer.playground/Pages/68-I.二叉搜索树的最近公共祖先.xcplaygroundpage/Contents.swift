@@ -45,7 +45,8 @@ func lowestCommonAncestor(root: TreeNode, pNode: TreeNode, qNode: TreeNode) -> T
     let minNode = pNode.val > qNode.val ? qNode : pNode
     let maxNode = pNode.val < qNode.val ? qNode : pNode
     guard
-        !(minNode.val < root.val && maxNode.val > root.val),
+        !(minNode.val < root.val && maxNode.val > root.val),// 左右分布，直接return根结点
+        (minNode.val != root.val && maxNode.val != root.val),
         let oNode = maxNode.val > root.val ? root.right : root.left
     else {
         // 利用二叉搜索树的特性排除一些情况，分别在两侧的话公共先祖就是跟节点
@@ -81,8 +82,9 @@ node4.left = node3
 node4.right = node5
 
 //let org = lowestCommonAncestor(root: node6, pNode: node3, qNode: node5)
-//let org = lowestCommonAncestor(root: node6, pNode: node3, qNode: node5)
-let org = lowestCommonAncestor(root: node6, pNode: node4, qNode: node9)
+let org = lowestCommonAncestor(root: node6, pNode: node2, qNode: node4)
+//let org = lowestCommonAncestor(root: node6, pNode: node2, qNode: node8)
+//let org = lowestCommonAncestor(root: node6, pNode: node4, qNode: node9)
 print(org.val)
 
 //: [Next](@next)
