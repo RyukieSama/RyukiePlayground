@@ -73,5 +73,6 @@
         <page name='66.构建乘积数组'/>
         <page name='67.把字符串转换成整数'/>
         <page name='68-I.二叉搜索树的最近公共祖先'/>
+        <page name='68-II.二叉树的最近公共祖先'/>
     </pages>
 </playground>
