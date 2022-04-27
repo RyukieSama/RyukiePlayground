@@ -106,25 +106,26 @@ findRepeatNumberA(nums)
 
 // MARK: - 这里限定了长度和范围，可以一个萝卜一个坑，不会越界 每个数值对应的下标都可以有个对应的，如果发现里面有了一样的就试重复的了 O(n) O(1)
 func findSame(in nums: [Int]) -> Int {
-    var temp = nums
-    for (index, _) in temp.enumerated() {
-        let currentNum = temp[index] // 这里用item的话有快照机制，会错
-        print("CurrentNum：\(currentNum)")
-        print("Before：\(temp)")
-        // 如果相同就说明一样
-        if currentNum == temp[currentNum], index != currentNum {
-            return currentNum
+    var temp = nums, index = 0
+    
+    while index < temp.count {
+        let currentValue = temp[index]
+        
+        if currentValue == index {
+            index += 1
+            continue
         }
         
-        // 原地交换
-        let oldNumAtItem = temp[currentNum]
-        temp[currentNum] = currentNum
-        temp[index] = oldNumAtItem
-        print("After：\(temp)\n")
+        if currentValue == temp[currentValue] {
+            return currentValue
+        }
+        
+        temp.swapAt(index, currentValue)
     }
+    
     return -1
 }
 
-let result = findSame(in: nums)
+let result = findSame(in: [3, 4, 2, 0, 0, 1])
 
 //: [Next](@next)
