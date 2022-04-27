@@ -29,6 +29,35 @@ import Foundation
 
 var nums: [Int] =  [4, 3, 1, 0, 2, 5, 3]
 
+// 二分法 时间O(log2N) 空间 O(N)
+func findRepeatNumberA(_ nums: [Int]) -> Int {
+    var dic: [Int : Int] = [:]
+    var left = 0, right = nums.count - 1
+    
+    while left <= right {
+        if let _ = dic[nums[left]] {
+            return nums[left]
+        }
+        else {
+            dic[nums[left]] = 1
+        }
+        
+        if let _ = dic[nums[right]] {
+            return nums[right]
+        }
+        else {
+            dic[nums[right]] = 1
+        }
+        
+        left += 1
+        right -= 1
+    }
+    
+    return 0
+}
+
+findRepeatNumberA(nums)
+
 // MARK: - 1. 超时了
 /// 时间复杂度O(n) 空间O(n)
 //func findSame(in nums: [Int]) -> Int {
