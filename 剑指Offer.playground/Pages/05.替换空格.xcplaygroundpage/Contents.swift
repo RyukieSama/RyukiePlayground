@@ -22,7 +22,7 @@ import Foundation
 
 let str = "We are happy."
 
-func replaceSpace(_ s: String) -> String {    
+func replaceSpace(_ s: String) -> String {
     // MARK: - 不使用系统API
     var temp = ""
     for c in s {
