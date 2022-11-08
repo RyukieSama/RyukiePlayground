@@ -128,4 +128,84 @@ func findSame(in nums: [Int]) -> Int {
 
 let result = findSame(in: [3, 4, 2, 0, 0, 1])
 
+// MARK: - 2022-11-08
+var test = [2, 3, 1, 0, 2, 5, 3]
+
+/// 动态规划 时间 空间 N
+class Solution1 {
+    func findRepeatNumber(_ nums: [Int]) -> Int {
+        var dp: [Int : Int] = [:]
+        
+        for num in nums {
+            if let _ = dp[num] {
+                return num
+            }
+            else {
+                dp[num] = 1
+            }
+        }
+        
+        return nums[0]
+    }
+}
+
+Solution1().findRepeatNumber(test)
+
+/// 双指针 空间 n 时间 log2n
+class Solution2 {
+    func findRepeatNumber(_ nums: [Int]) -> Int {
+        var dp: [Int : Int] = [:]
+        var left = 0, right = nums.count - 1
+        
+        while left < right {
+            let leftNum = nums[left]
+            let rightNum = nums[right]
+            
+            if let _ = dp[leftNum] {
+                return leftNum
+            }
+            
+            dp[leftNum] = 1
+            
+            if let _ = dp[rightNum] {
+                return rightNum
+            }
+            
+            dp[rightNum] = 1
+            
+            left += 1
+            right -= 1
+        }
+        
+        return nums[0]
+    }
+}
+
+Solution2().findRepeatNumber(test)
+
+/// 一个萝卜一个坑
+class Solution3 {
+    func findRepeatNumber(_ nums: [Int]) -> Int {
+        var nums = nums, idx = 0
+        
+        while idx < nums.count {
+            let num = nums[idx]
+            
+            if num == idx { // 下标和所在的值相同，即占坑了，就检查下一位
+                idx += 1
+                continue // 占坑
+            }
+            else if num == nums[num] { // 当前值对应的下标内的元素，和当前的值相同，
+                return num // 被占坑了
+            }
+            
+            nums.swapAt(num, idx)
+//            idx += 1
+        }
+        
+        return nums[0]
+    }
+}
+Solution3().findRepeatNumber(test)
+
 //: [Next](@next)
