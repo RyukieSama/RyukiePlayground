@@ -39,6 +39,46 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+/**
+ 2023-02-04
+ 
+ 二分
+ 
+ */
+func myPow3(_ x: Double, _ n: Int) -> Double {
+    guard n != 0 else { return 1 }
+    var res: Double = n > 0 ? myPow3(x, n >> 1) : myPow3(1 / x, -(n >> 1))
+    return res * res * (n & 1 == 1 ? x : 1)
+}
+
+// 逻辑一样用除法不行就很奇怪
+//func myPow3(_ x: Double, _ n: Int) -> Double {
+//    guard n != 0 else { return 1 }
+//
+//    var n = n
+//    var res: Double = 0
+//
+//    if n > 0 {
+//        res = myPow3(x, n / 2)
+//    }
+//    else {
+//        res = myPow3(1 / x, -(n / 2))
+//    }
+//
+//    if n & 1 == 1 {
+//        return res * res * x
+//    }
+//    return res * res
+//}
+
+myPow3(34.00515, -3)
+myPow3(2, 10)
+//myPow3(2.1, 3)
+myPow3(2, -2)
+//myPow3(0, 19999999)
+//myPow3(-1, 19999999)
+//myPow3(1, 19999999)
+
 func myPow(_ x: Double, _ n: Int) -> Double {
     // 特殊处理 0 1 -1 可以直接 return 结果
     if x == 0 || x == 1 {

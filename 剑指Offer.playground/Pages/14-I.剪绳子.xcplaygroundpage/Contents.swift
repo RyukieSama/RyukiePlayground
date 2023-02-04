@@ -83,7 +83,9 @@ func cuttingRope(_ n: Int) -> Int {
         return n - 1
     }
     var dp = [Int](repeating: 1, count: n + 1)
+    // 外层循环，类似于递归 n
     for i in 3...n {
+        // 内层循环，剪绳子
         for j in 2..<i {
             dp[i] = max(dp[i], max(j * (i - j), j * dp[i - j]))
         }
@@ -91,7 +93,78 @@ func cuttingRope(_ n: Int) -> Int {
     return dp[n]
 }
 
+cuttingRope(2)
+cuttingRope(4)
 cuttingRope(10)
+
+// 2023-02-03
+func cuttingRope1(_ n: Int) -> Int {
+    var dp: [Int: Int] = [
+        0: 0,
+        1: 0,
+        2: 1,
+        3: 2
+    ]
+    
+    guard n > 3 else { return dp[n] ?? 0 }
+    
+    for length in 4...n { // 由下往上循环
+//        print(length)
+        for i in 2...(length / 2) {
+            /**
+            length 切下 i 长度
+
+            i 从2 开始，1没必要，切了就小了
+
+            剩下的部分可以剪或者不剪
+
+            剪的话就是 i * dp[length - i]
+            不剪 i * (length - i)
+
+            dp[length] = 两种情况中最大的一种
+            */
+            dp[length] = max(dp[length] ?? 0, i * max(length - i, (dp[length - i ] ?? 0)))
+        }
+    }
+    return dp[n] ?? 0
+}
+
+cuttingRope1(2)
+cuttingRope1(4)
+cuttingRope1(10)
+
+// 2023-02-04
+func cuttingRope11(_ n: Int) -> Int {
+    guard n > 3 else {
+        switch n {
+        case 3: return 2
+        case 2: return 1
+        default: return 0
+        }
+    }
+    
+    var dp = Array(repeating: 0, count: n + 1)
+    dp[1] = 0
+    dp[2] = 1
+    dp[3] = 2
+    
+    for length in 4...n {
+        for cut in 2...(length / 2) {
+            /**
+             一刀剪 cut ，剩下的有两种方案
+             剪 就是 dp[length - cut]
+             不剪 就是 length - cut
+             */
+            dp[length] = max(dp[length], cut * max(length - cut, dp[length - cut]))
+        }
+    }
+    
+    return dp[n]
+}
+
+cuttingRope11(2)
+cuttingRope11(4)
+cuttingRope11(10)
 
 /*:
  ## 三、 贪婪算法
@@ -120,7 +193,7 @@ func cuttingRope2(_ n: Int) -> Int {
     var threeCount = n / 3
      
     // 当绳子剩下4的时候 不能再剪3长度，更优的方式是剪成长度为2的，因为 2x2 > 3x1
-    if n - threeCount * 3 == 1 {
+    if n % 3 == 1 {
         threeCount -= 1
     }
     
@@ -129,6 +202,8 @@ func cuttingRope2(_ n: Int) -> Int {
     return Int(truncating: NSDecimalNumber(decimal: pow(3, threeCount))) * Int(truncating: NSDecimalNumber(decimal: pow(2, twoCount)))
 }
 
+cuttingRope2(2)
+cuttingRope2(4)
 cuttingRope2(10)
 
 //: [Next](@next)

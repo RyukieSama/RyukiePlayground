@@ -86,4 +86,26 @@ func hammingWeight2(_ n: Int) -> Int {
 hammingWeight2(-7)
 //hammingWeight2(7)
 
+/**
+ 2023-02-04
+ 同时兼容有符号无符号
+ */
+
+func hammingWeight3(_ n: Int) -> Int {
+    var count = 0
+    var flag = 1
+    
+    while flag != 0 {
+        //        print(flag)
+        if (n & flag == flag) {
+            count+=1
+        }
+        flag <<= 1
+    }
+    
+    return count
+}
+
+hammingWeight3(-7)
+
 //: [Next](@next)
