@@ -25,6 +25,83 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+let matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+
+/**
+ 2023-02-06
+ 不难，需要细心
+ */
+func spiralOrder2326(_ matrix: [[Int]]) -> [Int] {
+    var res: [Int] = []
+    var height = matrix.count, width = height > 0 ? matrix[0].count : 0
+    
+    if height == 0 { return res }
+    if height == 1 { return matrix[0] }
+    
+    enum Dir {
+        case right
+        case left
+        case up
+        case down
+    }
+    
+    var dir: Dir = .right
+    var x = 0, y = 0
+    var minX = 0, maxX = width - 1
+    var minY = 0, maxY = height - 1
+    
+    while width > 0, x >= minX, y >= minY, x <= maxX, y <= maxY {
+        print("x = \(x), y = \(y)")
+        let val = matrix[y][x]
+        res.append(val)
+        
+        switch dir {
+        case .right:
+            if x == maxX {
+                minY += 1
+                dir = .down
+                y += 1
+            }
+            else {
+                x += 1
+            }
+        case .left:
+            if x == minX {
+                maxY -= 1
+                dir = .up
+                y -= 1
+            }
+            else {
+                x -= 1
+            }
+        case .down:
+            if y == maxY {
+                maxX -= 1
+                dir = .left
+                x -= 1
+            }
+            else {
+                y += 1
+            }
+        case .up:
+            if y == minY {
+                minX += 1
+                dir = .right
+                x += 1
+            }
+            else {
+                y -= 1
+            }
+        }
+    }
+    
+    return res
+}
+
+//spiralOrder2326([])
+//spiralOrder2326([[]])
+spiralOrder2326(matrix)
+
 /**
  非常好理解的解法
  
@@ -109,8 +186,6 @@ func spiralOrder(_ matrix: [[Int]]) -> [Int] {
     
     return result
 }
-
-let matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
 
 spiralOrder(matrix)
 
