@@ -38,7 +38,7 @@ func printNumbers1(_ n: Int) -> [Int] {
 
 /**
  2023-02-05
- 用字符串处理数
+ 用数组处理大数
  */
 func printNumbers2(_ n: Int) {
     if n < 1 { return }

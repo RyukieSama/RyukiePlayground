@@ -5,8 +5,6 @@ import Foundation
 /*:
  定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
 
-  
-
  示例:
 
 ```C++
@@ -27,6 +25,33 @@ import Foundation
 * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+let l1 = ListNode(1)
+let l2 = ListNode(2)
+let l3 = ListNode(3)
+
+l1.next = l2
+
+l2.next = l3
+
+l3.next = nil
+
+/**
+ 2023-02-06
+ 
+ */
+func reverseList2326(_ head: ListNode?) -> ListNode? {
+    var res: ListNode?
+    var temp = head
+    while let cNode = temp {
+        let node = ListNode(cNode.val)
+        node.next = res
+        res = node
+        temp = cNode.next
+    }
+    return res
+}
+reverseList2326(l1)
+
 func reverseList(_ head: ListNode?) -> ListNode? {
     var node: ListNode?
     var temp: ListNode? = head
@@ -40,16 +65,6 @@ func reverseList(_ head: ListNode?) -> ListNode? {
     
     return node
 }
-
-let l1 = ListNode(1)
-let l2 = ListNode(3)
-let l3 = ListNode(2)
-
-l1.next = l2
-
-l2.next = l3
-
-l3.next = nil
 
 reverseList(l1)
 

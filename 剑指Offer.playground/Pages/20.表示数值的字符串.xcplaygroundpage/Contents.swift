@@ -58,6 +58,22 @@ s 仅含英文字母（大写和小写），数字（0-9），加号 '+' ，减�
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
+func isNumber1(_ s: String) -> Bool {
+//    var arr = Array(s)
+//    var numbers: [Character] = []
+//    for n in 0...9 {
+//        numbers.append(Character("\(n)"))
+//    }
+//    
+//    for chr in arr {
+//        if numbers.contains(chr) == false {
+//            
+//            return false
+//        }
+//    }
+    return true
+}
+
 func isNumber(_ s: String) -> Bool {
 
 return false// 垃圾题目不做也罢，哼～

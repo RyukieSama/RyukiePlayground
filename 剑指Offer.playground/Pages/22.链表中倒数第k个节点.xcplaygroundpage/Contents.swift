@@ -24,6 +24,31 @@ import Foundation
  */
 
 /**
+ 2023-02-06
+ 游标
+ */
+func getKthFromEnd2326(_ head: ListNode?, _ k: Int) -> ListNode? {
+    var left = head, right = head
+    var space = 0
+    // left right 间保持 k - 1 的距离
+    while let _ = right {
+        if k - 1 > space {// 间距不够，right 右移
+            right = right?.next
+            space += 1
+        }
+        else {
+            if right?.next == nil {// 没有下一个了，到尾部了
+                return left
+            }
+            else {
+                right = right?.next
+                left = left?.next
+            }
+        }
+    }
+    return left
+}
+/**
  方案一：
  栈
  */

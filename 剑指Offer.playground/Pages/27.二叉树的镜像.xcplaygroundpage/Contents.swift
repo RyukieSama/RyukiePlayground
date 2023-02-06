@@ -38,6 +38,24 @@
  */
 
 /**
+ 2023-02-06
+ */
+func mirrorTree2326(_ root: TreeNode?) -> TreeNode? {
+    guard let rootVal = root?.val else { return nil }
+    var tree = TreeNode(rootVal)
+    
+    if root?.left != nil {
+        tree.right = mirrorTree2326(root?.left)
+    }
+    
+    if root?.right != nil {
+        tree.left = mirrorTree2326(root?.right)
+    }
+    
+    return tree
+}
+
+/**
  方法一
  递归（自下而上）
  时间复杂度O(n)

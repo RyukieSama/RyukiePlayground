@@ -4,23 +4,53 @@ import Foundation
 
 /*:
  输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有奇数位于数组的前半部分，所有偶数位于数组的后半部分。
-
+ 
  示例：
-
+ 
  输入：nums = [1,2,3,4]
  输出：[1,3,2,4]
  注：[3,1,2,4] 也是正确的答案之一。
-
+ 
  提示：
-
+ 
  0 <= nums.length <= 50000
  1 <= nums[i] <= 10000
-
+ 
  来源：力扣（LeetCode）
  链接：https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+let nums = [1,2,3,4]
+
+/**
+ 2023-02-06
+ 
+ 双指针
+ */
+func exchange2326(_ nums: [Int]) -> [Int] {
+    var arr = nums
+    var left = 0, right = 1
+    while left < right, right < arr.count {
+        if arr[left] % 2 == 0 {
+            if arr[right] % 2 == 1 {
+                arr.swapAt(left, right)
+                left += 1
+                right += 1
+            }
+            else {
+                right += 1
+            }
+        }
+        else {// left 为奇数就不用管，继续往后找，以前写的，五十这种情况也可以，就是翻转的没必要
+            left += 1
+            right += 1
+        }
+    }
+    return arr
+}
+
+exchange2326(nums)
 
 /**
  最容易想到的
@@ -56,8 +86,6 @@ func exchange1(_ nums: [Int]) -> [Int] {
     
     return temp
 }
-
-let nums = [1,2,3,4]
 
 exchange(nums)
 

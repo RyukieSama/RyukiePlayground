@@ -48,6 +48,33 @@ import Foundation
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+/**
+ 2023-02-06
+ */
+func isSubStructure2326(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
+    var result = false
+    guard let aTree = A, let bTree = B else { return result }
+    /**
+     先把 B 完整遍历次，得到遍历结果
+     */
+    if aTree.val == bTree.val {// 找到合适的根节点，再比较子树
+        result = hasTree(aTree, bTree)
+    }
+    
+    if !result {// 如果已经包含了，就不用再对比了
+        result = isSubStructure2326(aTree.left, bTree) || isSubStructure2326(aTree.right, bTree)
+    }
+    
+    return result
+}
+
+func hasTree(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
+    if B == nil { return true }// 相同根节点情况下对比左右树，如果相同 B == nil 了那么就是和 B 对比完了，也就是前面都相同
+    guard let aTree = A, let bTree = B, aTree.val == bTree.val else { return false }
+    return hasTree(aTree.left, bTree.left) && hasTree(aTree.right, bTree.right)
+}
+
+// ====
 func isSubStructure(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
     guard let treeA = A, let treeB = B else { return false }
     return (isContain(A, treeB) || isSubStructure(treeA.left, treeB) || isSubStructure(treeA.right, treeB))
