@@ -34,6 +34,72 @@ import Foundation
 来源：[力扣（LeetCode）](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof)
 */
 
+let t10 = TreeNode(10)
+let t5 = TreeNode(5)
+let t12 = TreeNode(12)
+let t4 = TreeNode(4)
+let t7 = TreeNode(7)
+
+t10.left = t5
+t10.right = t12
+
+t5.left = t4
+t5.right = t7
+
+/**
+ 2023-02-07
+ */
+func pathSum2327(_ root: TreeNode?, _ target: Int) -> [[Int]] {
+    var res: [[Int]] = []
+    guard let root = root else { return res }
+    
+    print("target = \(target), root.val = \(root.val)")
+    
+//    if root.val == target {
+//        // 因为：“一直到叶节点” 所以需要加判断
+//        return (root.left == nil && root.right == nil) ? [[root.val]] : []
+//    }
+    // 上面的判断过早停止了，没有走到根节点
+    
+    
+    if root.val == target, root.left == nil, root.right == nil {
+        // 因为：“一直到叶节点” 所以需要加判断
+        return [[root.val]]
+    }
+    
+    var leftPath: [[Int]]?
+    var rightPath: [[Int]]?
+    
+    if let left = root.left {
+        leftPath = pathSum2327(left, target - root.val)
+    }
+    
+    if let right = root.right {
+        rightPath = pathSum2327(right, target - root.val)
+    }
+    
+    for l in leftPath ?? [] {
+        if l.isEmpty == false {
+            var l = l
+            l.insert(root.val, at: 0)
+            res.append(l)
+        }
+    }
+    
+    for r in rightPath ?? [] {
+        if r.isEmpty == false {
+            var r = r
+            r.insert(root.val, at: 0)
+            res.append(r)
+        }
+    }
+    
+    return res
+}
+
+pathSum2327(t10, 22)
+
+
 func pathSum(_ root: TreeNode?, _ target: Int) -> [[Int]] {
     guard let rootV = root?.val else {
         return []
@@ -67,18 +133,6 @@ func pathSum(_ root: TreeNode?, _ target: Int) -> [[Int]] {
     
     return result
 }
-
-let t10 = TreeNode(10)
-let t5 = TreeNode(5)
-let t12 = TreeNode(12)
-let t4 = TreeNode(4)
-let t7 = TreeNode(7)
-
-t10.left = t5
-t10.right = t12
-
-t5.left = t4
-t5.right = t7
 
 pathSum(t10, 22)
 
