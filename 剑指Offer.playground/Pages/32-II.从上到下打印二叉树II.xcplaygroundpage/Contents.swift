@@ -37,6 +37,55 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+/**
+ 2023-02-07
+ 
+ 不难，要细心
+ */
+func levelOrder2327(_ root: TreeNode?) -> [[Int]] {
+    var res: [[Int]] = []
+    guard let root = root else { return res }
+    var queue: [TreeNode] = [root]
+    var tempArr: [Int] = []
+    // 当前层剩余个数
+    var leftCount = 1
+    // 下一行个数
+    var nextCount = 0
+    
+    while let top = queue.first {
+        tempArr.append(top.val)
+        leftCount -= 1
+        
+        if let left = top.left {
+            queue.append(left)
+            nextCount += 1
+        }
+        
+        if let right = top.right {
+            queue.append(right)
+            nextCount += 1
+        }
+        
+        if leftCount == 0 {
+            leftCount = nextCount
+            nextCount = 0
+            if tempArr.isEmpty == false {
+                res.append(tempArr)
+                tempArr = []
+            }
+        }
+        
+        queue.removeFirst()
+    }
+    
+    if tempArr.isEmpty == false {
+        res.append(tempArr)
+    }
+    
+    return res
+}
+
+
 func levelOrder(_ root: TreeNode?) -> [[Int]] {
     var queue: [TreeNode] = []
     // 当前行需要打印的

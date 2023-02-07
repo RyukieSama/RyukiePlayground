@@ -33,126 +33,180 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
-// 想当然的典型错误
-func levelOrderF(_ root: TreeNode?) -> [[Int]] {
-    var queue: [TreeNode] = []
-    var toBePrint = 0
-    var nextLevelCount = 0
-    var result: [[Int]] = []
+/**
+ 2023-02-07
+ */
+
+func levelOrder2327(_ root: TreeNode?) -> [[Int]] {
+    var res: [[Int]] = []
+    guard let root = root else { return res }
+    var queue: [TreeNode] = [root]
     var temp: [Int] = []
+    var leftCount = 1
+    var nextCount = 0
+    // 方向 1 向右 -1 向左
+    var dir = 1
     
-    var flag = false
-    
-    if let r = root {
-        queue.append(r)
-        toBePrint += 1
-    }
-    
-    while queue.isEmpty == false {
-        if let first = queue.first {
-            temp.append(first.val)
-            queue.removeFirst()
-            toBePrint -= 1
-            
-            if flag {
-                if let left = first.left {
-                    queue.append(left)
-                    nextLevelCount += 1
-                }
-                
-                if let right = first.right {
-                    queue.append(right)
-                    nextLevelCount += 1
-                }
-            }
-            else {
-                if let right = first.right {
-                    queue.append(right)
-                    nextLevelCount += 1
-                }
-                
-                if let left = first.left {
-                    queue.append(left)
-                    nextLevelCount += 1
-                }
-            }
-            
-            if toBePrint == 0 {
-                result.append(temp)
+    while let top = queue.first {
+        if dir > 0 {
+            temp.append(top.val)
+        }
+        else {
+            temp.insert(top.val, at: 0)
+        }
+        queue.removeFirst()
+        leftCount -= 1
+        
+        if let left = top.left {
+            queue.append(left)
+            nextCount += 1
+        }
+        
+        if let right = top.right {
+            queue.append(right)
+            nextCount += 1
+        }
+        
+        if leftCount == 0 {
+            leftCount = nextCount
+            nextCount = 0
+            dir *= -1 // 换行就转向
+            if temp.isEmpty == false {
+                res.append(temp)
                 temp = []
-                
-                toBePrint = nextLevelCount
-                nextLevelCount = 0
-                
-                flag.toggle()
             }
         }
+        
     }
-
-    return result
+    
+    if temp.isEmpty == false {
+        res.append(temp)
+    }
+    
+    return res
 }
 
-func levelOrderFF(_ root: TreeNode?) -> [[Int]] {
-    var queue: [TreeNode] = []
-    var queueB: [TreeNode] = []
-    var toBePrint = 0
-    var nextLevelCount = 0
-    var result: [[Int]] = []
-    var temp: [Int] = []
-    
-    var flag = true
-    
-    if let r = root {
-        queue.append(r)
-        toBePrint += 1
-    }
-    
-    while queue.isEmpty == false {
-        var current: TreeNode?
-        if flag, let first = queue.first {
-            temp.append(first.val)
-            queue.removeFirst()
-            current = first
-        }
-        else if let last = queue.last {
-            temp.append(last.val)
-            queue.removeLast()
-            current = last
-        }
-        
-        toBePrint -= 1
-        
-        // 这里的基准错了，会乱
-        if let left = current?.left {
-            queueB.append(left)
-            nextLevelCount += 1
-        }
-        
-        if let right = current?.right {
-            queueB.append(right)
-            nextLevelCount += 1
-        }
-        
-        if toBePrint == 0 {
-            result.append(temp)
-            temp = []
-            
-            toBePrint = nextLevelCount
-            nextLevelCount = 0
-            
-            queue.append(contentsOf: queueB)
-            queueB = []
-            
-            flag.toggle()
-            print("flag: \(flag)")
-            queue.forEach { print(" - \($0.val)") }
-        }
-        
-    }
 
-    
-    return result
-}
+// 想当然的典型错误
+//func levelOrderF(_ root: TreeNode?) -> [[Int]] {
+//    var queue: [TreeNode] = []
+//    var toBePrint = 0
+//    var nextLevelCount = 0
+//    var result: [[Int]] = []
+//    var temp: [Int] = []
+//
+//    var flag = false
+//
+//    if let r = root {
+//        queue.append(r)
+//        toBePrint += 1
+//    }
+//
+//    while queue.isEmpty == false {
+//        if let first = queue.first {
+//            temp.append(first.val)
+//            queue.removeFirst()
+//            toBePrint -= 1
+//
+//            if flag {
+//                if let left = first.left {
+//                    queue.append(left)
+//                    nextLevelCount += 1
+//                }
+//
+//                if let right = first.right {
+//                    queue.append(right)
+//                    nextLevelCount += 1
+//                }
+//            }
+//            else {
+//                if let right = first.right {
+//                    queue.append(right)
+//                    nextLevelCount += 1
+//                }
+//
+//                if let left = first.left {
+//                    queue.append(left)
+//                    nextLevelCount += 1
+//                }
+//            }
+//
+//            if toBePrint == 0 {
+//                result.append(temp)
+//                temp = []
+//
+//                toBePrint = nextLevelCount
+//                nextLevelCount = 0
+//
+//                flag.toggle()
+//            }
+//        }
+//    }
+//
+//    return result
+//}
+
+//func levelOrderFF(_ root: TreeNode?) -> [[Int]] {
+//    var queue: [TreeNode] = []
+//    var queueB: [TreeNode] = []
+//    var toBePrint = 0
+//    var nextLevelCount = 0
+//    var result: [[Int]] = []
+//    var temp: [Int] = []
+//
+//    var flag = true
+//
+//    if let r = root {
+//        queue.append(r)
+//        toBePrint += 1
+//    }
+//
+//    while queue.isEmpty == false {
+//        var current: TreeNode?
+//        if flag, let first = queue.first {
+//            temp.append(first.val)
+//            queue.removeFirst()
+//            current = first
+//        }
+//        else if let last = queue.last {
+//            temp.append(last.val)
+//            queue.removeLast()
+//            current = last
+//        }
+//
+//        toBePrint -= 1
+//
+//        // 这里的基准错了，会乱
+//        if let left = current?.left {
+//            queueB.append(left)
+//            nextLevelCount += 1
+//        }
+//
+//        if let right = current?.right {
+//            queueB.append(right)
+//            nextLevelCount += 1
+//        }
+//
+//        if toBePrint == 0 {
+//            result.append(temp)
+//            temp = []
+//
+//            toBePrint = nextLevelCount
+//            nextLevelCount = 0
+//
+//            queue.append(contentsOf: queueB)
+//            queueB = []
+//
+//            flag.toggle()
+//            print("flag: \(flag)")
+//            queue.forEach { print(" - \($0.val)") }
+//        }
+//
+//    }
+//
+//
+//    return result
+//}
 
 func levelOrder(_ root: TreeNode?) -> [[Int]] {
     var queue: [TreeNode] = []
