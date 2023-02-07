@@ -25,7 +25,80 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
-let matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+var matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
+
+/**
+ 2023-02-07
+ */
+func spiralOrder2327(_ matrix: [[Int]]) -> [Int] {
+    enum Dirction {
+        case left // X - 1
+        case right // X + 1
+        case up // Y - 1
+        case down // Y + 1
+    }
+    var height = matrix.count
+    var res: [Int] = []
+    
+    guard height > 0 else { return res }
+    
+    let width = matrix[0].count
+    
+    var dir: Dirction = .right
+    
+    var x = 0, y = 0
+    var minx = 0, maxx = width - 1
+    var miny = 0, maxy = height - 1
+    
+    while x >= minx, x <= maxx, y >= miny, y <= maxy {
+        let val = matrix[y][x]
+//        print("\(dir), val = \(val), x = \(x), y = \(y) \n minx = \(minx), maxx = \(maxx), miny = \(miny), maxy = \(maxy) \n")
+        res.append(val)
+        switch dir {
+        case .right:
+            if x == maxx {
+                dir = .down
+                miny += 1
+                y += 1
+            }
+            else {
+                x += 1
+            }
+        case .down:
+            if y == maxy {
+                dir = .left
+                maxx -= 1
+                x -= 1
+            }
+            else {
+                y += 1
+            }
+        case .left:
+            if x == minx {
+                dir = .up
+                maxy -= 1
+                y -= 1
+            }
+            else {
+                x -= 1
+            }
+        case .up:
+            if y == miny {
+                dir = .right
+                minx += 1
+                x += 1
+            }
+            else {
+                y -= 1
+            }
+        }
+    }
+    
+    return res
+}
+
+spiralOrder2327(matrix)
 
 /**
  2023-02-06
@@ -51,7 +124,7 @@ func spiralOrder2326(_ matrix: [[Int]]) -> [Int] {
     var minY = 0, maxY = height - 1
     
     while width > 0, x >= minX, y >= minY, x <= maxX, y <= maxY {
-        print("x = \(x), y = \(y)")
+//        print("x = \(x), y = \(y)")
         let val = matrix[y][x]
         res.append(val)
         

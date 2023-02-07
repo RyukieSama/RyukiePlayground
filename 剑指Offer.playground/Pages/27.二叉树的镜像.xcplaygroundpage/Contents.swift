@@ -38,6 +38,17 @@
  */
 
 /**
+ 2023-02-07
+ */
+func mirrorTree2327(_ root: TreeNode?) -> TreeNode? {
+    guard let root = root else { return nil }
+    let head = TreeNode(root.val)
+    head.left = mirrorTree2327(root.right)
+    head.right = mirrorTree2327(root.left)
+    return head
+}
+
+/**
  2023-02-06
  */
 func mirrorTree2326(_ root: TreeNode?) -> TreeNode? {

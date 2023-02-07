@@ -24,6 +24,32 @@ import Foundation
 let nums = [1,2,3,4]
 
 /**
+ 2023-0207
+ */
+func exchange2327(_ nums: [Int]) -> [Int] {
+    if nums.count < 2 { return nums }
+    var res = nums
+    var left = 0, right = nums.count - 1
+    
+    while left < right {
+        if res[left] % 2 == 0 {
+            if res[right] % 2 == 0 {
+                right -= 1
+            }
+            else {
+                res.swapAt(left, right)
+            }
+        }
+        else {
+            left += 1
+        }
+    }
+    
+    return res
+}
+exchange2327(nums)
+
+/**
  2023-02-06
  
  双指针

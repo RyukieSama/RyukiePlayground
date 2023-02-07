@@ -33,6 +33,42 @@ let ld6 = ListNode(4)
 ld5.next = ld6
 
 /**
+ 2023-02-07
+ */
+func mergeTwoLists2327(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+    // 用来构建的游标
+    var res: ListNode?
+    var node1 = l1, node2 = l2
+    // 链表头需要保存一下，否则遍历没有了
+    var head: ListNode?
+    
+    while let n1 = node1, let n2 = node2 {
+        let small = n1.val <= n2.val ? n1 : n2
+        if let _ = res {
+            res?.next = ListNode(small.val)
+            res = res?.next
+        }
+        else {
+            res = ListNode(small.val)
+            head = res
+        }
+        
+        if n1.val <= n2.val {
+            node1 = node1?.next
+        }
+        else {
+            node2 = node2?.next
+        }
+    }
+    
+    res?.next = node1 ?? node2
+    
+    return head ?? (node1 ?? node2)
+}
+
+mergeTwoLists2327(ld1, ld4)
+
+/**
  2023-02-06
  注意边界条件
  */

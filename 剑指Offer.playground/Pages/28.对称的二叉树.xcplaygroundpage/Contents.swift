@@ -44,6 +44,22 @@
 import Foundation
 
 /**
+ 2023-02-07
+ */
+func isSymmetric2327(_ root: TreeNode?) -> Bool {
+//    guard let root = root else { return true }
+//    if root.left == nil, root.right == nil { return true }
+//    guard let left = root.left, let right = root.right, left.val == right.val else { return false }
+    return isLike2327(root?.left, root?.right)
+}
+
+func isLike2327(_ a: TreeNode?, _ b: TreeNode?) -> Bool {
+    if a == nil, b == nil { return true }
+    guard let ta = a, let tb = b, ta.val == tb.val else { return false }
+    return isLike2327(ta.left, tb.right) && isLike2327(ta.right, tb.left)
+}
+
+/**
  2023-02-06
  */
 func isSymmetric2326(_ root: TreeNode?) -> Bool {
@@ -56,6 +72,7 @@ func isLike(_ a: TreeNode?, _ b: TreeNode?) -> Bool {
     return isLike(aTree.left, bTree.right) && isLike(aTree.right, bTree.left)
 }
 
+//===
 func isSymmetric(_ root: TreeNode?) -> Bool {
     func compare(tree1: TreeNode?, tree2: TreeNode?) -> Bool {
         if tree1 == nil && tree2 == nil {

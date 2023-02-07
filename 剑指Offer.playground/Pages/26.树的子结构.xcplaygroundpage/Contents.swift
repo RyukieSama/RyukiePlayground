@@ -49,6 +49,41 @@ import Foundation
  */
 
 /**
+ 2023-02-07
+ */
+func isSubStructure2327(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
+    guard let treeA = A, let treeB = B else {
+        return false
+    }
+    var res = false
+    if res {
+//        res = match2327(treeA.left, treeB.left) && match2327(treeA.right, treeB.right)
+        res = match2327(treeA, treeB)
+    }
+    
+    if res == false {
+        /**
+         看 A 的左是否包含B ｜｜ A 的右是否包含 B
+         */
+        res = isSubStructure2327(treeA.left, treeB) || isSubStructure2327(treeA.right, treeB)
+    }
+    return res
+}
+
+/**
+ 根节点相等  && （a 的左子 包含 B左子树  ||  a 的右子树包含B右子树）
+ */
+func match2327(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
+    if B == nil {
+        return true
+    }
+    guard let treeA = A, let treeB = B, treeA.val == treeB.val else {
+        return false
+    }
+    return match2327(treeA.left, treeB.left) && match2327(treeA.right, treeB.right)
+}
+
+/**
  2023-02-06
  */
 func isSubStructure2326(_ A: TreeNode?, _ B: TreeNode?) -> Bool {

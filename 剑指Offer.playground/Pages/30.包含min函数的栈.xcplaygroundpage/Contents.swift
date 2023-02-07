@@ -35,6 +35,58 @@ import Foundation
  */
 
 /**
+ 2023-02-07
+ */
+class MinStack2327 {
+    var stack: [Int] = []
+    /**
+     把相对较小的暂存起来，每次移除的时候查下，如果移除的邮箱等的就也同步出栈
+     */
+    var small: [Int] = []
+    /** initialize your data structure here. */
+    init() {
+
+    }
+    
+    func push(_ x: Int) {
+        stack.append(x)
+        if let top = small.last {
+            if top >= x {
+                small.append(x)
+            }
+        }
+        else {
+            small.append(x)
+        }
+    }
+    
+    func pop() {
+        if let top = stack.last, let topSmall = small.last, topSmall == top {
+            small.removeLast()
+        }
+        stack.removeLast()
+    }
+    
+    func top() -> Int {
+        stack.last ?? 0
+    }
+    
+    func min() -> Int {
+        small.last ?? 0
+    }
+}
+
+var minStack2327 = MinStack2327()
+minStack2327.push(-2)
+minStack2327.push(0)
+minStack2327.push(-3)
+minStack2327.min()
+minStack2327.pop()
+minStack2327.top()
+minStack2327.min()
+
+
+/**
  2023-02-06
  
  */

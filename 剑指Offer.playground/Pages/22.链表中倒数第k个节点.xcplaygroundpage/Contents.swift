@@ -24,6 +24,26 @@ import Foundation
  */
 
 /**
+ 2023-02-07
+ */
+func getKthFromEnd2327(_ head: ListNode?, _ k: Int) -> ListNode? {
+    var left: ListNode? = head, right: ListNode? = head
+    var length = 1
+    while let _ = right?.next {
+        if length < k {
+            right = right?.next
+            length += 1
+        }
+        else {
+            left = left?.next
+            right = right?.next
+        }
+    }
+    return left
+}
+
+
+/**
  2023-02-06
  游标
  */

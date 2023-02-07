@@ -3,8 +3,9 @@
 import Foundation
 
 /*:
- 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如，序列 {1,2,3,4,5} 是某栈的压栈序列，序列 {4,5,3,2,1} 是该压栈序列对应的一个弹出序列，但 {4,3,5,1,2} 就不可能是该压栈序列的弹出序列。
+ 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。
  
+ 例如，序列 {1,2,3,4,5} 是某栈的压栈序列，序列 {4,5,3,2,1} 是该压栈序列对应的一个弹出序列，但 {4,3,5,1,2} 就不可能是该压栈序列的弹出序列。
   
  
  示例 1：
@@ -42,10 +43,47 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
-//let pushed = [1,2,3,4,5], popped = [4,3,5,1,2]
-//let pushed = [1,2,3,4,5], popped = [4,5,3,2,1]
-//let pushed = [2, 1, 0], popped = [1, 2, 0]
-let pushed = [2,3,0,1], popped = [0,3,2,1]
+var pushed = [1,2,3,4,5]
+var popped = [4,3,5,1,2]
+
+//pushed = [1,2,3,4,5]
+//popped = [4,5,3,2,1]
+
+//pushed = [2, 1, 0]
+// popped = [1, 2, 0]
+
+//pushed = [2,3,0,1]
+//popped = [0,3,2,1]
+
+/**
+ 2023-02-07
+ */
+func validateStackSequences2327(_ pushed: [Int], _ popped: [Int]) -> Bool {
+    var needPop = popped, needPush = pushed
+    var temp: [Int] = []
+    //操作数组元素，效率低点儿，还是直接用 index， 不remove 效率高点儿
+    while let popVal = needPop.first {
+        if let p = needPush.first, p == popVal {
+            needPop.removeFirst()
+            needPush.removeFirst()
+        }
+        else if let tTop = temp.last, tTop == popVal {
+            temp.removeLast()
+            needPop.removeFirst()
+        }
+        else if let v = needPush.first {
+            temp.append(v)
+            needPush.removeFirst()
+        }
+        else {
+            return false
+        }
+    }
+    
+    return temp.isEmpty
+}
+
+validateStackSequences2327(pushed, popped)
 
 /**
  2023-02-06

@@ -36,6 +36,20 @@ l2.next = l3
 l3.next = nil
 
 /**
+ 2023-02-07
+ */
+func reverseList2327(_ head: ListNode?) -> ListNode? {
+    var res: ListNode?, temp = head
+    while let node = temp {
+        let n = ListNode(node.val)
+        n.next = res
+        res = n
+        temp = temp?.next
+    }
+    return res
+}
+
+/**
  2023-02-06
  
  */
