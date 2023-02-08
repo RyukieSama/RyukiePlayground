@@ -38,6 +38,53 @@ import Foundation
  */
 
 /**
+ 2023-02-08
+ 没有一次写对
+ */
+func levelOrder2328(_ root: TreeNode?) -> [[Int]] {
+    var res: [[Int]] = []
+    guard let root = root else { return res }
+    var temp: [Int] = []
+    var queue: [TreeNode] = [root]
+    // 当前行需要打印的数量
+    var currentLineLeftCount = 1
+    // 下一行的数量
+    var nextLineCount = 0
+    
+    while let top = queue.first {
+        temp.append(top.val)
+        queue.removeFirst()
+        currentLineLeftCount -= 1
+
+        if let left = top.left {
+            queue.append(left)
+            nextLineCount += 1
+        }
+        
+        if let right = top.right {
+            queue.append(right)
+            nextLineCount += 1
+        }
+        
+        if currentLineLeftCount == 0 {
+            currentLineLeftCount = nextLineCount
+            nextLineCount = 0
+            if temp.isEmpty == false {
+                res.append(temp)
+                temp = []
+            }
+        }
+    }
+    
+    if temp.isEmpty == false {
+        res.append(temp)
+    }
+    
+    return res
+}
+
+
+/**
  2023-02-07
  
  不难，要细心

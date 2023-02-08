@@ -25,6 +25,42 @@ import Foundation
  
  */
 
+let numbers: [Int] = [1, 2, 3, 2, 2, 2, 5, 4, 2]
+
+/**
+ 2023-02-08
+ */
+
+func majorityElement2308(_ nums: [Int]) -> Int {
+    /**
+     求众数
+     
+     投票法
+     
+     对于目标数字而言，其他元素具体是什么并不重要。
+     目标数字记为 1票 其他元素记为 -1票
+     到最后一定是 目标元素胜出
+     */
+    var winner = 0
+    var tickets = 0
+    
+    for n in nums {
+        if tickets == 0 {
+            winner = n
+        }
+        if winner == n {
+            tickets += 1
+        }
+        else {
+            tickets -= 1
+        }
+    }
+    
+    return winner
+}
+
+majorityElement2308(numbers)
+
 /// 哈希表统计法
 func majorityElementHash(_ nums: [Int]) -> Int {
     var temp: [Int : Int] = [:]
@@ -61,8 +97,6 @@ func majorityElementMo(_ nums: [Int]) -> Int {
     }
     return x
 }
-
-let numbers: [Int] = [1, 2, 3, 2, 2, 2, 5, 4, 2]
 
 majorityElementHash(numbers)
 majorityElementArray(numbers)

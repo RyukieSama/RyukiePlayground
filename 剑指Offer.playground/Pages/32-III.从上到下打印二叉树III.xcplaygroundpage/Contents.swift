@@ -32,6 +32,51 @@ import Foundation
  
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+/**
+ 2023-02-08
+ */
+func levelOrder2328(_ root: TreeNode?) -> [[Int]] {
+    var res: [[Int]] = []
+    guard let root = root else { return res }
+    var queue: [TreeNode] = [root]
+    var temp: [Int] = []
+    var currentLineCount = 1
+    var nextLineCount = 0
+    // 1 向右 -1 向左
+    var dir = 1
+    
+    while let top = queue.first {
+        dir > 0 ? temp.append(top.val) : temp.insert(top.val, at: 0)
+        queue.removeFirst()
+        currentLineCount -= 1
+        
+        if let left = top.left {
+            queue.append(left)
+            nextLineCount += 1
+        }
+        
+        if let right = top.right {
+            queue.append(right)
+            nextLineCount += 1
+        }
+        
+        if currentLineCount == 0 {
+            currentLineCount = nextLineCount
+            nextLineCount = 0
+            dir *= -1
+            if temp.isEmpty == false {
+                res.append(temp)
+                temp = []
+            }
+        }
+    }
+    
+    if temp.isEmpty == false {
+        res.append(temp)
+    }
+    return res
+}
+
 
 /**
  2023-02-07

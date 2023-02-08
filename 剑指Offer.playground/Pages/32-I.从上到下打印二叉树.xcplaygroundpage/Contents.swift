@@ -30,6 +30,32 @@ import Foundation
  */
 
 /**
+ 2023-02-08
+ */
+func levelOrder2308(_ root: TreeNode?) -> [Int] {
+    var res: [Int] = []
+    guard let root = root else { return res }
+    var queue: [TreeNode] = [root]
+    
+    while let top = queue.first {
+        res.append(top.val)
+        queue.removeFirst()
+        
+        if let left = top.left {
+            queue.append(left)
+        }
+        
+        if let right = top.right {
+            queue.append(right)
+        }
+    }
+    
+    return res
+}
+
+
+
+/**
  2023-02-07
  */
 func levelOrder2327(_ root: TreeNode?) -> [Int] {

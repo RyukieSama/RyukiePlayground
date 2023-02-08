@@ -38,6 +38,43 @@ import Foundation
 
 var result = [1,3,2,6,5]
 result = [1,6,3,2,5]
+result = [4, 8, 6, 12, 16, 14, 10]
+
+/**
+ 2023-02-08
+ */
+func verifyPostorder2328(_ postorder: [Int]) -> Bool {
+    guard let root = postorder.last else { return true }
+    var left: [Int] = []
+    var right: [Int] = []
+    var flag = false
+    
+    for item in postorder {
+        if item == root { break }
+        if flag == false {
+            if item < root {
+                left.append(item)
+            }
+            else {
+                // 拐点，下面的是右节点了
+                flag = true
+                right.append(item)
+            }
+        }
+        else {
+            if item > root {
+                right.append(item)
+            }
+            else {
+                return false
+            }
+        }
+    }
+    
+    return verifyPostorder2328(left) && verifyPostorder2328(right)
+}
+
+verifyPostorder2328(result)
 
 /**
  2023-02-07

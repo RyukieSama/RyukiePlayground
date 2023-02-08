@@ -47,6 +47,39 @@ t5.left = t4
 t5.right = t7
 
 /**
+ 2023-02-08
+ 
+ 记住，要求一直到叶子结点才结束
+ */
+func pathSum2328(_ root: TreeNode?, _ target: Int) -> [[Int]] {
+    var res: [[Int]] = []
+    guard let root = root else { return res }
+    
+    // 到了叶子结点，没这个结果都是空
+    if root.val == target, root.left == nil, root.right == nil {
+        return [[root.val]]
+    }
+    
+    // 先判断有没有必要再递归效率高些，现在的方式效率低
+    let leftRes: [[Int]] = pathSum2328(root.left, target - root.val),
+        rightRes: [[Int]] = pathSum2328(root.right, target - root.val)
+    
+    for arr in leftRes {
+        if arr.isEmpty == false {
+            res.append([root.val] + arr)
+        }
+    }
+    
+    for arr in rightRes {
+        if arr.isEmpty == false {
+            res.append([root.val] + arr)
+        }
+    }
+    
+    return res
+}
+
+/**
  2023-02-07
  */
 func pathSum2327(_ root: TreeNode?, _ target: Int) -> [[Int]] {
