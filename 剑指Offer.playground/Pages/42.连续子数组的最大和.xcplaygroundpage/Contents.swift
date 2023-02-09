@@ -32,6 +32,54 @@
 
 import Foundation
 
+var nums = [-1]
+nums = [-2, 1]
+nums = [1, 2]
+nums = [-2, -1]
+nums = [-2,1,-3,4,-1,2,1,-5,4]
+
+/**
+ 2023-02-09
+ 
+ 暴力超时
+ */
+func maxSubArray2329(_ nums: [Int]) -> Int {
+    /**
+     数组长度从 0 开始扩张，直到过半，得最大值
+     */
+    guard var max = nums.max() else {
+        return 0
+    }
+    
+    var left = 0
+    var length = nums.count
+    var right = left + length - 1
+    
+    while length > 1, right < nums.count {
+        var sum = 0
+        
+        for idx in left...right {
+            sum += nums[idx]
+        }
+
+        if sum > max {
+            max = sum
+        }
+        
+        left += 1
+        right += 1
+        
+        if right == nums.count {
+            length -= 1
+            left = 0
+            right = left + length - 1
+        }
+    }
+    
+    return max
+}
+maxSubArray2329(nums)
+
 /*:
  解法一： 规律分析
  
@@ -73,12 +121,6 @@ func maxSubArray1(_ nums: [Int]) -> Int {
     return dp.max() ?? nums[0]
 }
 
-
-//let nums = [-1]
-//let nums = [-2, 1]
-//let nums = [1, 2]
-let nums = [-2, -1]
-//let nums = [-2,1,-3,4,-1,2,1,-5,4]
 maxSubArray1(nums)
 maxSubArray2(nums)
 

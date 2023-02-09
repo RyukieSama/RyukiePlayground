@@ -43,8 +43,49 @@ double findMedian() - 返回目前所有元素的中位数。
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
-// 大小堆法
 
+
+/**
+ 2023-02-09
+ 
+ 冒泡。超出限制，算了
+ */
+class MedianFinder2329 {
+    var dataFlow: [Int] = []
+
+    /** initialize your data structure here. */
+    init() {
+
+    }
+    
+    func addNum(_ num: Int) {
+        guard dataFlow.isEmpty == false else {
+            dataFlow.append(num)
+            return
+        }
+        
+        for i in 0..<dataFlow.count {
+            if dataFlow[i] >= num {
+                dataFlow.insert(num, at: i)
+                return
+            }
+        }
+        dataFlow.append(num)
+    }
+    
+    func findMedian() -> Double {
+        let count = dataFlow.count
+        if count & 1 == 1 {
+            return Double(dataFlow[count / 2])
+        }
+        else {
+            return Double(dataFlow[count / 2 - 1] + dataFlow[count / 2]) / 2.0
+        }
+    }
+}
+
+
+// 大小堆法
 class MedianFinder {
     
     var minStack = SwiftPriorityQueue<Int>(hasHigherPriority: { $0 > $1 }, isEqual: { $0 == $1 })

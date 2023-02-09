@@ -30,6 +30,81 @@
 
 import Foundation
 
+/**
+ 2023-02-09
+ */
+
+func findNthDigit2329(_ n: Int) -> Int {
+    /**
+     0 1 2 3 4 5 6 7 8 9
+     10 11 12 13 14 15 16 17 18 19
+     20 21 ...
+     30 ...
+     40 ...
+     ...
+     
+     个位字符 0 ～ 9共： 10 * 1 个
+     十位字符 10 ～ 99共：90 * 2 个
+     百位字符 100 ～ 999共：900 * 3 个
+     千位字符 1000 ～ 9999共：9000 * 4个
+     
+     1. 找出 n 所在数字的位 个 十 百。。。
+     2. 找出所在的数字 x
+     3. 找出在数字的第几位
+     
+     */
+    
+    // 当前位开始的下标
+    var startIndex = 9
+    // 位 1 10 100
+    var dig = 1
+    // 位长度
+    var count = 1
+    var start = 0
+    
+    while n > startIndex {
+        if startIndex + 9 * (dig + 1) * (count + 1) > n {
+            dig *= 10
+            count += 1
+            break
+        }
+        else {
+            dig *= 10
+            count += 1
+            startIndex += 9 * dig * count
+        }
+    }
+    
+    if count > 1 {
+        start = Int(pow(10, Double(count - 1)))
+    }
+    
+    print("\(count)位数字，区间最小：\(start)，当前位起始下标：\(startIndex)")
+    
+    var resNum = start
+    // 看是第几个数字
+    while startIndex < n {
+        if startIndex + count < n {
+            startIndex += count
+            resNum += 1
+        }
+        else {
+            break
+        }
+    }
+    print("所在数字：\(resNum)")
+    var resArr: [Character] = Array("\(resNum)")
+    
+    // 数字里的第几个字符
+    let offset = n - startIndex - 1
+    print(offset)
+    return Int(String(resArr[offset])) ?? 0
+}
+
+findNthDigit2329(21)
+//findNthDigit2329(200)
+
+
 func findNthDigit(_ n: Int) -> Int {
     var base: Int = 0
     var index: Int = 0
