@@ -31,6 +31,41 @@ import Foundation
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 
+var arr = [0,0,0,2,0,5], k = 5
+//arr = [0,0,1,2,4,2,2,3,1,4]
+//k = 8
+arr = [0,1,1,2,4,4,1,3,3,2]
+k = 6
+/**
+ 2023-02-09
+ */
+func getLeastNumbers2329(_ arr: [Int], _ k: Int) -> [Int] {
+    if arr.isEmpty { return [] }
+    if k == arr.count { return arr }
+    /**
+     冒泡，但不用冒泡完
+     */
+    var arr = arr
+    var switchFlag = false
+    
+    for i in 0..<arr.count {
+        for j in 0..<(arr.count - i - 1) {
+            if arr[j] > arr[j+1] {
+                arr.swapAt(j, j + 1)
+                switchFlag = true
+            }
+        }
+        if switchFlag == false || (arr.count - i == k) {
+            print("提前退出")
+            break
+        }
+    }
+    
+    return Array(arr[0..<k])
+}
+
+getLeastNumbers2329(arr, k)
+
 // MARK: - 暴力解法
 /**
  暴力解法
@@ -147,8 +182,7 @@ func getLeastNumbers4(_ arr: [Int], _ k: Int) -> [Int] {
     return stack.array()
 }
 
-//var arr = [0,0,0,2,0,5], k = 5
-var arr = [0,0,1,2,4,2,2,3,1,4], k = 8
+
 //getLeastNumbers(arr, k)
 //getLeastNumbers3(arr, k)
 //getLeastNumbers4(arr, k)
