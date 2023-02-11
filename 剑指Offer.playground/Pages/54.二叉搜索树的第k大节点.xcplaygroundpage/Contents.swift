@@ -45,6 +45,46 @@ import Foundation
  
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+let node = TreeNode(5,
+                    TreeNode(3,
+                             TreeNode(2,
+                                      TreeNode(1),
+                                      nil),
+                             TreeNode(4,
+                                      nil,
+                                      nil)),
+                    TreeNode(6,
+                             nil,
+                             nil))
+
+/**
+ 2023-02-11
+ */
+func kthLargest23211(_ root: TreeNode?, _ k: Int) -> Int {
+    /**
+     根据二叉搜索树的特性 左 > 根 > 右
+     中序遍历： 左 中 右
+     */
+    var arr: [Int] = []
+    
+    func midOrder(_ node: TreeNode?) {
+        guard let val = node?.val else { return }
+        midOrder(node?.left)
+        arr.append(val)
+        midOrder(node?.right)
+    }
+    midOrder(root)
+
+    guard arr.count - k < arr.count, arr.count - k >= 0 else {
+        return 0
+    }
+    return arr[arr.count - k]
+}
+
+kthLargest23211(node, 3)
+
+
+
 
 func kthLargest(_ root: TreeNode?, _ k: Int) -> Int {
     var inorderArr: [Int] = []
@@ -64,17 +104,7 @@ func kthLargest(_ root: TreeNode?, _ k: Int) -> Int {
     return inorderArr[k - 1]
 }
 
-let node = TreeNode(5,
-                    TreeNode(3,
-                             TreeNode(2,
-                                      TreeNode(1),
-                                      nil),
-                             TreeNode(4,
-                                      nil,
-                                      nil)),
-                    TreeNode(6,
-                             nil,
-                             nil))
+
 
 kthLargest(node, 3)
 

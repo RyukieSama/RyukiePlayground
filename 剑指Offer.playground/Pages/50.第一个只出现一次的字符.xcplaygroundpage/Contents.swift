@@ -32,6 +32,36 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  
  */
+var s = "abaccdeff"
+s = "aadadaad"
+
+/**
+ 2023-02-11
+ */
+func firstUniqChar23211(_ s: String) -> Character {
+    var charArray: [Character] = Array(s)
+    var dic: [Character: Bool] = [:]
+    
+    charArray.forEach {
+        if let _ = dic[$0] {
+            dic[$0] = false
+        }
+        else {
+            dic[$0] = true
+        }
+    }
+    
+    // 字典是无序的，再遍历一边原字符串，对比dic 进行对比判断
+    for c in charArray {
+        if dic[c] == true {
+            return c
+        }
+    }
+    
+    return " "
+}
+
+
 
 func firstUniqChar(_ s: String) -> Character {
     let strArr = Array(s)
@@ -53,8 +83,6 @@ func firstUniqChar(_ s: String) -> Character {
     return indexs.first ?? " "
 }
 
-let s = "abaccdeff"
-//let s = "aadadaad"
 firstUniqChar(s)
 
 //: [Next](@next)

@@ -22,6 +22,18 @@ import Foundation
  
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+let n = [7,5,6,4]
+
+/**
+ 2023-02-11
+ 
+ 看不懂
+ */
+//func reversePairs23211(_ nums: [Int]) -> Int {
+//
+//}
+
+
 
 /// TimeOut
 func reversePairs(_ nums: [Int]) -> Int {
@@ -42,7 +54,7 @@ func reversePairs(_ nums: [Int]) -> Int {
     return count
 }
 
-let n = [7,5,6,4]
+
 reversePairs(n)
 
 //: [Next](@next)

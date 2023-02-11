@@ -58,6 +58,31 @@ import Foundation
  
  */
 
+let n0 = ListNode(0)
+let n11 = ListNode(1)
+let n12 = ListNode(1)
+let n4 = ListNode(4)
+let n42 = ListNode(4)
+let n51 = ListNode(5)
+let n52 = ListNode(5)
+let n8 = ListNode(8)
+
+// [4,1,8,4,5]
+n4.next = n11
+n11.next = n8
+n8.next = n42
+n42.next = n52
+
+// [5,0,1,8,4,5]
+n51.next = n0
+n0.next = n12
+n12.next = n8
+
+/**
+ 2023-02-11
+ */
+
+
 
 
 func getIntersectionNode(headA: ListNode, headB: ListNode) -> ListNode? {
@@ -80,25 +105,7 @@ func getIntersectionNode(headA: ListNode, headB: ListNode) -> ListNode? {
     return nil
 }
 
-let n0 = ListNode(0)
-let n11 = ListNode(1)
-let n12 = ListNode(1)
-let n4 = ListNode(4)
-let n42 = ListNode(4)
-let n51 = ListNode(5)
-let n52 = ListNode(5)
-let n8 = ListNode(8)
 
-// [4,1,8,4,5]
-n4.next = n11
-n11.next = n8
-n8.next = n42
-n42.next = n52
-
-// [5,0,1,8,4,5]
-n51.next = n0
-n0.next = n12
-n12.next = n8
 
 let res = getIntersectionNode(headA: n4, headB: n51)
 print(res?.val)

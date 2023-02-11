@@ -30,6 +30,60 @@
 
 import Foundation
 
+func nthUglyNumber23211(_ n: Int) -> Int {
+    /**
+     丑数 =  2^x*3^y*5^z
+     */
+    var p2 = 0, p3 = 0, p5 = 0
+    
+    /**
+     每个丑数，一定都是前面某一个丑数乘以 2，3，5 之一得到的
+     定义三个指针分别代表
+     上一个乘以2得到的丑数
+     上一个乘以3得到的丑数
+     上一个乘以5得到的丑数
+     */
+    var dp: [Int] = Array(repeating: 1, count: n)
+    
+    for idx in 1..<n {
+        let num2 = dp[p2] * 2,
+            num3 = dp[p3] * 3,
+            num5 = dp[p5] * 5
+        
+        let res = min(min(num2, num3), num5)
+        
+        // 不对
+//        switch res {
+//        case num2:
+//            p2 += 1
+//        case num3:
+//            p3 += 1
+//        case num5:
+//            p5 += 1
+//        default:
+//            break
+//        }
+        
+        if res == num2 {
+            p2 += 1
+        }
+        
+        if res == num3 {
+            p3 += 1
+        }
+        
+        if res == num5 {
+            p5 += 1
+        }
+        
+        dp[idx] = res
+    }
+    
+    return dp[n - 1]
+}
+
+nthUglyNumber23211(10)
+
 //func nthUglyNumber(_ n: Int) -> Int {
 //    var n = n
 //    if n == 1 { return 1 }
@@ -82,8 +136,12 @@ func nthUglyNumberDP(_ n: Int) -> Int {
     var dp: [Int] = Array(repeating: 1, count: n)
     
     for i in 1..<n {
-        let num2 = dp[p2] * 2, num3 = dp[p3] * 3, num5 = dp[p5] * 5
+        let num2 = dp[p2] * 2,
+            num3 = dp[p3] * 3,
+            num5 = dp[p5] * 5
+        
         dp[i] = min(min(num2, num3), num5)
+        
         if dp[i] == num2 {
             p2 += 1
         }

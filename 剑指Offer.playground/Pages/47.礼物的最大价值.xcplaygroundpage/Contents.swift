@@ -32,6 +32,71 @@
 
 import Foundation
 
+var pool: [[Int]] =  [
+    [1, 3, 1],
+    [1, 5, 1],
+    [4, 2, 1]
+]
+
+pool = [
+    [1,2,5],
+    [3,2,1]
+]
+
+/**
+ 2023-02-11
+ */
+func maxValue23211(_ grid: [[Int]]) -> Int {
+    /**
+     很容易想到用动态规划
+     */
+    let height = grid.count, width = grid[0].count
+    var dp: [[Int]] = Array(repeating: Array(repeating: 0, count: width), count: height)
+    
+    for v in 0..<height {
+        for h in 0..<width {
+            let val = grid[v][h]
+            if v == 0, h == 0 {
+                dp[v][h] = val
+            }
+            else if v == 0, h > 0 {
+                dp[v][h] = dp[v][h-1] + val
+            }
+            else if v > 0, h == 0 {
+                dp[v][h] = dp[v-1][h] + val
+            }
+            else {
+                dp[v][h] = max(dp[v-1][h], dp[v][h-1]) + val
+            }
+        }
+    }
+    
+    return dp[height - 1][width - 1]
+}
+
+maxValue23211(pool)
+
+// 错，会一步错，步步错
+//func maxValue232112(_ grid: [[Int]]) -> Int {
+//    let height = grid.count, width = grid[0].count
+//    var res = 0, v = 0, h = 0
+//
+//    while v < height, h < width {
+//        res += grid[v][h]
+//        let right = h + 1 < width ? grid[v][h+1] : 0
+//        let down = v + 1 < height ? grid[v+1][h] : 0
+//        if right > down {
+//            h += 1
+//        }
+//        else {
+//            v += 1
+//        }
+//    }
+//
+//    return res
+//}
+//maxValue232112(pool)
+
 func maxValue(_ grid: [[Int]]) -> Int {
     let w = grid[0].count
     let h = grid.count
@@ -50,11 +115,6 @@ func maxValue(_ grid: [[Int]]) -> Int {
     return dp[h-1][w-1]
 }
 
-let pool: [[Int]] =  [
-    [1, 3, 1],
-    [1, 5, 1],
-    [4, 2, 1]
-]
 maxValue(pool)
 
 //: [Next](@next)

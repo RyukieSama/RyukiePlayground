@@ -27,6 +27,36 @@ import Foundation
  
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+var nums = [0,1,2,3,4,5,6,7,9]
+//nums = [0]
+//nums = [1]
+//nums = [0, 2]
+
+/**
+ 2023-02-11
+ */
+func missingNumber23211(_ nums: [Int]) -> Int {
+    /**
+     二分
+     */
+    var left = 0, right = nums.count - 1
+    while left <= right {
+        let midIdx = (right + left) / 2
+        let midData = nums[midIdx]
+        
+        if nums[midIdx] == midIdx {
+            // 相等，缺的在后面
+            left = midIdx + 1
+        }
+        else {// 不相等，只可能缺的在前面
+            right = midIdx - 1
+        }
+    }
+    return left
+}
+
+
+
 
 func missingNumber(_ nums: [Int]) -> Int {
     var tmp = 0
@@ -63,10 +93,6 @@ func missingNumber2(_ nums: [Int]) -> Int {
     return per
 }
 
-let nums = [0,1,2,3,4,5,6,7,9]
-//let nums = [0]
-//let nums = [1]
-//let nums = [0, 2]
 missingNumber(nums)
 missingNumber2(nums)
 
