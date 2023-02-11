@@ -31,6 +31,64 @@
 
 import Foundation
 
+var arr = [34,3,30,5,9]
+arr = [128, 12]
+arr = [12, 121]
+
+/**
+ 2023-02-10
+ */
+func minNumber23210(_ nums: [Int]) -> String {
+    /**
+     排序条件：
+     1234 对比 234
+     1, 2, 3, 4 < - > 2, 3, 4
+     
+     从各自最高位开始对比，一旦发现更小的，就往前放
+     */
+    var nums = nums.sorted{ isSmaller23210(x: $0, than: $1) }
+    var res = ""
+    nums.forEach {
+        res.append("\($0)")
+    }
+    return res
+}
+
+func isSmaller23210(x: Int, than y: Int) -> Bool {
+//    var xArr: [Int] = [], yArr: [Int] = []
+//    Array("\(x)").forEach {
+//        if let val = Int(String($0)) {
+//            xArr.append(val)
+//        }
+//    }
+//    Array("\(y)").forEach {
+//        if let val = Int(String($0)) {
+//            yArr.append(val)
+//        }
+//    }
+//    var idx = 0
+//    while idx < xArr.count, idx < yArr.count {
+//        if xArr[idx] == yArr[idx] {
+//            idx += 1
+//        }
+//        else {
+//            return xArr[idx] < yArr[idx]
+//        }
+//    }
+//    return false
+    
+    let aArr = [Character](String(x))
+    let bArr = [Character](String(y))
+    let resultA = Int(String(aArr + bArr)) ?? 0
+    let resultB = Int(String(bArr + aArr)) ?? 0
+    return resultA <= resultB
+}
+
+isSmaller23210(x: 30, than: 3)
+
+minNumber23210(arr)
+
+
 // 优先队列
 func minNumber(_ nums: [Int]) -> String {
     var queue = SwiftPriorityQueue<Int>.init(hasHigherPriority: {
@@ -67,10 +125,6 @@ func hasHigher(x: Int, compare y: Int) -> Bool {
     let resultB = Int(String(bArr + aArr)) ?? 0
     return resultA <= resultB
 }
-
-let arr = [34,3,30,5,9]
-//let arr = [128, 12]
-//let arr = [12, 121]
 
 minNumber(arr)
 minNumber2(arr)

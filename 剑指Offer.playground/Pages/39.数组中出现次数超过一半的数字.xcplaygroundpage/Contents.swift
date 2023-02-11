@@ -25,7 +25,32 @@ import Foundation
  
  */
 
-let numbers: [Int] = [1, 2, 3, 2, 2, 2, 5, 4, 2]
+var numbers: [Int] = [1, 2, 3, 2, 2, 2, 5, 4, 2]
+
+/**
+ 2023-02-10
+ */
+func majorityElement2310(_ nums: [Int]) -> Int {
+    var current = nums[0], votes = 0
+    
+    for item in nums {
+        if votes == 0 {
+            current = item
+            votes += 1
+        }
+        else if current == item {
+            votes += 1
+        }
+        else {
+            votes -= 1
+        }
+    }
+    
+    return current
+}
+
+majorityElement2310(numbers)
+
 
 /**
  2023-02-08

@@ -36,6 +36,34 @@ var arr = [0,0,0,2,0,5], k = 5
 //k = 8
 arr = [0,1,1,2,4,4,1,3,3,2]
 k = 6
+
+/**
+ 2023-02-10
+ */
+func getLeastNumbers2310(_ arr: [Int], _ k: Int) -> [Int] {
+    if arr.isEmpty || k == 0 { return [] }
+    if arr.count == k { return arr }
+    // 伪 冒泡
+    var numbers = arr, swapFlag = false
+    
+    for i in 0..<numbers.count {
+        for j in 0..<(numbers.count - i - 1) {
+            if numbers[j] > numbers[j+1] {
+                (numbers[j], numbers[j+1]) = (numbers[j+1], numbers[j])
+                swapFlag = true
+            }
+        }
+        
+        if !swapFlag || (numbers.count - i == k) {// 提前退出
+            break
+        }
+    }
+    
+    return Array(numbers[0..<k])
+}
+
+getLeastNumbers2310(arr, k)
+
 /**
  2023-02-09
  */

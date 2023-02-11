@@ -30,6 +30,56 @@
 import Foundation
 
 /**
+ 2023-02-10
+ */
+func countDigitOne2310(_ n: Int) -> Int {
+    var res = 0,
+        dig = 1 // 位
+    /**
+     密码锁
+     */
+    while dig <= n {
+        // 当前位的数字
+        let current = n / dig % 10
+        // 左侧
+        let leftVal = n / dig / 10
+        // 右侧
+        let rightVal = n % dig
+        
+        switch current {
+        case 1:
+            /**
+             123 1 56
+             left : 00 ~ 122 right: 00~99
+             left 123 right: 00~56
+             */
+            res += (leftVal * dig) + 1 * (rightVal + 1)
+        case 0:
+            /**
+             123 0 56
+             如果此位要为1
+             那么 left：00～122right: 00 ~ 99
+             */
+            res += (leftVal * dig)
+        default:
+            /**
+             123 4 56
+             如果此位要为1
+             left: 00~122 right: 00~99
+             left: 123 right: 0~99
+             */
+            res += (leftVal * dig) + 1 * dig
+        }
+        dig *= 10
+    }
+    
+    return res
+}
+
+countDigitOne2310(12)
+
+
+/**
  2023-02-09
  
  找规律

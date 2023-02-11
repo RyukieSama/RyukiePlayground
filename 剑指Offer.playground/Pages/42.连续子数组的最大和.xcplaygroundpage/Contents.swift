@@ -39,6 +39,33 @@ nums = [-2, -1]
 nums = [-2,1,-3,4,-1,2,1,-5,4]
 
 /**
+ 2023-02-10
+ */
+func maxSubArray2310(_ nums: [Int]) -> Int {
+    guard nums.isEmpty == false else { return 0 }
+    /**
+     动态规划
+     dp[i] 代表以 i 元素结尾的子数组的最大子数组和
+     */
+    var dp = Array(repeating: 0, count: nums.count)
+    dp[0] = nums[0]
+    
+    for idx in 1..<nums.count {
+        if dp[idx - 1] <= 0 { // 如果上一个长度的和 小于=0 ，就不用累加
+            dp[idx] = nums[idx]
+        }
+        else {
+            dp[idx] = dp[idx - 1] + nums[idx]
+        }
+    }
+    
+    return dp.max() ?? nums[0]
+}
+
+maxSubArray2310(nums)
+
+
+/**
  2023-02-09
  
  暴力超时
