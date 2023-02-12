@@ -31,6 +31,66 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+let nums = [10,26,30,31,47,60], target = 40
+
+/**
+ 2023-02-12
+ */
+func twoSum23212(_ nums: [Int], _ target: Int) -> [Int] {
+    var left = 0, right = nums.count - 1
+    while left < right {
+        let leftVal = nums[left], rightVal = nums[right]
+        if leftVal + rightVal > target {
+            right -= 1
+        }
+        else if leftVal + rightVal < target {
+            left += 1
+        }
+        else {
+            return [leftVal, rightVal]
+        }
+    }
+    return []
+}
+
+
+// 超时
+//func twoSum23212(_ nums: [Int], _ target: Int) -> [Int] {
+//    guard nums.count >= 1 else {
+//        return []
+//    }
+//    var slow = 0, fast = 1
+//
+//    while slow < fast, fast < nums.count {
+//        let val = nums[slow], fastVal = nums[fast], deta = target - val
+//
+//        guard val < target else {
+//            return []
+//        }
+//
+//        if fastVal == deta {
+//            return [nums[slow], nums[fast]]
+//        }
+//        else if (fastVal > deta || fast == nums.count - 1) {
+//            /**
+//             fastVal 大于差值，下一轮
+//             fast 到头了，下一轮
+//             */
+//            slow += 1
+//            fast = slow + 1
+//        }
+//        else {
+//            fast += 1
+//        }
+//    }
+//
+//    return []
+//}
+//
+//twoSum23212(nums, target)
+
+
+
 /*:
  需要的是一对数字
  那么他们可以互为 key - value
@@ -71,8 +131,6 @@ func twoSum2(_ nums: [Int], _ target: Int) -> [Int] {
     return []
 }
 
-
-let nums = [10,26,30,31,47,60], target = 40
 twoSum(nums, target)
 twoSum2(nums, target)
 

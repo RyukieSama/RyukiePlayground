@@ -27,6 +27,25 @@ import Foundation
  
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+let s = "lrloseumgh", k = 6
+/**
+ 2023-02-12
+ */
+func reverseLeftWords23212(_ s: String, _ n: Int) -> String {
+    var str = s
+    
+    for _ in 0..<n {
+        var first = str.removeFirst()
+        str += String(first)
+    }
+    
+    return str
+}
+reverseLeftWords23212(s, k)
+
+
+
+
 
 func reverseLeftWords(_ s: String, _ n: Int) -> String {
     let idx = s.index(s.startIndex, offsetBy: n)
@@ -35,7 +54,6 @@ func reverseLeftWords(_ s: String, _ n: Int) -> String {
     return "\(aft)\(pre)"
 }
 
-let s = "lrloseumgh", k = 6
 reverseLeftWords(s, k)
 
 //: [Next](@next)

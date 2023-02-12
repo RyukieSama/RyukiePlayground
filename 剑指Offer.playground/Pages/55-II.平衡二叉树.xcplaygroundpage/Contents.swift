@@ -46,6 +46,90 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+let root1 = TreeNode(1,
+                    TreeNode(2,
+                             TreeNode(3,
+                                      TreeNode(4),
+                                      TreeNode(4)),
+                             TreeNode(3)),
+                    TreeNode(2))
+
+let root2 = TreeNode(3,
+                    TreeNode(9),
+                    TreeNode(20,
+                             TreeNode(15),
+                             TreeNode(7)))
+
+// [1,2,2,3,null,null,3,4,null,null,4]
+let root3 = TreeNode(1,
+                     TreeNode(2,
+                              TreeNode(3,
+                                       TreeNode(4),
+                                       nil),
+                              nil),
+                     TreeNode(2,
+                              nil,
+                              TreeNode(3,
+                                       nil,
+                                       TreeNode(4))))
+
+/**
+ 2023-02-12
+ */
+func isBalanced23212(_ root: TreeNode?) -> Bool {
+    guard let root = root else {
+        return true
+    }
+    
+    var deepMatch = false
+    if abs(treeDeep(root.left) - treeDeep(root.right)) <= 1 {
+        deepMatch = true
+    }
+    else {
+        return false
+    }
+    
+    return deepMatch && isBalanced23212(root.left) && isBalanced23212(root.right)
+}
+
+func treeDeep(_ root: TreeNode?) -> Int {
+    guard let root = root else {
+        return 0
+    }
+    var queue: [TreeNode] = [root]
+    var deep = 0
+    var currentLineLeftCount = 1
+    var nextLineCount = 0
+    
+    while let node = queue.first {
+        queue.removeFirst()
+        currentLineLeftCount -= 1
+        
+        if let left = node.left {
+            queue.append(left)
+            nextLineCount += 1
+        }
+        
+        if let right = node.right {
+            queue.append(right)
+            nextLineCount += 1
+        }
+        
+        if currentLineLeftCount == 0 {
+            currentLineLeftCount = nextLineCount
+            nextLineCount = 0
+            deep += 1
+        }
+        
+    }
+    
+    return deep
+}
+isBalanced23212(root1)
+isBalanced23212(root2)
+isBalanced23212(root3)
+
+
 func isBalanced(_ root: TreeNode?) -> Bool {
     let deepL = maxDepth(root?.left)
     let deepR = maxDepth(root?.right)
@@ -89,33 +173,6 @@ func maxDepth(_ root: TreeNode?) -> Int {
     
     return deep
 }
-
-let root1 = TreeNode(1,
-                    TreeNode(2,
-                             TreeNode(3,
-                                      TreeNode(4),
-                                      TreeNode(4)),
-                             TreeNode(3)),
-                    TreeNode(2))
-
-let root2 = TreeNode(3,
-                    TreeNode(9),
-                    TreeNode(20,
-                             TreeNode(15),
-                             TreeNode(7)))
-
-// [1,2,2,3,null,null,3,4,null,null,4]
-let root3 = TreeNode(1,
-                     TreeNode(2,
-                              TreeNode(3,
-                                       TreeNode(4),
-                                       nil),
-                              nil),
-                     TreeNode(2,
-                              nil,
-                              TreeNode(3,
-                                       nil,
-                                       TreeNode(4))))
 
 isBalanced(root1)
 isBalanced(root2)

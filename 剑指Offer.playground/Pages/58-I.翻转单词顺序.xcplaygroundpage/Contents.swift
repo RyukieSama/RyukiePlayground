@@ -44,6 +44,88 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+let str = "a good  example"
+
+/**
+ 2023-02-12
+ 一
+ */
+func reverseWords23212(_ s: String) -> String {
+    var res = "", temp = "", lastChr: Character?
+    var charsArr: [Character] = Array(s)
+    for chr in charsArr {
+        if let last = lastChr {
+            if chr != " " { // 字符
+                if last == " " {
+                    // 前面是空格
+                    res = temp + res
+                    temp = String(chr)
+                }
+                else {
+                    // 前面是字符
+                    temp.append(chr)
+                }
+            }
+            else { // 空格
+                if last != " " {
+                    // 前面是字符，暂存一下
+                    res = temp + res
+                    temp = String(chr)
+                }
+            }
+            lastChr = chr
+        }
+        else if chr != " " {
+            temp.append(chr)
+            lastChr = chr
+        }
+    }
+    
+    if temp.isEmpty == false, Array(temp)[0] != " " {
+        res = temp + res
+    }
+    
+    return res
+}
+
+reverseWords23212(str)
+
+/**
+ 2023-02-12
+ 二
+ */
+func reverseWords232122(_ s: String) -> String {
+    var chrsArr: [[Character]] = []
+    var temp: [Character] = []
+    for chr in Array(s) {
+        if chr != " " {
+            temp.append(chr)
+        }
+        else if temp.isEmpty == false {
+            if chrsArr.isEmpty == false {
+                chrsArr.insert([" "], at: 0) // 两组单词见加一个空格
+            }
+            chrsArr.insert(temp, at: 0)
+            temp = []
+        }
+    }
+    
+    if temp.isEmpty == false {
+        if chrsArr.isEmpty == false {
+            chrsArr.insert([" "], at: 0) // 两组单词见加一个空格
+        }
+        chrsArr.insert(temp, at: 0)
+    }
+    
+    var res = ""
+    chrsArr.forEach {
+        res += String($0)
+    }
+    
+    return res
+}
+reverseWords232122(str)
+
 
 /*:
  暴力
@@ -71,7 +153,6 @@ func reverseWords(_ s: String) -> String {
     return res
 }
 
-let str = "a good  example"
 reverseWords(str)
 
 //: [Next](@next)
