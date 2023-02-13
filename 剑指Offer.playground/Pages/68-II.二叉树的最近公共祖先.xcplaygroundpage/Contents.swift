@@ -50,7 +50,6 @@ func lowestCommonAncestor(root: TreeNode?, pNode: TreeNode, qNode: TreeNode) -> 
     let left = lowestCommonAncestor(root: root.left, pNode: pNode, qNode: qNode)
     let right = lowestCommonAncestor(root: root.right, pNode: pNode, qNode: qNode)
         
-    if left == nil, right == nil { return nil }
     if left == nil { return right }
     if right == nil { return left }
     return root

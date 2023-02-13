@@ -32,6 +32,63 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+var cards = [0,0,1,2,5]
+cards = [8,7,11,0,9]
+
+/**
+ 2023-02-13
+ */
+func isStraight23213(_ nums: [Int]) -> Bool {
+    var nums = nums
+    var idx = 0
+    var zeroCount = 0
+    
+    while idx < nums.count {
+        let val = nums[idx]
+        if val == 0 {
+            zeroCount += 1
+            nums.remove(at: idx)
+        }
+        else {
+            idx += 1
+        }
+    }
+    
+    idx = 0
+    
+    guard nums.count > 1 else {
+        return true
+    }
+    
+    nums = nums.sorted()
+    
+    while idx < nums.count - 1 {
+        let deta = abs(nums[idx] - nums[idx + 1])
+        if deta == 1 {
+            // 顺
+            idx += 1
+        }
+        else if deta == 0 {
+            return false
+        }
+        else { // 不顺
+            // 有 0 可以补
+            if zeroCount > 0, deta - 1 <= zeroCount {
+                zeroCount -= deta - 1
+                idx += 1
+            }
+            // 没 0 可以补
+            else {
+                return false
+            }
+        }
+    }
+    
+    return true
+}
+
+isStraight23213(cards)
+
 func isStraight(_ nums: [Int]) -> Bool {
     var zeroCount = 0
     var last: Int?
@@ -62,7 +119,6 @@ func isStraight(_ nums: [Int]) -> Bool {
     return true
 }
 
-let cards = [0,0,1,2,5]
 isStraight(cards)
 
 //: [Next](@next)

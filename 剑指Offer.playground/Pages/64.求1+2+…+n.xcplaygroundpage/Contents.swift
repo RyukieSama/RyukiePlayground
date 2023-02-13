@@ -28,6 +28,23 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+/**
+ 2023-02-13
+ */
+func sumNums23213(_ n: Int) -> Int {
+    /**
+     不能使用乘除法、for、while、if、else、switch、case
+     
+     还剩 递归？
+     */
+    return n > 1 ? (sumNums23213(n - 1) + n) : n
+}
+
+sumNums23213(3)
+
+
+
+
 /*:
  分析
  

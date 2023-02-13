@@ -34,6 +34,96 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+var nums = [1,3,-1,-3,5,3,6,7], k = 3
+//nums: [Int] = [], k = 0
+
+/**
+ 2023-02-13
+ */
+// 超时，内部循环虽然去除了一些情况，还是会有较多的循环
+//func maxSlidingWindow23213(_ nums: [Int], _ k: Int) -> [Int] {
+//    if nums.count == 0 || nums.count < k { return [] }
+//
+//    var left = 0, right = left + k - 1
+//    var res: [Int] = []
+//
+//    while right < nums.count {
+//        let sub = Array(nums[left...right])
+//        let val = nums[right]
+//        if let last = res.last {
+//            if last < val {
+//                // 窗口新元素比旧窗口的最大值还大，那么窗口最大值就是这个值
+//                res.append(val)
+//            }
+//            else {
+//                // 窗口新元素比前一个窗口的最大值小
+//                if nums[left - 1] < last {
+//                    // 旧窗口的第一个元素不是最大值
+//                    res.append(last)
+//                }
+//                else if let max = sub.max() {
+//                    // 旧窗口的第一个元素是最大值，就要在 sub 里面重新找最大值了
+//                    res.append(max)
+//                }
+//            }
+//        }
+//        else if let max = sub.max() {
+//            res.append(max)
+//        }
+//        left += 1
+//        right += 1
+//    }
+//
+//    return res
+//}
+
+func maxSlidingWindow23213(_ nums: [Int], _ k: Int) -> [Int] {
+    if nums.count == 0 || nums.count < k { return [] }
+    
+    var left = 0, right = left + k - 1
+    var res: [Int] = [], dp: [Int: Int] = [:] // key: 右边界 val：最大值所在下标
+
+    while right < nums.count {
+        let valNew = nums[right]
+        
+        if let lastMaxValIdx = dp[right - 1], lastMaxValIdx >= left {
+            // 上一个滑动窗口最大值的下标，在当前滑动窗口内部
+            let lastMax = nums[lastMaxValIdx]
+//            print("=")
+            if lastMax > valNew {
+                res.append(lastMax)
+                dp[right] = lastMaxValIdx
+            }
+            else {
+                res.append(valNew)
+                dp[right] = right
+            }
+        }
+        else {
+            var maxIdx: Int = left, max: Int = nums[maxIdx]
+            
+            for idx in left...right {
+                let val = nums[idx]
+//                print(idx)
+                if val >= max {
+                    max = val
+                    maxIdx = idx
+                }
+            }
+            
+            res.append(max)
+            dp[right] = maxIdx
+        }
+        
+        left += 1
+        right += 1
+    }
+    
+    return res
+}
+maxSlidingWindow23213(nums, k)
+
+
 /*:
  动态规划
  */
@@ -79,8 +169,6 @@ func maxSlidingWindow(_ nums: [Int], _ k: Int) -> [Int] {
     return res
 }
 
-let nums = [1,3,-1,-3,5,3,6,7], k = 3
-//let nums: [Int] = [], k = 0
 maxSlidingWindow(nums, k)
 
 //: [Next](@next)

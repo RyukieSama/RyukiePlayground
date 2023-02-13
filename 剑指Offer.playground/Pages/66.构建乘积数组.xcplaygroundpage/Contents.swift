@@ -25,6 +25,45 @@ import Foundation
  
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+let nums = [1,2,3,4,5]
+/**
+ 2023-02-13
+ */
+func constructArr23213(_ a: [Int]) -> [Int] {
+    guard a.count > 1 else {
+        return []
+    }
+    var dpLeft: [Int] = [], dpRight: [Int] = []
+    for idx in 0..<a.count {
+        let left = a[idx], right = a[a.count - 1 - idx]
+
+        if idx - 1 >= 0 {
+            dpLeft.append(dpLeft[idx - 1] * left)
+            dpRight.append(dpRight[idx - 1] * right)
+        }
+        else {
+            dpLeft.append(left)
+            dpRight.append(right)
+        }
+    }
+    
+    print(dpLeft)
+    print(dpRight)
+    
+    var res: [Int] = []
+    
+    for idx in 0..<a.count {
+        let left = idx - 1 >= 0 ? dpLeft[idx - 1] : 1
+        let rightIdx = a.count - idx - 2
+        let right = (rightIdx < a.count && rightIdx >= 0) ? dpRight[rightIdx] : 1
+        res.append(left * right)
+    }
+    
+    return res
+}
+
+constructArr23213(nums)
+
 
 /*:
  动态规划
@@ -61,7 +100,6 @@ func constructArr(_ a: [Int]) -> [Int] {
     return res
 }
 
-let nums = [1,2,3,4,5]
 constructArr(nums)
 
 //: [Next](@next)

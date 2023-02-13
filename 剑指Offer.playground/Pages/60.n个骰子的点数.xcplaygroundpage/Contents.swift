@@ -31,6 +31,75 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+/**
+ 2023-02-13
+ */
+func dicesProbability23213(_ n: Int) -> [Double] {
+    /**
+     动态规划
+     
+     n 个骰子，和范围 n～6n，共 6^n 种组合
+     
+     值x，有y种组合方式，概率就为 y / 6^n
+     
+     dp 表示，n个骰子，能组成x值的组合数量，key 是和的值 value 是组合数量
+     例如：dp = [1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1]
+     
+     需要构建这样一个 dp
+     */
+    // 总组合数
+    let totalCpCount = Double(pow(6, Double(n)))
+    var dps: [[Int: Int]] = [
+        [1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1]
+    ]
+    var res: [Double] = []
+    
+    if n > 1 {
+        for count in 2...n {
+            var dp: [Int: Int] = [:]
+            // -1 数量的骰子的 DP
+            let lastDp = dps[dps.count - 1]
+            /**
+             固定一个骰子的值
+             两个固定一个值x
+             
+             循环：
+             x = 1：
+             
+             x = 2:
+             ...
+             */
+            for fixVal in 1...6 {
+                for sum in count...6*count {
+                    let deta = sum - fixVal
+                    if deta > 0 {
+                        // 同一个 sum 会有多种情况，这里累加
+                        dp[sum] = (dp[sum] ?? 0) + (lastDp[deta] ?? 0)
+                    }
+                }
+            }
+    //        print(dp)
+            dps.append(dp)
+        }
+    }
+    
+//    print(dps)
+    
+    if let last = dps.last {
+        for sum in n...6*n {
+            if let cps = last[sum] {
+                res.append(Double(cps) / totalCpCount)
+            }
+        }
+    }
+    
+    return res
+}
+
+dicesProbability23213(1)
+dicesProbability23213(2)
+
+
 /*:
  数组内元素和为 1
  
