@@ -26,6 +26,55 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 let nums = [1,2,3,4,5]
+
+/**
+ 2023-02-14
+ */
+func constructArr23214(_ a: [Int]) -> [Int] {
+    /**
+     left[n] 0~n 的累乘
+     right[n] n ~ a.count - 1 的累乘
+     */
+    guard a.count > 1 else { return a.first != nil ? [a.first!] : [] }
+    var dpLeft: [Int] = [], dpRight: [Int] = []
+    var result: [Int] = []
+    
+    for index in 0..<a.count {
+        let valLeft = a[index]
+        
+        if let lastLeft = dpLeft.last {
+            dpLeft.append(valLeft * lastLeft)
+        }
+        else {
+            dpLeft.append(valLeft)
+        }
+        
+        let rightIndex = a.count - 1 - index
+        if rightIndex < a.count {
+            let valRight = a[rightIndex]
+            if let lastRight = dpRight.last {
+                dpRight.append(valRight * lastRight)
+            }
+            else {
+                dpRight.append(valRight)
+            }
+        }
+    }
+    
+    print(dpLeft)
+    print(dpRight)
+    
+    for index in 0..<a.count {
+        let left = (index - 1 >= 0) ? dpLeft[index - 1] : 1
+        let rightIndex = dpRight.count - 1 - index - 1
+        let right = (rightIndex < dpRight.count && rightIndex >= 0) ? dpRight[rightIndex] : 1
+        result.append(left * right)
+    }
+    
+    return result
+}
+constructArr23214(nums)
+
 /**
  2023-02-13
  */
