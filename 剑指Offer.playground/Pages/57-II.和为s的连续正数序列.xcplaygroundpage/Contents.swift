@@ -29,13 +29,43 @@ import Foundation
  
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+/**
+ 2023-02-15
+ */
+func findContinuousSequence23215(_ target: Int) -> [[Int]] {
+    var res: [[Int]] = []
+    var left = 1, right = 2, sum = 3
+    
+    while left <= target / 2 {
+        if sum > target {
+            sum -= left
+            left += 1
+        }
+        else if sum < target {
+            right += 1
+            sum += right
+        }
+        else {
+            res.append(Array(left...right))
+            sum -= left
+            left += 1
+            right += 1
+            sum += right
+        }
+    }
+    
+    return res
+}
+findContinuousSequence23215(9)
+findContinuousSequence23215(15)
+
 
 /**
  2023-02-12
  */
 func findContinuousSequence23212(_ target: Int) -> [[Int]] {
     /**
-     滑动窗口的重要性质是：窗口的左边界和右边界永远只能向右移动，而不能向左移动。这是为了保证滑动窗口的时间复杂度是 O(n)O(n)O(n)。如果左右边界向左移动的话，这叫做“回溯”，算法的时间复杂度就可能不止 O(n)O(n)O(n)。
+     滑动窗口的重要性质是：窗口的左边界和右边界永远只能向右移动，而不能向左移动。这是为了保证滑动窗口的时间复杂度是 O(n)。如果左右边界向左移动的话，这叫做“回溯”，算法的时间复杂度就可能不止 O(n)。
 
      作者：nettee
      链接：https://leetcode.cn/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/solutions/133768/shi-yao-shi-hua-dong-chuang-kou-yi-ji-ru-he-yong-h/

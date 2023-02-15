@@ -33,6 +33,45 @@ import Foundation
 let nums = [9,1,7,9,7,9,7]
 
 /**
+ 2023-02-15
+ */
+func singleNumber23215(_ nums: [Int]) -> Int {
+    guard nums.count > 1 else {
+        return nums.first ?? 0
+    }
+    /**
+     111 111 111 101
+     所有位的值相加，然后分别对3求余，就能得到那个只出现一次的数每一位的值
+     */
+    var sumArr: [Int] = Array(repeating: 0, count: 32)
+    
+    for val in nums {
+        var flag = 1
+        for idx in 0...31 {
+            if val & flag != 0 {
+                sumArr[idx] += 1
+            }
+            flag <<= 1
+        }
+    }
+    
+    print(sumArr)
+    
+    var res = 0
+    
+    for (idx, val) in sumArr.enumerated() {
+        let dig = val % 3
+        if dig == 1 {
+            res += Int(pow(2, Double(idx)))
+        }
+    }
+    
+    return res
+}
+
+singleNumber23215(nums)
+
+/**
  2023-02-12
  */
 func singleNumber23212(_ nums: [Int]) -> Int {
