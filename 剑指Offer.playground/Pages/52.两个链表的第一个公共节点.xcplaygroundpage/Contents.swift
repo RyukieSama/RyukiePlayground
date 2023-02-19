@@ -58,6 +58,8 @@ import Foundation
  
  */
 
+import UIKit
+
 let n0 = ListNode(0)
 let n11 = ListNode(1)
 let n12 = ListNode(1)
@@ -79,9 +81,19 @@ n0.next = n12
 n12.next = n8
 
 /**
- 2023-02-11
+ 2023-02-19
+ 
+ 两个 View 找最近公共父视图
  */
-
+func sameSuperView(aView: UIView, bView: UIView) -> UIView? {
+    var nodeA: UIView? = aView, nodeB: UIView? = bView
+    // 浪漫双指针
+    while nodeA != nodeB {
+        nodeA = nodeA != nil ? nodeA?.superview : bView
+        nodeB = nodeB != nil ? nodeB?.superview : aView
+    }
+    return nodeA
+}
 
 
 
