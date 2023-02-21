@@ -35,6 +35,24 @@ let tree = TreeNode(3,
                              TreeNode(15),
                              TreeNode(7)))
 
+/**
+ 2023-02-21
+ */
+func maxDepth23221(_ root: TreeNode?) -> Int {
+    guard let root = root else {
+        return 0
+    }
+    
+    if root.left == nil, root.right == nil {
+        return 1
+    }
+    
+    return 1 + max(maxDepth23221(root.left), maxDepth23221(root.right))
+}
+
+maxDepth23221(tree)
+
+
 
 /**
  2023-02-11

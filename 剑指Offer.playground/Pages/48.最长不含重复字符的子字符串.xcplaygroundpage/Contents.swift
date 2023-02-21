@@ -3,8 +3,6 @@
 /*:
  请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
  
-  
- 
  示例 1:
  
  输入: "abcabcbb"
@@ -41,6 +39,67 @@ str = "abcabcbb"
 //str = "bbbbb"
 //str = "pwwkew"
 //str = "abba"
+
+/**
+ 2023-02-20
+ */
+func lengthOfLongestSubstring23220(_ s: String) -> Int {
+    guard s.isEmpty == false else {
+        return 0
+    }
+    var maxCount = 0,chrArray = Array(s)
+    var temp: [Character] = []
+    
+    for chr in chrArray {
+        if let idx = temp.firstIndex(of: chr) {
+            if idx + 1 < temp.count {
+                temp = Array(temp[idx + 1..<temp.count])
+                temp.append(chr)
+            }
+            else {
+                temp = [chr]
+            }
+        }
+        else {
+            temp.append(chr)
+        }
+        maxCount = max(maxCount, temp.count)
+    }
+    
+    return maxCount
+}
+
+lengthOfLongestSubstring23220(str)
+
+/**
+ 2023-02-16
+ */
+func lengthOfLongestSubstring23216(_ s: String) -> Int {
+    guard s.isEmpty == false else {
+        return 0
+    }
+    var charArray: [Character] = Array(s), maxCount = 0, temp: [Character] = []
+    
+    for chr in charArray {
+        if let lastIdx = temp.firstIndex(of: chr) {
+            if lastIdx + 1 < temp.count {
+                temp = Array(temp[lastIdx + 1..<temp.count])
+                temp.append(chr)
+            }
+            else {// "ab" + "b"
+                temp = [chr]
+            }
+        }
+        else {
+            temp.append(chr)
+        }
+        
+        maxCount = max(maxCount, temp.count)
+    }
+        
+    return maxCount
+}
+lengthOfLongestSubstring23216(str)
 
 /**
  2023-02-11
