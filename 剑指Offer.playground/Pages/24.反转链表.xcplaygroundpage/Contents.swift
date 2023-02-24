@@ -36,6 +36,32 @@ l2.next = l3
 l3.next = nil
 
 /**
+ 2023-02-24
+ 
+ 要求迭代版
+ */
+func reverseList23224(_ head: ListNode?) -> ListNode? {
+    var pre = head, curNode = head?.next
+    pre?.next = nil
+    
+    while let node = curNode {
+        let temp = node.next
+        curNode?.next = pre
+        pre = curNode
+        if temp == nil {
+            return curNode
+        }
+        else {
+            curNode = temp
+        }
+    }
+    
+    return pre
+}
+reverseList23224(l1)
+
+
+/**
  2023-02-07
  */
 func reverseList2327(_ head: ListNode?) -> ListNode? {
