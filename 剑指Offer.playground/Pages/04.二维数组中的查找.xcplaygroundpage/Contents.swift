@@ -1,6 +1,12 @@
 
 /*:
- 在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个高效的函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
+ 在一个 n * m 的二维数组中，
+ 
+ 每一行都按照从左到右递增的顺序排序，
+ 
+ 每一列都按照从上到下递增的顺序排序。
+ 
+ 请完成一个高效的函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
  
  示例:
  
@@ -44,6 +50,33 @@ var array =  [
 ]
 
 let target = 5
+
+/**
+ 2023-02-26
+ */
+func findNumberIn2DArray23226(_ matrix: [[Int]], _ target: Int) -> Bool {
+    var height = matrix.count, width = height > 0 ? matrix[0].count : 0
+    guard height > 0, width > 0 else {
+        return false
+    }
+    var x = width - 1, y = 0
+    
+    while x >= 0, y < height {
+        let val = matrix[y][x]
+        guard val != target else {
+            return true
+        }
+        if val > target {
+            x -= 1
+        }
+        else {
+            y += 1
+        }
+    }
+    
+    return false
+}
+findNumberIn2DArray23226(array, target)
 
 // 2022-04-27 从右上角开始
 func findNumberIn2DArrayA(_ matrix: [[Int]], _ target: Int) -> Bool {

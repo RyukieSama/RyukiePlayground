@@ -29,6 +29,35 @@ import Foundation
 
 var nums: [Int] =  [4, 3, 1, 0, 2, 5, 3]
 
+/**
+ 2023-02-26
+ */
+func findRepeatNumber23226(_ nums: [Int]) -> Int {
+    var nums = nums
+    /**
+     n 个元素，取值范围 0 ～ n-1
+     那么如果每个元素都放到值对应的下标位置，必有一个没有位置
+     */
+    var idx = 0
+    while idx < nums.count {
+        let val = nums[idx]
+        guard val != idx else {
+            idx += 1
+            continue
+        }
+        if val == nums[val] {
+            return val
+        }
+        else {
+            nums.swapAt(val, idx)
+        }
+    }
+    return 0
+}
+findRepeatNumber23226(nums)
+
+
+
 // 二分法 时间O(log2N) 空间 O(N)
 func findRepeatNumberA(_ nums: [Int]) -> Int {
     var dic: [Int : Int] = [:]
