@@ -35,6 +35,51 @@ var nums = [1,2,10,4,1,4,3,3]
 //nums = [4,1,4,6]
 
 /**
+ 2023-02-26
+ */
+func singleNumbers23226(_ nums: [Int]) -> [Int] {
+    guard nums.count > 2 else {
+        return nums
+    }
+    var or: Int = 0, p = 1, x = 0, y = 0
+    
+    for n in nums {
+        // 相同数组异或就是0
+        or ^= n
+    }
+    
+    /**
+     有两个数不同，必定 or 不为 0，有一位为1
+     可以将原数组分为两部分：
+     - 所有元素异或结果这一位为 1 的，子数组，遍历异或结果为 x
+     - 所有元素异或结果这一位为 0 的，子数组，遍历异或结果为 y
+     
+     结果就是 [x, y]
+     
+     那么找出这个为 1 的位就行了
+     */
+    
+    while or & p == 0 {
+        p <<= 1
+    }
+    
+    for n in nums {
+        if n & p != 0 {
+            x ^= n
+        }
+        else {
+            y ^= n
+        }
+    }
+    
+    return [x, y]
+}
+singleNumbers23226(nums)
+
+
+
+
+/**
  2023-02-12
  */
 func singleNumbers23212(_ nums: [Int]) -> [Int] {

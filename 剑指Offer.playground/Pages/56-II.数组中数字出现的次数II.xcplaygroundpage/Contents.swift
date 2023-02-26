@@ -33,6 +33,40 @@ import Foundation
 let nums = [9,1,7,9,7,9,7]
 
 /**
+ 2023-02-26
+ */
+func singleNumber23226(_ nums: [Int]) -> Int {
+    guard nums.count > 1 else {
+        return nums[0]
+    }
+    var res = 0, digArray: [Int] = Array(repeating: 0, count: 32)
+    /**
+     计算每一位出现 1 的次数，最后每一位出现的次数对3取模，就得出这个数每一位是1还是0
+     */
+    for n in nums {
+        var p = 1
+        for idx in 0..<digArray.count {
+            if n & p != 0 {
+                digArray[idx] += 1
+            }
+            p <<= 1
+        }
+    }
+    
+//    print(digArray)
+    
+    for (idx, dig) in digArray.enumerated() {
+        if dig % 3 == 1 {
+            res += Int(pow(2, Double(idx)))
+        }
+    }
+    
+    return res
+}
+
+singleNumber23226(nums)
+
+/**
  2023-02-15
  */
 func singleNumber23215(_ nums: [Int]) -> Int {
