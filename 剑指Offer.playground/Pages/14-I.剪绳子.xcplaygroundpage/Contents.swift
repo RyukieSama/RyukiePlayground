@@ -78,6 +78,72 @@ import Foundation
  ### 代码
  */
 
+/**
+ 2023-02-27
+ */
+func cuttingRope23227A(_ n: Int) -> Int {
+    guard n >= 4 else {
+        return n - 1
+    }
+    /**
+     贪心
+     */
+    var res = 0, maxThree = n / 3, more = n % 3
+    
+    /**
+     4 的时候 2 2 最好
+     如果模 3 剩 1 的话，就特殊处理一下
+     */
+    if more == 1 {
+        maxThree -= 1
+        more = 4
+    }
+    
+    res = Int(pow(3, Double(maxThree)))
+    
+    if more > 0 {
+        res *= more
+    }
+    
+    return res
+}
+cuttingRope23227A(10)
+
+func cuttingRope23227B(_ n: Int) -> Int {
+    /**
+     动态规划长度为 n 的，最大乘积为 dp[n]
+     n 长度遍历所有剪法，只保存最大的进 dp
+     */
+    var dp: [Int : Int] = [
+        0: 0,
+        1: 0,
+        2: 1,
+        3: 2
+    ]
+    
+    guard n > 3 else {
+        return dp[n] ?? 0
+    }
+    
+    for length in 4...n {
+        /**
+         从 4 开始构建到 n 的 dp
+         */
+        for cut in 2...n/2 {
+            /**
+             length 长的 剪掉 cut 后有两种选择
+             
+             一、不再剪了 = cut * (length - cut)
+             二、剪 = cut * (dp[length - cut])
+             */
+            dp[length] = max(dp[length] ?? 0, cut * max(length - cut, (dp[length - cut] ?? 0)))
+        }
+    }
+    return dp[n] ?? 0
+}
+cuttingRope23227B(4)
+
+// --
 func cuttingRope(_ n: Int) -> Int {
     if n < 4 {
         return n - 1

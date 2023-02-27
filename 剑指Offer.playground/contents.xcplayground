@@ -79,5 +79,6 @@
         <page name='92. 区间反转链表 II'/>
         <page name='1047. 删除字符串中的所有相邻重复项'/>
         <page name='1209. 删除字符串中的所有相邻重复项 II'/>
+        <page name='剑指 Offer 09. 用两个栈实现队列'/>
     </pages>
 </playground>

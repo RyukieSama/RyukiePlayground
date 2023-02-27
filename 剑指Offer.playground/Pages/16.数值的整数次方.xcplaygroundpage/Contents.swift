@@ -40,6 +40,21 @@ import Foundation
  */
 
 /**
+ 2023-02-27
+ */
+func myPow23227(_ x: Double, _ n: Int) -> Double {
+    // 二分
+    if n == 0 { return 1 }
+    if n == 1 { return x }
+    let half = n > 0 ? myPow23227(x, n >> 1) : myPow23227(1 / x, (-n) >> 1)
+    return abs(n) & 1 == 0 ? half * half : half * half * (n > 0 ? x : 1 / x)
+}
+//myPow23227(10, 2)
+//myPow23227(2, -2)
+myPow23227(34.00515, -3)
+
+
+/**
  2023-02-04
  
  二分
@@ -50,6 +65,7 @@ func myPow3(_ x: Double, _ n: Int) -> Double {
     var res: Double = n > 0 ? myPow3(x, n >> 1) : myPow3(1 / x, -(n >> 1))
     return res * res * (n & 1 == 1 ? x : 1)
 }
+myPow3(34.00515, -3)
 
 // 逻辑一样用除法不行就很奇怪
 //func myPow3(_ x: Double, _ n: Int) -> Double {

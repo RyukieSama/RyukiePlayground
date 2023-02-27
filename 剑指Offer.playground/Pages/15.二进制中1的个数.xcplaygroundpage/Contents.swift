@@ -36,6 +36,22 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+/**
+ 2023-02-27
+ */
+func hammingWeight23227(_ n: Int) -> Int {
+    var count = 0, n = n
+    
+    while n > 0 {
+        if n & 1 == 1 {
+            count += 1
+        }
+        n >>= 1
+    }
+    
+    return count
+}
+hammingWeight23227(0b11_1111001111_1111100111_1111111111)
 
 /**
  一位一位右移，每次判断最后一位

@@ -34,6 +34,23 @@ import Foundation
 
 var basrNum = 8
 
+/**
+ 2023-02-27
+ */
+func fib23227(_ n: Int) -> Int {
+    guard n > 1 else {
+        return n
+    }
+    var dp: [Int] = Array(repeating: 0, count: n + 1)
+    dp[0] = 0
+    dp[1] = 1
+    for i in 2...n {
+        dp[i] = (dp[i-1] + dp[i-2]) % 1_000_000_007
+    }
+    return dp.last ?? 0
+}
+fib23227(basrNum)
+
 // 动态规划
 
 func fib(_ n: Int) -> Int {

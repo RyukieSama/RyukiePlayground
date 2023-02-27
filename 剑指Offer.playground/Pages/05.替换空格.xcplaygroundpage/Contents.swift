@@ -22,6 +22,29 @@ import Foundation
 
 let str = "We are happy."
 
+/**
+ 2023-02-27
+ */
+func replaceSpace23227(_ s: String) -> String {
+    var res = ""
+    
+    for c in s {
+        if c == " " {
+            res += "%20"
+        }
+        else {
+            res += String(c)
+        }
+    }
+    
+    return res
+}
+replaceSpace23227(str)
+
+
+
+
+
 func replaceSpace(_ s: String) -> String {
     // MARK: - 不使用系统API
     var temp = ""

@@ -15,14 +15,37 @@ import Foundation
  输出：0
  注意：本题与主站 154 题相同：https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/
  
- 
- 
- 
  链接：https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
-let num = [1]
+var num = [1]
+num = [2,2,2,0,1]
+num = [3,4,5,1,2]
+
+/**
+ 2023-02-27
+ */
+func minArray23227(_ numbers: [Int]) -> Int {
+    guard numbers.count > 1 else {
+        return numbers.first ?? 0
+    }
+    var left = 0, right = 1
+    
+    while right < numbers.count {
+        let leftVal = numbers[left], rightVal = numbers[right]
+        if leftVal > rightVal {
+            return rightVal
+        }
+        else {
+            left += 1
+            right += 1
+        }
+    }
+    
+    return numbers.first ?? 0
+}
+minArray23227(num)
 
 func minArray(_ numbers: [Int]) -> Int {
     // 正序 发现后一个比前一个小，就是后一个

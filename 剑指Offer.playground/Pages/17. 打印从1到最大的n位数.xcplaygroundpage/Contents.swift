@@ -21,6 +21,20 @@
 import Foundation
 
 /**
+ 2023-02-27
+ 
+ 可能存在大数，用 string 数组代替吧
+ */
+func printNumbers23227(_ n: Int) -> [String] {
+    var res: [String] = []
+    
+    
+    
+    return res
+}
+
+
+/**
  2023-02-05
  
  虽慢满足题意，并且能过用例，但是不能大数的处理是个坑

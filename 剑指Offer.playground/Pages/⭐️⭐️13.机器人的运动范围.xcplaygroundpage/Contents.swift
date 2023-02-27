@@ -39,6 +39,48 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+let m = 2, n = 3, k = 1
+//let m = 3, n = 1, k = 0
+//let m = 1, n = 3, k = 11
+
+/**
+ 2023-02-27
+ */
+func movingCount23227(_ m: Int, _ n: Int, _ k: Int) -> Int {
+    var flagMap: [[Bool]] = Array(repeating: Array(repeating: false, count: n), count: m)
+    
+    func countCore(_ x: Int, _ y: Int) -> Int {
+        guard x >= 0, y >= 0, x < n, y < m, flagMap[y][x] == false else {
+            return 0
+        }
+        flagMap[y][x] = true
+        if numSum(x, y) <= k {
+            return 1 + countCore(x - 1, y) + countCore(x + 1, y) + countCore(x, y - 1) + countCore(x, y + 1)
+        }
+        return 0
+    }
+    
+    func numSum(_ a: Int, _ b: Int) -> Int {
+        var sum = 0, a = a, b = b
+        
+        while a > 0 {
+            sum += a % 10
+            a /= 10
+        }
+        
+        while b > 0 {
+            sum += b % 10
+            b /= 10
+        }
+        
+        return sum
+    }
+        
+    return countCore(0, 0)
+}
+
+movingCount23227(m, n, k)
+
 // MARK: - 深度优先
 
 func movingCount(_ m: Int, _ n: Int, _ k: Int) -> Int {
@@ -124,10 +166,6 @@ func movingCount_bfs(_ m: Int, _ n: Int, _ k: Int) -> Int {
 
 digitSum(191111111)
 
-let m = 2, n = 3, k = 1
-//let m = 3, n = 1, k = 0
-
 movingCount(m, n, k)
 movingCount_bfs(m, n, k)
-
 //: [Next](@next)

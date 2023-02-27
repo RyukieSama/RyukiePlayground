@@ -30,6 +30,25 @@ import Foundation
 
 let floor = 100
 
+/**
+ 2023-02-27
+ */
+func numWays23227(_ n: Int) -> Int {
+    guard n > 1 else {
+        return 1
+    }
+    var dp: [Int] = Array(repeating: 0, count: n + 1)
+    dp[0] = 1
+    dp[1] = 1
+    
+    for i in 2...n {
+        dp[i] = (dp[i - 1] + dp[i - 2]) % 1_000_000_007
+    }
+    
+    return dp[n]
+}
+numWays23227(floor)
+
 // 错误思路：没算出来
 //// X + 2Y = n -> y = (n - x) / 2 -> Y是整数
 //

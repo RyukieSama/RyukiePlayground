@@ -30,9 +30,40 @@
 
 import Foundation
 
-let preorder = [3,9,20,15,7]
+var preorder = [3,9,20,15,7]
+var inorder = [9,3,15,20,7]
 
-let inorder = [9,3,15,20,7]
+preorder = [1, 2]
+inorder = [1, 2]
+
+/**
+ 2023-02-27
+ */
+func buildTree23227(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
+    guard let rootVal = preorder.first else {
+        return nil
+    }
+    
+    let root = TreeNode(rootVal)
+    
+    guard preorder.count > 1, inorder.count > 1, let rootValIndex = inorder.firstIndex(of: rootVal) else {
+        return root
+    }
+    
+    // left
+    let leftInorder = Array(inorder[0..<rootValIndex])
+    let leftPreorder = rootValIndex >= 1 ? Array(preorder[1...rootValIndex]) : []
+    root.left = buildTree23227(leftPreorder, leftInorder)
+    
+    // right
+    let rightInorder = Array(inorder[rootValIndex + 1..<inorder.count])
+    let rightPreorder = Array(preorder[rootValIndex + 1..<preorder.count])
+    root.right = buildTree23227(rightPreorder, rightInorder)
+    
+    return root
+}
+buildTree23227(preorder, inorder)
+
 
 func buildTreeA(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
     guard preorder.isEmpty == false, inorder.isEmpty == false else {

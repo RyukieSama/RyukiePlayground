@@ -40,7 +40,62 @@ import Foundation
  链接：https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+let board:[[Character]] = [
+    ["A","B","C","E"],
+    ["S","F","C","S"],
+    ["A","D","E","E"]]
+let word: String = "ABCCED"
 
+/**
+ 2023-02-27
+ */
+func exist23227(_ board: [[Character]], _ word: String) -> Bool {
+    var height = board.count, width = height > 0 ? board[0].count : 0
+    // 插眼
+    var flagMap: [[Bool]] = Array(repeating: Array(repeating: false, count: width), count: height)
+    var wordIdx = 0, chrArr = Array(word)
+
+    for v in 0..<height {
+        for h in 0..<width {
+            if matchWords(vIdx: v, hIdx: h) {
+                return true
+            }
+        }
+    }
+    
+    func matchWords(vIdx: Int, hIdx: Int) -> Bool {
+        guard wordIdx < word.count else {
+            return true
+        }
+        
+        if vIdx >= 0,
+           vIdx < height,
+           hIdx >= 0,
+           hIdx < width,
+           chrArr[wordIdx] == board[vIdx][hIdx],
+           flagMap[vIdx][hIdx] == false {
+            wordIdx += 1
+            flagMap[vIdx][hIdx] = true
+            let res = matchWords(vIdx: vIdx - 1, hIdx: hIdx) ||
+            matchWords(vIdx: vIdx + 1, hIdx: hIdx) ||
+            matchWords(vIdx: vIdx, hIdx: hIdx - 1) ||
+            matchWords(vIdx: vIdx, hIdx: hIdx + 1)
+            
+            if res == false {
+                wordIdx -= 1
+                flagMap[vIdx][hIdx] = false
+            }
+            else {
+                return res
+            }
+            
+        }
+        return false
+    }
+    
+    return false
+}
+exist23227(board, word)
 
 /**
  1、确定首字符
@@ -104,12 +159,6 @@ func hasPathCore(_ board: [[Character]], _ chars: [Character], maxX: Int, maxY: 
     
     return result
 }
-
-let board:[[Character]] = [
-    ["A","B","C","E"],
-    ["S","F","C","S"],
-    ["A","D","E","E"]]
-let word: String = "ABCCED"
 
 exist(board, word)
 
