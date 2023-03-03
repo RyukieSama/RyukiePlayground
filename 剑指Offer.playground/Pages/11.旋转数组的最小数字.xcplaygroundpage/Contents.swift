@@ -24,6 +24,29 @@ num = [2,2,2,0,1]
 num = [3,4,5,1,2]
 
 /**
+ 2023-03-03
+ */
+func minArray230303(_ numbers: [Int]) -> Int {
+    guard numbers.count > 1 else {
+        return numbers.first ?? 0
+    }
+    
+    var left = 0, right = 1
+    
+    while left < right, right < numbers.count {
+        if numbers[left] > numbers[right] {
+            return numbers[right]
+        }
+        left += 1
+        right += 1
+    }
+    
+    return numbers.first ?? 0
+}
+minArray230303(num)
+
+
+/**
  2023-02-27
  */
 func minArray23227(_ numbers: [Int]) -> Int {

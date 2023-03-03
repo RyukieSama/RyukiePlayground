@@ -79,6 +79,28 @@ import Foundation
  */
 
 /**
+ 2023-03-03
+ */
+func cuttingRope230303(_ n: Int) -> Int {
+    guard n > 3 else {
+        return n - 1
+    }
+    var dp: [Int] = Array(repeating: 0, count: n + 1)
+    dp[1] = 1
+    dp[2] = 1
+    dp[3] = 2
+    
+    for length in 4...n {
+        for cut in 1...(length) {
+            dp[length] = max(dp[length], max(cut * (length - cut), dp[length - cut] * cut))
+        }
+    }
+    
+    return dp[n]
+}
+cuttingRope230303(1)
+
+/**
  2023-02-27
  */
 func cuttingRope23227A(_ n: Int) -> Int {

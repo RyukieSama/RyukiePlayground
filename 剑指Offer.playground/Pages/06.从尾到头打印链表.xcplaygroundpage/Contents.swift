@@ -31,6 +31,19 @@ l2.next = l3
 
 l3.next = nil
 
+func reversePrint230303(_ head: ListNode?) -> [Int] {
+    var res: [Int] = [], head = head
+    
+    while let node = head {
+        res.insert(node.val, at: 0)
+        head = head?.next
+    }
+    
+    return res
+}
+reversePrint230303(l1)
+
+
 func reversePrintA(_ head: ListNode?) -> [Int] {
     var res: [Int] = [], node = head
     

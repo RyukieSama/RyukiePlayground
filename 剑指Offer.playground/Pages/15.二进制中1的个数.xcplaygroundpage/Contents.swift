@@ -37,6 +37,23 @@ import Foundation
  */
 
 /**
+ 2023-03-03
+ */
+func hammingWeight230303(_ n: Int) -> Int {
+    var count = 0, n = n
+    
+    while n > 0 {
+        if n & 1 != 0 {
+            count += 1
+        }
+        n >>= 1
+    }
+    
+    return count
+}
+hammingWeight230303(0b11_1111001111_1111100111_1111111111)
+
+/**
  2023-02-27
  */
 func hammingWeight23227(_ n: Int) -> Int {

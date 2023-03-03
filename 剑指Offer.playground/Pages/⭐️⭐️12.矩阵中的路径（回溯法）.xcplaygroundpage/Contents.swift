@@ -47,6 +47,56 @@ let board:[[Character]] = [
 let word: String = "ABCCED"
 
 /**
+ 2023-03-03
+ */
+func exist230303(_ board: [[Character]], _ word: String) -> Bool {
+    let height = board.count, width = board.first?.count ?? 0
+    
+    guard height > 0, width > 0, word.isEmpty == false else { return true }
+    var flags: [[Bool]] = Array(repeating: Array(repeating: false, count: width), count: height), charArray = Array(word)
+    var idx = 0
+    
+    // 选择起点
+    for v in 0..<height {
+        for h in 0..<width {
+            if match(h, v) {
+                return true
+            }
+        }
+    }
+    
+    // 从某一点开始是否能够完成
+    func match(_ x: Int, _ y: Int) -> Bool {
+        guard idx < word.count else {
+            return true
+        }
+        if x >= 0,
+           y >= 0,
+           x < width,
+           y < height,
+           charArray[idx] == board[y][x],
+           flags[y][x] == false {
+            flags[y][x] = true
+            idx += 1
+            
+            let res = match(x - 1, y) || match(x + 1, y) || match(x, y - 1) || match(x, y + 1)
+            if res {
+                return res
+            }
+            
+            flags[y][x] = false
+            idx -= 1
+        }
+        
+        return false
+    }
+    
+    return false
+}
+exist230303(board, word)
+
+
+/**
  2023-02-27
  */
 func exist23227(_ board: [[Character]], _ word: String) -> Bool {
@@ -54,7 +104,7 @@ func exist23227(_ board: [[Character]], _ word: String) -> Bool {
     // 插眼
     var flagMap: [[Bool]] = Array(repeating: Array(repeating: false, count: width), count: height)
     var wordIdx = 0, chrArr = Array(word)
-
+    
     for v in 0..<height {
         for h in 0..<width {
             if matchWords(vIdx: v, hIdx: h) {
@@ -146,10 +196,10 @@ func hasPathCore(_ board: [[Character]], _ chars: [Character], maxX: Int, maxY: 
         visted[y][x] = true
         
         result =
-            hasPathCore(board, chars, maxX: maxX, maxY: maxY, pathLength: &pathLength, x: x - 1, y: y, visted: &visted) ||
-            hasPathCore(board, chars, maxX: maxX, maxY: maxY, pathLength: &pathLength, x: x + 1, y: y, visted: &visted) ||
-            hasPathCore(board, chars, maxX: maxX, maxY: maxY, pathLength: &pathLength, x: x, y: y - 1, visted: &visted) ||
-            hasPathCore(board, chars, maxX: maxX, maxY: maxY, pathLength: &pathLength, x: x, y: y + 1, visted: &visted)
+        hasPathCore(board, chars, maxX: maxX, maxY: maxY, pathLength: &pathLength, x: x - 1, y: y, visted: &visted) ||
+        hasPathCore(board, chars, maxX: maxX, maxY: maxY, pathLength: &pathLength, x: x + 1, y: y, visted: &visted) ||
+        hasPathCore(board, chars, maxX: maxX, maxY: maxY, pathLength: &pathLength, x: x, y: y - 1, visted: &visted) ||
+        hasPathCore(board, chars, maxX: maxX, maxY: maxY, pathLength: &pathLength, x: x, y: y + 1, visted: &visted)
         
         if result == false {
             pathLength -= 1

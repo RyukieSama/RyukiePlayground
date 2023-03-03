@@ -24,6 +24,49 @@ import Foundation
 let nums = [1,2,3,4]
 
 /**
+ 2023-03-03
+ */
+func exchange230303(_ nums: [Int]) -> [Int] {
+    var res: [Int] = []
+    
+    nums.forEach {
+        if $0 & 1 == 0 {
+            res.append($0)
+        }
+        else {
+            res.insert($0, at: 0)
+        }
+    }
+    
+    return res
+}
+exchange230303(nums)
+
+// 原地
+func exchange230303A(_ nums: [Int]) -> [Int] {
+    var nums = nums, left = 0, right = nums.count - 1
+    
+    while left < right {
+        // 从左开始找第一个偶数
+        while left < right, nums[left] & 1 != 0 {
+            left += 1
+        }
+        
+        // 从右开始找第一个奇数
+        while left < right, nums[right] & 1 == 0 {
+            right -= 1
+        }
+        
+        nums.swapAt(left, right)
+        left += 1
+        right -= 1
+    }
+    
+    return nums
+}
+exchange230303A(nums)
+
+/**
  2023-0207
  */
 func exchange2327(_ nums: [Int]) -> [Int] {

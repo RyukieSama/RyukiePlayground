@@ -39,6 +39,26 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+/*
+ 2023-03-03
+ **/
+func myPow230303(_ x: Double, _ n: Int) -> Double {
+    guard n != 0 else {
+        return 1
+    }
+    
+    let half = n > 0 ? myPow230303(x, n >> 1) : myPow230303(1/x, (-n) >> 1)
+    
+    if abs(n) & 1 == 0 {
+        return half * half
+    }
+    else {
+        return half * half * (n > 0 ? x : (1 / x))
+    }
+}
+//myPow230303(2, -2)
+myPow230303(34.00515, -3)
+
 /**
  2023-02-27
  */

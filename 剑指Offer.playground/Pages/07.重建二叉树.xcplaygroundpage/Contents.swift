@@ -36,6 +36,33 @@ var inorder = [9,3,15,20,7]
 preorder = [1, 2]
 inorder = [1, 2]
 
+func buildTree230303(_ preorder: [Int], _ inorder: [Int]) -> TreeNode? {
+    guard preorder.isEmpty == false, inorder.isEmpty == false else {
+        return nil
+    }
+    let root = TreeNode(preorder[0])
+    
+    guard let rootIdxInorder = inorder.firstIndex(of: root.val) else {
+        return nil
+    }
+    
+    let leftNodeCount = rootIdxInorder, rightNodeCount = inorder.count - rootIdxInorder
+    
+    if leftNodeCount > 0 {
+        let leftPre = preorder[1...leftNodeCount], leftIn = inorder[0..<rootIdxInorder]
+        root.left = buildTree230303(Array(leftPre), Array(leftIn))
+    }
+    
+    if rightNodeCount > 0 {
+        let rightPre = preorder[(leftNodeCount + 1)..<preorder.count], rightIn = inorder[(rootIdxInorder + 1)..<inorder.count]
+        root.right = buildTree230303(Array(rightPre), Array(rightIn))
+    }
+    
+    return root
+}
+buildTree230303(preorder, inorder)
+
+
 /**
  2023-02-27
  */

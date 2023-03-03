@@ -35,6 +35,26 @@ import Foundation
 var basrNum = 8
 
 /**
+ 2023-03-03
+ */
+func fib230303(_ n: Int) -> Int {
+    guard n > 1 else {
+        return n
+    }
+    var dp: [Int] = Array(repeating: 0, count: n + 1)
+    dp[1] = 1
+    
+    for idx in 2...n {
+        dp[idx] = (dp[idx - 1] + dp[idx - 2]) % 1000000007
+    }
+    
+    return dp[n]
+}
+fib230303(5)
+
+
+
+/**
  2023-02-27
  */
 func fib23227(_ n: Int) -> Int {

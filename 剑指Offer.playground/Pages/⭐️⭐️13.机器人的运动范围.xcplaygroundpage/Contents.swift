@@ -44,6 +44,57 @@ let m = 2, n = 3, k = 1
 //let m = 1, n = 3, k = 11
 
 /**
+ 2023-03-03
+ */
+func movingCount230303(_ m: Int, _ n: Int, _ k: Int) -> Int {
+    guard m > 0, n > 0 else {
+        return 0
+    }
+    guard k > 0 else {
+        return 1
+    }
+    let height = m, width = n
+    var count = 0, flags: [[Bool]] = Array(repeating: Array(repeating: false, count: n), count: m)
+    
+    move(0, 0)
+    
+    func digSum(_ a: Int, _ b: Int) -> Int {
+        var sum = 0, a = a, b = b
+        
+        while a > 0 {
+            sum += a % 10
+            a /= 10
+        }
+        
+        while b > 0 {
+            sum += b % 10
+            b /= 10
+        }
+        
+        return sum
+    }
+    
+    func move(_ x: Int, _ y: Int) {
+        guard x >= 0, y >= 0, x < width, y < height else {
+            return
+        }
+        
+        if flags[y][x] == false, digSum(x, y) <= k {
+            count += 1
+            flags[y][x] = true
+            move(x, y - 1)
+            move(x, y + 1)
+            move(x - 1, y)
+            move(x + 1, y)
+        }
+    }
+    
+    return count
+}
+movingCount230303(m, n, k)
+
+
+/**
  2023-02-27
  */
 func movingCount23227(_ m: Int, _ n: Int, _ k: Int) -> Int {

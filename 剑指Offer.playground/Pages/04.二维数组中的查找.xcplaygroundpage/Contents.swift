@@ -52,6 +52,34 @@ var array =  [
 let target = 5
 
 /**
+ 2023-03-03
+ */
+func findNumberIn2DArray230303(_ matrix: [[Int]], _ target: Int) -> Bool {
+    var height = matrix.count, width = matrix.first?.count ?? 0
+    guard height > 0, width > 0 else {
+        return false
+    }
+    var x = width - 1, y = 0
+    
+    while x >= 0, y >= 0, x < width, y < height {
+        let val = matrix[y][x]
+        if val == target {
+            return true
+        }
+        else if val < target {
+            y += 1
+        }
+        else {
+            x -= 1
+        }
+    }
+    
+    return false
+}
+findNumberIn2DArray230303(array, target)
+
+
+/**
  2023-02-26
  */
 func findNumberIn2DArray23226(_ matrix: [[Int]], _ target: Int) -> Bool {

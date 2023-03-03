@@ -38,6 +38,27 @@ import Foundation
  */
 
 /**
+ 2023-03-03
+ */
+func deleteNode230303(_ head: ListNode?, _ val: Int) -> ListNode? {
+    guard head?.val != val else {
+        return head?.next
+    }
+    
+    var left = head, right = left?.next
+    while let node = right {
+        if node.val == val {
+            left?.next = right?.next
+            break
+        }
+        left = left?.next
+        right = right?.next
+    }
+    return head
+}
+
+
+/**
  2023-02-27
  */
 func deleteNode23227(_ head: ListNode?, _ val: Int) -> ListNode? {

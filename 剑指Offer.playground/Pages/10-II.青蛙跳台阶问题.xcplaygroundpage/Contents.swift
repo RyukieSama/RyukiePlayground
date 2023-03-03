@@ -31,6 +31,26 @@ import Foundation
 let floor = 100
 
 /**
+ 2023-03-03
+ */
+func numWays230303(_ n: Int) -> Int {
+    guard n > 1 else {
+        return 1
+    }
+    var dp: [Int] = Array(repeating: 0, count: n + 1)
+    dp[0] = 1
+    dp[1] = 1
+    
+    for idx in 2...n {
+        dp[idx] = (dp[idx - 1] + dp[idx - 2]) % 1000000007
+    }
+    
+    return dp[n]
+}
+numWays230303(7)
+
+
+/**
  2023-02-27
  */
 func numWays23227(_ n: Int) -> Int {

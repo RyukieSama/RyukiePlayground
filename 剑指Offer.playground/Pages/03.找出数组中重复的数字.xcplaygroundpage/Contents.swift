@@ -30,6 +30,27 @@ import Foundation
 var nums: [Int] =  [4, 3, 1, 0, 2, 5, 3]
 
 /**
+ 2023-03-03
+ */
+func findRepeatNumber230303(_ nums: [Int]) -> Int {
+    var nums = nums, idx = 0
+    
+    while idx < nums.count {
+        let val = nums[idx]
+        if idx == val {
+            idx += 1
+        }
+        else if val == nums[val] {
+            return val
+        }
+        nums.swapAt(idx, val)
+    }
+    
+    return 0
+}
+findRepeatNumber230303(nums)
+
+/**
  2023-02-26
  */
 func findRepeatNumber23226(_ nums: [Int]) -> Int {

@@ -23,6 +23,34 @@ import Foundation
 let str = "We are happy."
 
 /**
+ 2023-03-03
+ */
+func replaceSpace230303(_ s: String) -> String {
+    var res = "", charArr = Array(s)
+    
+    for chr in charArr {
+        if chr == " " {
+            res += "%20"
+        }
+        else {
+            res += String(chr)
+        }
+    }
+    
+    return res
+}
+replaceSpace230303(str)
+
+
+
+
+
+
+
+
+
+
+/**
  2023-02-27
  */
 func replaceSpace23227(_ s: String) -> String {
