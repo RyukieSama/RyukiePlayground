@@ -33,6 +33,26 @@ var nums = [0,1,2,3,4,5,6,7,9]
 //nums = [0, 2]
 
 /**
+ 2023-03-04
+ */
+func missingNumber230304(_ nums: [Int]) -> Int {
+    // 位运算
+    guard nums.isEmpty == false else {
+        return 0
+    }
+    var res = 0
+    for i in 1...nums.count {
+        res ^= i
+    }
+    nums.forEach {
+        res ^= $0
+    }
+    return res
+}
+missingNumber230304(nums)
+
+
+/**
  2023-02-11
  */
 func missingNumber23211(_ nums: [Int]) -> Int {

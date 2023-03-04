@@ -30,6 +30,96 @@
 
 import Foundation
 
+/**
+ 2023-03-04
+ 穷举超时
+ */
+func nthUglyNumber230304(_ n: Int) -> Int {
+    guard n > 0 else {
+        return 0
+    }
+    
+    var count = 0, num = 1
+    
+    while true {
+        if isUgly(x: num) {
+            count += 1
+            if count == n {
+                return num
+            }
+        }
+        num += 1
+    }
+    
+    func isUgly(x: Int) -> Bool {
+        var x = x
+        
+        while x > 1 {
+            if x % 2 == 0 {
+                x /= 2
+            }
+            else if x % 3 == 0 {
+                x /= 3
+            }
+            else if x % 5 == 0 {
+                x /= 5
+            }
+            else {
+                return false
+            }
+        }
+        
+        return x == 1
+    }
+    
+    return 0
+}
+nthUglyNumber230304(10)
+
+func nthUglyNumber230304A(_ n: Int) -> Int {
+    guard n > 0 else {
+        return 0
+    }
+    
+    // 丑数 = 2*x + 3*y + 5*z
+    var two = 0, three = 0, five = 0
+    var dp: [Int] = Array(repeating: 1, count: n)
+    
+    for idx in 1..<n {
+        let a = dp[two] * 2, b = dp[three] * 3, c = dp[five] * 5
+        let min = min(min(a, b), c)
+        
+        if min == a {
+            two += 1
+        }
+        
+        if min == b {
+            three += 1
+        }
+        
+        if min == c {
+            five += 1
+        }
+        /**
+         如果按照下面的写法，只会有a++，所以下次还会计算到重复的丑数！
+         */
+//        switch min {
+//        case a:
+//            two += 1
+//        case b:
+//            three += 1
+//        case c:
+//            five += 1
+//        default:
+//            break
+//        }
+        dp[idx] = min
+    }
+    
+    return dp[n - 1]
+}
+nthUglyNumber230304A(10)
+
 func nthUglyNumber23211(_ n: Int) -> Int {
     /**
      丑数 =  2^x*3^y*5^z

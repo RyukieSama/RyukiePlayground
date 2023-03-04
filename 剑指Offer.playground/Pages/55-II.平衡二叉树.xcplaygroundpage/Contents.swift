@@ -74,6 +74,24 @@ let root3 = TreeNode(1,
                                        TreeNode(4))))
 
 /**
+ 2023-03-04
+ */
+func isBalanced230304(_ root: TreeNode?) -> Bool {
+    guard let root = root else {
+        return true
+    }
+    
+    func deep(_ tree: TreeNode?) -> Int {
+        guard let tree = tree else {
+            return 0
+        }
+        return 1 + max(deep(tree.left), deep(tree.right))
+    }
+    
+    return abs(deep(root.left) - deep(root.right)) <= 1 && isBalanced230304(root.left) && isBalanced230304(root.right)
+}
+
+/**
  2023-02-12
  */
 func isBalanced23212(_ root: TreeNode?) -> Bool {

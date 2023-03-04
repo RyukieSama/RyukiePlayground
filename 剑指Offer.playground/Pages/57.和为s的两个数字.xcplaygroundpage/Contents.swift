@@ -34,6 +34,39 @@ import Foundation
 let nums = [10,26,30,31,47,60], target = 40
 
 /**
+ 2023-03-04
+ */
+func twoSum230304(_ nums: [Int], _ target: Int) -> [Int] {
+    guard nums.isEmpty == false else {
+        return []
+    }
+    var left = 0, right = nums.count - 1
+    
+    while left < right {
+        let rightVal = nums[right]
+        if rightVal > target {
+            right -= 1
+        }
+        else {
+            let leftVal = nums[left]
+            if leftVal + rightVal > target {
+                right -= 1
+            }
+            else if leftVal + rightVal < target {
+                left += 1
+            }
+            else {
+                return [leftVal, rightVal]
+            }
+        }
+    }
+    
+    return []
+}
+twoSum230304(nums, target)
+
+
+/**
  2023-02-12
  */
 func twoSum23212(_ nums: [Int], _ target: Int) -> [Int] {

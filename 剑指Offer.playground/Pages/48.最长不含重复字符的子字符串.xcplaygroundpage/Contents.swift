@@ -41,6 +41,37 @@ str = "abcabcbb"
 //str = "abba"
 
 /**
+ 2023-03-04
+ */
+func lengthOfLongestSubstring230304(_ s: String) -> Int {
+    guard s.isEmpty == false else {
+        return 0
+    }
+    var maxCount = 0,chrArray = Array(s)
+    var temp: [Character] = []
+    
+    for chr in chrArray {
+        if let idx = temp.firstIndex(of: chr) {
+            if idx + 1 == temp.count {
+                temp = [chr]
+            }
+            else {
+                temp = Array(temp[idx + 1..<temp.count])
+                temp.append(chr)
+            }
+        }
+        else {
+            temp.append(chr)
+        }
+        
+        maxCount = max(maxCount, temp.count)
+    }
+    
+    return maxCount
+}
+lengthOfLongestSubstring230304(str)
+
+/**
  2023-02-20
  */
 func lengthOfLongestSubstring23220(_ s: String) -> Int {

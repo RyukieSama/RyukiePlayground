@@ -35,7 +35,39 @@ import Foundation
  */
 
 var nums = [1,3,-1,-3,5,3,6,7], k = 3
-//nums: [Int] = [], k = 0
+//nums = []
+//k = 0
+
+/**
+ 2023-03-04
+ 
+ 认真审题。。。
+ */
+func maxSlidingWindow230304(_ nums: [Int], _ k: Int) -> [Int] {
+    guard nums.isEmpty == false, k > 0 else {
+        return []
+    }
+    var left = 0, sum = 0, right = k - 1, maxPair = (left, right)
+    
+    for idx in 0...right {
+        sum += nums[idx]
+    }
+    
+    while right < nums.count {
+        if right + 1 < nums.count {
+            let nextSum = (sum - nums[left] + nums[right + 1])
+            if nextSum > sum {
+                maxPair = (left + 1, right + 1)
+                sum = nextSum
+            }
+        }
+        left += 1
+        right += 1
+    }
+    
+    return Array(nums[maxPair.0...maxPair.1])
+}
+maxSlidingWindow230304(nums, 3)
 
 /**
  2023-02-13

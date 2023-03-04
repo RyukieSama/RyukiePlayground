@@ -35,6 +35,40 @@ var nums = [1,2,10,4,1,4,3,3]
 //nums = [4,1,4,6]
 
 /**
+ 2023-03-04
+ */
+func singleNumbers230304(_ nums: [Int]) -> [Int] {
+    guard nums.isEmpty == false else {
+        return []
+    }
+    var temp = nums[0]
+    for idx in 1..<nums.count {
+        temp ^= nums[idx]
+    }
+    
+    var one = 1
+    
+    while temp & one == 0 {
+        one <<= 1
+    }
+    
+    var x = 0, y = 0// x: 这位为1 的 y：这位为0的
+    
+    for n in nums {
+        if n & one != 0 {
+            x ^= n
+        }
+        else {
+            y ^= n
+        }
+    }
+    
+    return [x, y]
+}
+singleNumbers230304(nums)
+
+
+/**
  2023-02-26
  */
 func singleNumbers23226(_ nums: [Int]) -> [Int] {

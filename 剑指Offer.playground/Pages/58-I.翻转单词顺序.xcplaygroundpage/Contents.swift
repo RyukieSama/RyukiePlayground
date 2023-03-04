@@ -47,6 +47,42 @@ import Foundation
 let str = "a good  example"
 
 /**
+ 2023-03-04
+ */
+func reverseWords230304(_ s: String) -> String {
+    guard s.isEmpty == false else {
+        return ""
+    }
+    var chrArr = Array(s), words: [[Character]] = [], temp: [Character] = []
+    
+    for chr in chrArr {
+        if chr == " " {
+            if temp.isEmpty == false {
+                words.insert(temp, at: 0)
+                temp = []
+            }
+        }
+        else {
+            temp.append(chr)
+        }
+    }
+    
+    if temp.isEmpty == false {
+        words.insert(temp, at: 0)
+    }
+    
+    var res = ""
+    for (idx, word) in words.enumerated() {
+        res.append(String(word))
+        if words.count > 1, idx < words.count - 1 {
+            res.append(" ")
+        }
+    }
+    return res
+}
+reverseWords230304(str)
+
+/**
  2023-02-12
  一
  */

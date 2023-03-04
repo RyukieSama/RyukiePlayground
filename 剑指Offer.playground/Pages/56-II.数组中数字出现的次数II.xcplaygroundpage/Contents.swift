@@ -33,6 +33,15 @@ import Foundation
 let nums = [9,1,7,9,7,9,7]
 
 /**
+ 2023-03-04
+ */
+func singleNumber230304(_ nums: [Int]) -> Int {
+//    计算每一位出现 1 的次数，最后每一位出现的次数对3取模，就得出这个数每一位是1还是0
+    return 0
+}
+
+
+/**
  2023-02-26
  */
 func singleNumber23226(_ nums: [Int]) -> Int {

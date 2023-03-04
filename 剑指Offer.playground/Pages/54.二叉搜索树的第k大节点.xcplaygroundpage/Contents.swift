@@ -58,6 +58,25 @@ let node = TreeNode(5,
                              nil))
 
 /**
+ 2023-03-04
+ */
+func kthLargest230304(_ root: TreeNode?, _ k: Int) -> Int {
+    var inorder: [Int] = []
+    func buildInorder(tree: TreeNode?) {
+        guard let node = tree else {
+            return
+        }
+        buildInorder(tree: node.right)
+        inorder.append(node.val)
+        buildInorder(tree: node.left)
+    }
+    buildInorder(tree: root)
+    return k - 1 < inorder.count ? inorder[k - 1] : 0
+}
+kthLargest230304(node, 3)
+
+
+/**
  2023-02-11
  */
 func kthLargest23211(_ root: TreeNode?, _ k: Int) -> Int {

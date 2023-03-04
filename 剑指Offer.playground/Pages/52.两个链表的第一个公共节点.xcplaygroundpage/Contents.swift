@@ -81,6 +81,22 @@ n0.next = n12
 n12.next = n8
 
 /**
+ 2023-03-04
+ 命中注定的相遇
+ */
+func sameNode(a: ListNode?, b: ListNode?) -> ListNode? {
+    var p1 = a, p2 = b
+    
+    while p1 != p2 {
+        p1 = p1?.next != nil ? p1?.next : b
+        p2 = p2?.next != nil ? p2?.next : a
+    }
+    
+    return p1
+}
+
+
+/**
  2023-02-19
  
  两个 View 找最近公共父视图

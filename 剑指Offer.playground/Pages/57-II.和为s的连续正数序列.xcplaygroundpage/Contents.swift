@@ -29,6 +29,48 @@ import Foundation
  
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+
+/**
+ 2023-03-04
+ */
+func findContinuousSequence230304(_ target: Int) -> [[Int]] {
+    guard target >= 3 else {
+        return target == 1 ? [[1]] : []
+    }
+    var res: [[Int]] = []
+    var left = 1, right = 2, temp: [Int] = [1, 2]
+    var sum = 3
+    
+    while left < right {
+        if sum < target {
+            right += 1
+            sum += right
+            temp.append(right)
+        }
+        else if sum > target {
+            sum -= left
+            left += 1
+            if temp.isEmpty == false {
+                temp.removeFirst()
+            }
+        }
+        else {
+            if temp.isEmpty == false {
+                res.append(temp)
+                left += 1
+                sum -= temp.removeFirst()
+            }
+        }
+    }
+    
+    if temp.isEmpty == false, sum == target {
+        res.append(temp)
+    }
+    
+    return res
+}
+findContinuousSequence230304(15)
+
 /**
  2023-02-15
  */

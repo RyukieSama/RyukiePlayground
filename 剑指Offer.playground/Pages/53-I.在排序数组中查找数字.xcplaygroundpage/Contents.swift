@@ -38,6 +38,41 @@ let nums = [5,7,7,8,8,10]
 let tar = 7
 
 /**
+ 2023-03-04
+ */
+func search230304(_ nums: [Int], _ target: Int) -> Int {
+    guard nums.isEmpty == false else {
+        return 0
+    }
+
+    // 二分
+    var left = 0, right = nums.count - 1, match = false
+    
+    while left <= right {
+        if nums[left] == nums[right], nums[right] == target {
+            match = true
+            break
+        }
+        else if nums[right] != target {
+            right -= 1
+        }
+        else {
+            match = true
+        }
+        if nums[left] != target {
+            left += 1
+        }
+        else {
+            match = true
+        }
+    }
+    
+    return match ? right - left + 1 : 0
+}
+search230304(nums, tar)
+
+
+/**
  2023-02-11
  */
 func search23211(_ nums: [Int], _ target: Int) -> Int {
