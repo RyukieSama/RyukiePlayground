@@ -44,6 +44,28 @@
 import Foundation
 
 /**
+ 2023-03-03
+ */
+func isSymmetric230303(_ root: TreeNode?) -> Bool {
+    guard let root = root else {
+        return true
+    }
+    
+    func isMirro(treeA: TreeNode?, treeB: TreeNode?) -> Bool {
+        if treeA == nil, treeB == nil { return true }
+        
+        if let treeA = treeA, let treeB = treeB, treeA.val == treeB.val {
+            return isMirro(treeA: treeA.left, treeB: treeB.right) && isMirro(treeA: treeA.right, treeB: treeB.left)
+        }
+        
+        return false
+    }
+    
+    return isMirro(treeA: root.left, treeB: root.right)
+}
+
+
+/**
  2023-02-07
  */
 func isSymmetric2327(_ root: TreeNode?) -> Bool {

@@ -24,6 +24,43 @@ import Foundation
  */
 
 /**
+ 2023-03-03
+ */
+func getKthFromEnd230303(_ head: ListNode?, _ k: Int) -> ListNode? {
+    var temp: [ListNode] = [], head = head
+    
+    while let node = head {
+        if temp.count == k {
+            temp.removeFirst()
+        }
+        temp.append(node)
+        head = node.next
+    }
+    
+    return temp.first
+}
+// 滑动窗口
+func getKthFromEnd230303A(_ head: ListNode?, _ k: Int) -> ListNode? {
+    var left = head, right = left
+    
+    for _ in 1..<k {
+        right = right?.next
+    }
+    
+    while let _ = right {
+        if right?.next == nil {
+            return left
+        }
+        else {
+            left = left?.next
+            right = right?.next
+        }
+    }
+    
+    return left
+}
+
+/**
  2023-02-07
  */
 func getKthFromEnd2327(_ head: ListNode?, _ k: Int) -> ListNode? {

@@ -33,6 +33,43 @@ let ld6 = ListNode(4)
 ld5.next = ld6
 
 /**
+ 2023-03-03
+ */
+func mergeTwoLists230303(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+    var node: ListNode?
+    var l1 = l1, l2 = l2
+    var head: ListNode?
+    
+    while let n1 = l1, let n2 = l2 {
+        if n1.val <= n2.val {
+            if let _ = node {
+                node?.next = n1
+            }
+            else {
+                head = n1
+            }
+            node = n1
+            l1 = l1?.next
+        }
+        else {
+            if let _ = node {
+                node?.next = n2
+            }
+            else {
+                head = n2
+            }
+            node = n2
+            l2 = l2?.next
+        }
+    }
+    
+    node?.next = l1 ?? l2
+    
+    return head ?? (l1 ?? l2)
+}
+mergeTwoLists230303(ld1, ld4)
+
+/**
  2023-02-07
  */
 func mergeTwoLists2327(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {

@@ -29,6 +29,67 @@ var matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
 matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]
 
 /**
+ 2023-03-03
+ 要细心
+ */
+func spiralOrder230303(_ matrix: [[Int]]) -> [Int] {
+    enum Dir {
+        case Up // y - 1
+        case Down // y + 1
+        case Left // x - 1
+        case Right // x + 1
+    }
+    
+    var res: [Int] = [], height = matrix.count, width = matrix.first?.count ?? 0
+    guard height > 0, width > 0 else {
+        return res
+    }
+    var x = 0, y = 0, maxY = height - 1, maxX = width - 1, minX = 0, minY = 0
+    var d: Dir = .Right
+    while x >= minX, y >= minY, x <= maxX, y <= maxY, minX <= maxX, minY <= maxY {
+        let val = matrix[y][x]
+        res.append(val)
+        switch d {
+        case .Right:
+            x += 1
+            if x > maxX {
+                x -= 1
+                d = .Down
+                y += 1
+                minY += 1
+            }
+        case .Left:
+            x -= 1
+            if x < minX {
+                x += 1
+                d = .Up
+                y -= 1
+                maxY -= 1
+            }
+        case .Up:
+            y -= 1
+            if y < minY {
+                y += 1
+                d = .Right
+                x += 1
+                minX += 1
+            }
+        case .Down:
+            y += 1
+            if y > maxY {
+                y -= 1
+                d = .Left
+                x -= 1
+                maxX -= 1
+            }
+        }
+    }
+    
+    return res
+}
+spiralOrder230303(matrix)
+
+/**
  2023-02-07
  */
 func spiralOrder2327(_ matrix: [[Int]]) -> [Int] {

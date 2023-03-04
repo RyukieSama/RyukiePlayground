@@ -36,6 +36,21 @@
  链接：https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+/**
+ 2023-03-03
+ */
+func mirrorTree230303(_ root: TreeNode?) -> TreeNode? {
+    guard let root = root else {
+        return nil
+    }
+    let left = root.left, right = root.right
+    root.left = mirrorTree230303(right)
+    root.right = mirrorTree230303(left)
+// 可别写成下面这样...
+//    root.left = mirrorTree230303(root.right)
+//    root.right = mirrorTree230303(root.left)
+    return root
+}
 
 /**
  2023-02-07

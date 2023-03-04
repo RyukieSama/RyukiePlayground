@@ -4,9 +4,7 @@ import Foundation
 
 /*:
  定义栈的数据结构，请在该类型中实现一个能够得到栈的最小元素的 min 函数在该栈中，调用 min、push 及 pop 的时间复杂度都是 O(1)。
- 
-  
- 
+  
  示例:
  
  ```C++
@@ -33,6 +31,49 @@ import Foundation
  
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+
+/**
+ 2023-03-03
+ */
+class MinStack230303 {
+    var stack: [Int] = []
+    // 累计最小的元素
+    var small: [Int] = []
+    
+    /** initialize your data structure here. */
+    init() {
+
+    }
+
+    func push(_ x: Int) {
+        stack.append(x)
+        if let smallTop = small.last {
+            if smallTop >= x {
+                small.append(x)
+            }
+        }
+        else {
+            small.append(x)
+        }
+    }
+
+    func pop() {
+        guard let top = stack.popLast() else {
+            return
+        }
+        if let topSmall = small.last, topSmall == top {
+            small.removeLast()
+        }
+    }
+
+    func top() -> Int {
+        stack.last ?? 0
+    }
+
+    func min() -> Int {
+        small.last ?? 0
+    }
+}
 
 /**
  2023-02-07

@@ -49,6 +49,74 @@ import Foundation
  */
 
 /**
+ 2023-03-03
+ */
+//func isSubStructure230303(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
+//    guard let treeA = A, let treeB = B else { return false }
+//
+//    if treeA.val == treeB.val {// 找到了根节点
+//        if let leftB = treeB.left, let rightB = treeB.right { // 必须左右都包含
+//            return isSubStructure230303(treeA.left, leftB) && isSubStructure230303(treeA.right, rightB)
+//        }
+//        else if let leftB = treeB.left {
+//            return isSubStructure230303(treeA.left, leftB)
+//        }
+//        else if let rightB = treeB.right {
+//            return isSubStructure230303(treeA.right, rightB)
+//        }
+//        else {// 到头了
+//            return true
+//        }
+//    }
+//
+//    return isSubStructure230303(treeA.left, treeB) || isSubStructure230303(treeA.right, treeB)
+//}
+
+//func isSubStructure230303(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
+//    guard let treeA = A, let treeB = B else { return false }
+//
+//    if treeA.val == treeB.val {// 这里写了return就错了
+//        return isSub(tree1: treeA, tree2: treeB)
+//    }
+//
+//    func isSub(tree1: TreeNode?, tree2: TreeNode?) -> Bool {
+//        if tree2 == nil { return true }
+//        if tree1 == nil { return false }
+//        guard let t1 = tree1, let t2 = tree2, t1.val == t2.val else { return false }
+//        return isSub(tree1: t1.left, tree2: t2.left) && isSub(tree1: t1.right, tree2: t2.right)
+//    }
+//
+//    return isSubStructure230303(treeA.left, treeB) || isSubStructure230303(treeA.right, treeB)
+//}
+func isSubStructure230303(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
+    guard let treeA = A, let treeB = B else { return false }
+    
+    // 2 是 1 的同根节点的子树
+    func isSub(tree1: TreeNode?, tree2: TreeNode?) -> Bool {
+        if tree2 == nil { return true }
+        if tree1 == nil { return false }
+        guard let t1 = tree1, let t2 = tree2, t1.val == t2.val else { return false }
+        return isSub(tree1: t1.left, tree2: t2.left) && isSub(tree1: t1.right, tree2: t2.right)
+    }
+    
+    return isSub(tree1: treeA, tree2: treeB) || isSubStructure230303(treeA.left, treeB) || isSubStructure230303(treeA.right, treeB)
+}
+func isSubStructure230303A(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
+    guard let treeA = A, let treeB = B else { return false }
+    
+    // 2 是 1 的同根节点的子树
+    func isSub(tree1: TreeNode?, tree2: TreeNode?) -> Bool {
+        if tree2 == nil { return true }
+        if tree1 == nil { return false }
+        guard let t1 = tree1, let t2 = tree2, t1.val == t2.val else { return false }
+        return isSub(tree1: t1.left, tree2: t2.left) && isSub(tree1: t1.right, tree2: t2.right)
+    }
+
+    return isSubStructure230303(treeA.left, treeB) || isSubStructure230303(treeA.right, treeB)
+}
+
+
+/**
  2023-02-07
  */
 func isSubStructure2327(_ A: TreeNode?, _ B: TreeNode?) -> Bool {
