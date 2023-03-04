@@ -32,10 +32,42 @@ import Foundation
 */
 
 var arr = [0,0,0,2,0,5], k = 5
-//arr = [0,0,1,2,4,2,2,3,1,4]
-//k = 8
-arr = [0,1,1,2,4,4,1,3,3,2]
-k = 6
+arr = [0,0,1,2,4,2,2,3,1,4]
+k = 8
+//arr = [0,1,1,2,4,4,1,3,3,2]
+//k = 6
+
+/**
+ 2023-03-03
+ */
+func getLeastNumbers230303(_ arr: [Int], _ k: Int) -> [Int] {
+    var res = arr
+    guard k < arr.count else {
+        return arr
+    }
+    
+    /**
+     冒泡
+     */
+    var switchFlag = false
+    for j in 0..<res.count {
+        for i in 0..<(res.count - j - 1) {
+            if res[i + 1] < res[i] {
+                res.swapAt(i, i + 1)
+                switchFlag = true
+            }
+        }
+        if switchFlag == false {
+            break
+        }
+        if res.count - j == k {
+            break
+        }
+    }
+    
+    return Array(res[0..<k])
+}
+getLeastNumbers230303(arr, k)
 
 /**
  2023-02-10

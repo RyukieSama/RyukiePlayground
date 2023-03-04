@@ -47,6 +47,37 @@ t5.left = t4
 t5.right = t7
 
 /**
+ 2023-03-03
+ */
+func pathSum230303(_ root: TreeNode?, _ target: Int) -> [[Int]] {
+    var res: [[Int]] = []
+    guard let root = root else { return res }
+    let left = root.left, right = root.right, deta = target - root.val
+    
+    if left == nil, right == nil { // 到达叶子节点
+        return deta == 0 ? [[root.val]] : []
+    }
+    
+    let leftP = pathSum230303(left, deta), rightP = pathSum230303(right, deta)
+    
+    if let _ = leftP.first?.first {
+        leftP.forEach { arr in
+            res.append([root.val] + arr)
+        }
+    }
+    
+    if let _ = rightP.first?.first {
+        rightP.forEach { arr in
+            res.append([root.val] + arr)
+        }
+    }
+    
+    return res
+}
+pathSum230303(t10, 22)
+
+
+/**
  2023-02-08
  
  记住，要求一直到叶子结点才结束

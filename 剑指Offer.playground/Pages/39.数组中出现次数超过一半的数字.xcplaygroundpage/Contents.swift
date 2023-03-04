@@ -28,6 +28,34 @@ import Foundation
 var numbers: [Int] = [1, 2, 3, 2, 2, 2, 5, 4, 2]
 
 /**
+ 2023-03-03
+ */
+func majorityElement230303(_ nums: [Int]) -> Int {
+    // 投票
+    var res = nums[0], vote = 1
+    
+    for idx in 1..<nums.count {
+        let val = nums[idx]
+        if val == res {
+            vote += 1
+        }
+        else if vote == 0 {
+            res = val
+            vote = 1
+        }
+        else {
+            vote -= 1
+        }
+    }
+    
+    return res
+}
+majorityElement230303(numbers)
+
+
+
+
+/**
  2023-02-10
  */
 func majorityElement2310(_ nums: [Int]) -> Int {

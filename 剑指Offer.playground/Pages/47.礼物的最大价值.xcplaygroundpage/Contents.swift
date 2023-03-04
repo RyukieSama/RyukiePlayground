@@ -44,6 +44,38 @@ pool = [
 ]
 
 /**
+ 2023-03-04
+ */
+func maxValue230304(_ grid: [[Int]]) -> Int {
+    let height = grid.count, width = grid.first?.count ?? 0
+    guard height > 0, width > 0 else {
+        return 0
+    }
+    var dp: [[Int]] = Array(repeating: Array(repeating: 0, count: width), count: height)
+    
+    for y in 0..<height {
+        for x in 0..<width {
+            let val = grid[y][x]
+            if x == 0, y == 0 {
+                dp[y][x] = val
+            }
+            else if x == 0 {
+                dp[y][x] = dp[y - 1][x] + val
+            }
+            else if y == 0 {
+                dp[y][x] = dp[y][x - 1] + val
+            }
+            else {
+                dp[y][x] = max(dp[y][x - 1], dp[y - 1][x]) + val
+            }
+        }
+    }
+    
+    return dp[height - 1][width - 1]
+}
+maxValue230304(pool)
+
+/**
  2023-02-11
  */
 func maxValue23211(_ grid: [[Int]]) -> Int {

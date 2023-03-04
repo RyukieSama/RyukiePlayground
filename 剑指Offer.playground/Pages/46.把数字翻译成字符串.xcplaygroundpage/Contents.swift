@@ -27,6 +27,50 @@
 import Foundation
 
 var num = 1225//8
+
+/**
+ 2023-03-04
+ */
+func translateNum230304(_ num: Int) -> Int {
+    var numbers: [Int] = []
+    Array(String(num)).forEach {
+        if let n = Int(String($0)) {
+            numbers.append(n)
+        }
+    }
+    
+    guard numbers.isEmpty == false else {
+        return 0
+    }
+    var dp: [Int] = Array(repeating: 0, count: numbers.count)
+    
+    for idx in 0..<numbers.count {
+        let val = numbers[idx]
+        guard idx > 0 else {
+            dp[idx] = 1
+            continue
+        }
+
+        let last = numbers[idx - 1], sum = last * 10 + val
+        
+        if sum >= 10, sum <= 25 { // 可以分两个
+            // 选择分或者不分
+            if idx > 1 {
+                dp[idx] = dp[idx - 2] + dp[idx - 1] // 不分 + 分
+            }
+            else {
+                dp[idx] = 1 + dp[idx - 1] // 不分 + 分
+            }
+        }
+        else {
+            dp[idx] = dp[idx - 1]
+        }
+    }
+    
+    return dp[numbers.count - 1]
+}
+translateNum230304(num)
+
 /**
  dp[0] = 1
  dp[1] = 1,2-12 = 2
@@ -34,7 +78,6 @@ var num = 1225//8
  dp[3] = 1,2,2,5-12,25-12,2,5-1,2,25-1,22,5 = 5
  dp[4] = dp[3]
  */
-
 
 /**
  2023-02-10

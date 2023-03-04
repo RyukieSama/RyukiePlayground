@@ -36,6 +36,23 @@ arr = [128, 12]
 arr = [12, 121]
 
 /**
+ 2023-03-04
+ */
+func minNumber230304(_ nums: [Int]) -> String {
+    func isSmall(x: Int, than y: Int) -> Bool {
+        let sx = Array("\(x)"), sy = Array("\(y)")
+        return Int(String(sx + sy)) ?? 0 < Int(String(sy + sx)) ?? 0
+    }
+    var nums = nums.sorted { return isSmall(x: $0, than: $1) }
+    var res = ""
+    nums.forEach {
+        res.append("\($0)")
+    }
+    return res
+}
+minNumber230304(arr)
+
+/**
  2023-02-10
  */
 func minNumber23210(_ nums: [Int]) -> String {

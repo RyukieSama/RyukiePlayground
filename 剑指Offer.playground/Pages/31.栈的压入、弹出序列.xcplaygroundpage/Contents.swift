@@ -56,6 +56,37 @@ var popped = [4,3,5,1,2]
 //popped = [0,3,2,1]
 
 /**
+ 2023-03-03
+ */
+func validateStackSequences230304(_ pushed: [Int], _ popped: [Int]) -> Bool {
+    guard pushed.isEmpty == false, popped.isEmpty == false else {
+        return true
+    }
+    
+    var pushIdx = 0, popIdx = 0, pushed = pushed, popped = popped
+    
+    while pushIdx < pushed.count, popIdx < popped.count, popIdx >= 0, pushIdx >= 0 {
+        let pushVal = pushed[pushIdx], popVal = popped[popIdx]
+//        print("push = \(pushVal) pop = \(popVal)")
+        if pushVal == popVal {
+            pushed.remove(at: pushIdx)
+            if pushIdx > 0 { // 注意这个边界条件，很容易越界
+                pushIdx -= 1
+            }
+            popIdx += 1
+        }
+        else {
+            pushIdx += 1
+        }
+    }
+//    print("pushIdx = \(pushIdx) popIdx = \(popIdx)")
+    // pop 干净了就是 true
+    return popIdx == popped.count
+}
+validateStackSequences230304(pushed, popped)
+
+
+/**
  2023-02-07
  */
 func validateStackSequences2327(_ pushed: [Int], _ popped: [Int]) -> Bool {

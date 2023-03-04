@@ -48,6 +48,16 @@ import Foundation
  著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 
+/**
+ * 原链表
+ * A - B - C - D - E
+ * 过度链表
+ * A - a - B - b - C -c -D - d - E - e
+ * 结果链表
+ * a - b - c - d - e
+ */
+
+
 func copyRandomList(_ head: ComplexListNode) -> ComplexListNode? {
     var p: ComplexListNode? = head
     

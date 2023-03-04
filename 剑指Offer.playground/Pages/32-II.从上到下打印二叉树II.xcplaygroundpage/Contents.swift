@@ -38,6 +38,51 @@ import Foundation
  */
 
 /**
+ 2023-03-03
+ */
+func levelOrder230303(_ root: TreeNode?) -> [[Int]] {
+    var res: [[Int]] = [], temp: [Int] = [], queue: [TreeNode] = []
+    var currentLeftCount = 0, nextLineCount = 0
+    
+    if let root = root {
+        queue.append(root)
+        currentLeftCount = 1
+    }
+    
+    while let node = queue.first {
+        queue.removeFirst()
+        temp.append(node.val)
+        currentLeftCount -= 1
+        
+        if let left = node.left {
+            queue.append(left)
+            nextLineCount += 1
+        }
+        
+        if let right = node.right {
+            queue.append(right)
+            nextLineCount += 1
+        }
+        
+        if currentLeftCount == 0 {
+            currentLeftCount = nextLineCount
+            nextLineCount = 0
+            if temp.isEmpty == false {
+                res.append(temp)
+                temp = []
+            }
+        }
+    }
+    
+    if temp.isEmpty == false {
+        res.append(temp)
+    }
+    
+    return res
+}
+
+
+/**
  2023-02-08
  没有一次写对
  */

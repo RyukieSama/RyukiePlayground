@@ -39,6 +39,32 @@ nums = [-2, -1]
 nums = [-2,1,-3,4,-1,2,1,-5,4]
 
 /**
+ 2023-03-03
+ */
+func maxSubArray230303(_ nums: [Int]) -> Int {
+    guard nums.count > 1 else {
+        return nums.first ?? 0
+    }
+
+    /**
+     动态规划
+     */
+    var dp: [Int] = Array(repeating: 0, count: nums.count)
+    dp[0] = nums[0]
+    
+    for idx in 1..<nums.count {
+        if dp[idx - 1] < 0 {
+            dp[idx] = nums[idx]
+        }
+        else {
+            dp[idx] = dp[idx - 1] + nums[idx]
+        }
+    }
+    
+    return dp.max() ?? 0
+}
+
+/**
  2023-02-10
  */
 func maxSubArray2310(_ nums: [Int]) -> Int {

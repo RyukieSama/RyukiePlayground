@@ -30,6 +30,50 @@
 import Foundation
 
 /**
+ 2023-03-03
+ */
+func countDigitOne230303(_ n: Int) -> Int {
+    var res = 0, dig = 1
+    
+    while dig <= n {
+        // 左侧数字
+        let left = n / dig / 10
+        // 右侧数字
+        let right = n % dig
+        // 当前位的数字
+        let currentV = n / dig % 10
+        
+        switch currentV {
+        case 1:
+            /**
+             123 1 5
+             left: 123 right: 5
+             0~122 0~9 + 123 0~5
+             
+             */
+            res += (left * dig) + (right + 1)
+        case 0:
+            /**
+             123 0 5
+             0-122 0-9
+             */
+            res += left * dig
+        default:
+            /**
+             123 5 5
+             0-122 0-9 + 123 0-9
+             */
+            res += left * dig + dig
+        }
+        
+        dig *= 10
+    }
+    
+    return res
+}
+countDigitOne230303(12)
+
+/**
  2023-02-10
  */
 func countDigitOne2310(_ n: Int) -> Int {

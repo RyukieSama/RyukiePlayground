@@ -41,6 +41,42 @@ result = [1,6,3,2,5]
 result = [4, 8, 6, 12, 16, 14, 10]
 
 /**
+ 2023-03-03
+ */
+func verifyPostorder230303(_ postorder: [Int]) -> Bool {
+    guard let root = postorder.last else {
+        return true
+    }
+    var left: [Int] = [], right: [Int] = [], idx = 0
+    var flag = true
+    
+    while idx < postorder.count - 1 {
+        let val = postorder[idx]
+        if flag == true {
+            if val < root {
+                idx += 1
+                left.append(val)
+            }
+            else {
+                flag.toggle()
+            }
+        }
+        else {
+            if val > root {
+                idx += 1
+                right.append(val)
+            }
+            else {
+                return false
+            }
+        }
+    }
+    
+    return verifyPostorder230303(left) && verifyPostorder230303(right)
+}
+verifyPostorder230303(result)
+
+/**
  2023-02-08
  */
 func verifyPostorder2328(_ postorder: [Int]) -> Bool {
