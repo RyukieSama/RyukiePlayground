@@ -21,5 +21,27 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof)
 */
+let str = "We are happy."
+
+func rep_20260914_01(_ str: String) -> String {
+    guard !str.isEmpty else {
+        return str
+    }
+    var arr = Array(str), res: String = "", idx = 0
+    while idx < arr.count {
+        let val = arr[idx]
+        if val == " " {
+            res += "%20"
+        }
+        else {
+            res += String(val)
+        }
+        idx += 1
+    }
+    return res
+}
+
+rep_20260914_01(str)
+
 
 //: [下一题](@next)
