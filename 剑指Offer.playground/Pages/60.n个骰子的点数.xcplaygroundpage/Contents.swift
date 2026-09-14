@@ -32,6 +32,18 @@ import Foundation
  */
 
 /**
+ 2023-03-04
+ */
+func dicesProbability230304(_ n: Int) -> [Double] {
+    let minSum = n, maxSum = n * 6
+    
+    
+    
+    return []
+}
+
+
+/**
  2023-02-13
  */
 func dicesProbability23213(_ n: Int) -> [Double] {
@@ -93,10 +105,12 @@ func dicesProbability23213(_ n: Int) -> [Double] {
         }
     }
     
+    print(dps)
+    
     return res
 }
 
-dicesProbability23213(1)
+//dicesProbability23213(1)
 dicesProbability23213(2)
 
 

@@ -82,7 +82,7 @@ n12.next = n8
 
 /**
  2023-03-04
- 命中注定的相遇
+ 命中注定的相遇 不相交就是 null
  */
 func sameNode(a: ListNode?, b: ListNode?) -> ListNode? {
     var p1 = a, p2 = b

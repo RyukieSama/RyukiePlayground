@@ -30,6 +30,27 @@ import Foundation
 var nums: [Int] =  [4, 3, 1, 0, 2, 5, 3]
 
 /**
+ 2026-09-13
+ */
+
+func findRepeatNum(from arr: [Int]) -> Int {
+    var dic: [Int: Int] = [:]
+    
+    for n in arr {
+        if let res = dic[n] {
+            return n
+        }
+        else {
+            dic[n] = 1
+        }
+    }
+    
+    return 0
+}
+
+let res2026 = findRepeatNum(from: nums)
+
+/**
  2023-03-03
  */
 func findRepeatNumber230303(_ nums: [Int]) -> Int {
