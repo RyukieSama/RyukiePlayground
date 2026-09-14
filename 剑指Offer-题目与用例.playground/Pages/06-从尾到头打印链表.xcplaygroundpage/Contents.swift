@@ -14,15 +14,6 @@
 */
 import Foundation
 
-public class ListNode {
-    public var val: Int
-    public var next: ListNode?
-    public init(_ val: Int) {
-        self.val = val
-        self.next = nil
-    }
-}
-
 let l1 = ListNode(1)
 let l2 = ListNode(3)
 let l3 = ListNode(2)
