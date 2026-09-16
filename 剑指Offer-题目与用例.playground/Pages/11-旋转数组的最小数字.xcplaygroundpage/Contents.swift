@@ -22,6 +22,8 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/)
 */
 
+import Foundation
+
 let nums = [3,4,5,1,2]
 
 func sol(_ nums: [Int]) -> Int? {
@@ -115,5 +117,29 @@ if nums[p1] > nums[p2] {
 - `p1`、`p2` 实际表示相邻下标，命名为 `previousIndex`、`currentIndex` 可读性更好。
 - 函数返回 `Int?` 是为了兼容空数组；如果题目保证数组非空，可以返回普通的 `Int`。
 */
+
+
+// 双指针，并非二分
+func doublePSol(_ nums: [Int]) -> Int? {
+    if nums.count < 2 {
+        return nums.first
+    }
+    var left = 0, right = nums.count - 1
+    
+    while left < right {
+        if nums[left] > nums[left + 1] {
+            return nums[left + 1]
+        }
+        
+        if nums[right] < nums[right - 1] {
+            return nums[right]
+        }
+        
+        left += 1
+        right -= 1
+    }
+    
+    return nums.first
+}
 
 //: [下一题](@next)
