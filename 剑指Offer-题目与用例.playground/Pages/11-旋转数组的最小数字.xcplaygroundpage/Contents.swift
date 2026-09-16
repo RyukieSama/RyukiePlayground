@@ -142,4 +142,143 @@ func doublePSol(_ nums: [Int]) -> Int? {
     return nums.first
 }
 
+// 二分法
+
+//func half(_ nums: [Int]) -> Int? { // 错误
+//    switch nums.count {
+//    case 0, 1:
+//        return nums.first
+//    case 2:
+//        return nums[0] > nums[1] ? nums[1] : nums[0]
+//    default:
+//        let left = 0, mid = Int(floor(Double(nums.count) / 2.0)), right = nums.count - 1
+//        
+//        if nums[left] <= nums[mid] {
+//            return half(Array(nums[mid...right]))
+//        }
+//        return half(Array(nums[left...mid]))
+//    }
+//}
+
+func half(_ nums: [Int]) -> Int? {
+    guard nums.isEmpty == false else {
+        return nil
+    }
+    
+    var left = 0, right = nums.count - 1
+    
+    while left < right {
+//        let mid = Int(floor(Double(nums.count) / 2.0))
+        let mid = left + (right - left) / 2
+        
+        if nums[mid] < nums[right] {
+            // 在mid或更左
+            right = mid
+        }
+        else if nums[mid] > nums[right] {
+            left = mid + 1
+        }
+        else {
+            right -= 1
+        }
+    }
+    
+    return nums[left]
+}
+
+/*:
+## 二分查找版：总结
+
+### 区间定义
+
+`left...right` 表示当前仍有可能包含最小值的闭区间。
+循环条件是 `left < right`，当两个指针相遇时，`left` 就是最小值下标。
+
+中点使用：
+
+```swift
+let mid = left + (right - left) / 2
+```
+
+这样中点始终位于当前区间内，也避免了对整个数组长度重复计算。
+
+### 三种情况
+
+#### 1. `nums[mid] < nums[right]`
+
+中点右侧直到 `right` 是递增的，且 `nums[mid]` 小于右边界，
+说明最小值不可能在 `mid` 的右侧，保留 `mid`：
+
+```swift
+right = mid
+```
+
+#### 2. `nums[mid] > nums[right]`
+
+中点大于右边界，说明旋转断点位于 `mid` 的右侧，
+因此 `mid` 本身不可能是最小值，需要排除它：
+
+```swift
+left = mid + 1
+```
+
+这里必须使用 `mid + 1`。如果写成 `left = mid`，
+当区间只剩两个元素且 `mid == left` 时，区间不会缩小，可能死循环。
+
+#### 3. `nums[mid] == nums[right]`
+
+重复元素使我们无法判断最小值位于 `mid` 的左侧还是右侧。
+但可以安全排除一个与中点相等的右端元素：
+
+```swift
+right -= 1
+```
+
+这不会丢失唯一的最小值位置，因为即使 `right` 是最小值，
+`nums[mid]` 也与它相等，保留 `mid` 仍能得到相同的最小值。
+
+### 正确性依据
+
+每次循环都保持这个不变量：
+
+> 最小值一定仍然位于当前的 `left...right` 区间内。
+
+- 第一种情况保留 `mid` 及其左侧。
+- 第二种情况排除 `mid` 及其左侧。
+- 第三种情况只排除一个确定不会影响结果的重复右端元素。
+
+区间不断缩小，直到 `left == right`，此时该位置就是最小值。
+
+### 示例
+
+```
+nums = [3, 4, 5, 1, 2]
+
+left = 0, right = 4, mid = 2
+nums[mid] = 5 > nums[right] = 2
+left = 3
+
+left = 3, right = 4, mid = 3
+nums[mid] = 1 < nums[right] = 2
+right = 3
+
+left == right == 3，返回 nums[3] = 1
+```
+
+### 复杂度
+
+- 平均时间复杂度：`O(log n)`
+- 最坏时间复杂度：`O(n)`
+- 空间复杂度：`O(1)`
+
+最坏情况出现在大量重复元素时，例如 `[1,1,1,1,1]`，
+每次只能执行 `right -= 1`，无法排除一半区间。
+
+### 与前面解法的对比
+
+- `doublePSol`：双端线性扫描，时间复杂度 `O(n)`。
+- `half`：二分查找，平均情况下更快，且不复制数组。
+- 两个实现都能处理重复元素；二分版本利用了更多的有序信息。
+*/
+
 //: [下一题](@next)
