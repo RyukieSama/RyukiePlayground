@@ -71,6 +71,59 @@ func mi(n: Int, count: Int) -> Int {
     return res
 }
 
+// 不是这个平方的意思
+//func qMi(n: Int, count: Int) -> Int {
+//    var res = 1
+//    // 通过平方来加快幂运算
+//    let two = count / 2
+//    
+//    let d = n * n
+//    for _ in 0..<two {
+//        res = res * d
+//    }
+//    
+//    if count % 2 == 1 {
+//        res *= n
+//    }
+//    
+//    return res
+//}
+
+
+// 错误的快速幂
+//func qMi(n: Int, count: Int) -> Int {
+//    var res = 1
+//    var count = count
+//    
+//    while count > 0 {
+//        if count % 2 == 1 {
+//            res = res * n % mod
+//        }
+//        else {
+//            res = res * res % mod
+//        }
+//        count /= 2
+//    }
+//    
+//    return res
+//}
+
+func qMi(n: Int, count: Int) -> Int {
+    var result = 1
+    var base = n % mod
+    var exponent = count
+    
+    while exponent > 0 {
+        if exponent % 2 == 1 {
+            result = result * base % mod
+        }
+        
+        base = base * base % mod
+        exponent /= 2
+    }
+    
+    return result
+}
 /*:
 ## 14-II 解题解析
 
@@ -123,6 +176,80 @@ res = res * n % mod
 - 空间复杂度：`O(1)`。
 
 如果使用二进制快速幂，时间复杂度还可以优化为 `O(log n)`。
+*/
+
+/*:
+## 快速幂 `qMi` 解析
+
+`qMi(n:count:)` 用来计算：
+
+```text
+n^count % mod
+```
+
+### 三个变量的含义
+
+- `result`：已经确定需要乘入最终答案的部分。
+- `base`：当前正在处理的底数，例如 `n`、`n²`、`n⁴`、`n⁸`。
+- `exponent`：还没有处理的指数。
+
+### 为什么可以平方底数
+
+指数可以按二进制拆分。例如：
+
+```text
+13 = 8 + 4 + 1
+3^13 = 3^8 × 3^4 × 3^1
+```
+
+因此每一轮都将底数平方：
+
+```text
+3 → 3² → 3⁴ → 3⁸
+```
+
+同时将指数除以 `2`：
+
+```text
+13 → 6 → 3 → 1 → 0
+```
+
+### 奇数指数的处理
+
+如果当前指数是奇数，说明当前底数需要计入结果：
+
+```swift
+if exponent % 2 == 1 {
+    result = result * base % mod
+}
+```
+
+无论当前指数奇偶，处理完后都要继续平方底数，并让指数减半：
+
+```swift
+base = base * base % mod
+exponent /= 2
+```
+
+不能把平方底数写成平方 `result`，也不能用 `else` 跳过平方步骤。
+
+### 为什么每次都取模
+
+结果只需要保留对 `mod` 的余数，所以每次乘法后立即取模：
+
+```swift
+result = result * base % mod
+base = base * base % mod
+```
+
+这样可以避免中间结果过大而溢出。
+
+### 复杂度
+
+每次循环都会将指数减半，因此：
+
+- 时间复杂度：`O(log count)`
+- 空间复杂度：`O(1)`
 */
 
 //: [下一题](@next)
