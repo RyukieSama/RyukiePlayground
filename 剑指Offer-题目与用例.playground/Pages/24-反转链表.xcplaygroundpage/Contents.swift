@@ -27,4 +27,22 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/reverse-linked-list/)
 */
 
+func reverseListNode(_ head: ListNode?) -> ListNode? {
+    var left = head, right = head?.next
+    
+    while let r = right {
+        if let newRight = r.next {
+            right = newRight
+            r.next = left
+            left = r
+        }
+        else {
+            r.next = left
+            return r
+        }
+    }
+    
+    return right ?? head
+}
+
 //: [下一题](@next)
