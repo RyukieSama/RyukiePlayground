@@ -20,4 +20,16 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof)
 */
 
+func find(last k: Int,in head: ListNode) -> ListNode? {
+    var d: [Int: ListNode] = [:], node: ListNode? = head, idx = 1
+    
+    while let n = node {
+        d[idx] = n
+        node = n.next
+        idx += 1
+    }
+    
+    return d[idx - k]
+}
+
 //: [下一题](@next)
