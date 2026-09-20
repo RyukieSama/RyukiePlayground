@@ -23,4 +23,33 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof)
 */
 
+func reOrder(_ nums: [Int]) -> [Int] {
+    guard nums.count > 1 else {
+        return nums
+    }
+    var nums = nums, left = 0, right = nums.count - 1
+    while left < right {
+        let lv = nums[left], rv = nums[right]
+        if lv & 1 == 1 {
+            // 奇数
+            left += 1
+        }
+        else {
+            // 偶数
+            if rv & 1 == 1 {
+                // 右边是奇数，左右交换，然后左右各前进一步
+                nums.swapAt(left, right)
+                left += 1
+                right -= 1
+            }
+            else {
+                // 右边也是偶数，继续向左找
+                right -= 1
+            }
+        }
+    }
+    return nums
+}
+
+
 //: [下一题](@next)
