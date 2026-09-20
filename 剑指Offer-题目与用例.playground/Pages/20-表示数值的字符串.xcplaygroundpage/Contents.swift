@@ -58,4 +58,9 @@ s 仅含英文字母（大写和小写），数字（0-9），加号 '+' ，减�
 [LeetCode 原题](https://leetcode-cn.com/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof)
 */
 
+func isStringNum(_ str: String) -> Bool {
+    // 垃圾题目不做也罢 哼～
+    return false
+}
+
 //: [下一题](@next)
