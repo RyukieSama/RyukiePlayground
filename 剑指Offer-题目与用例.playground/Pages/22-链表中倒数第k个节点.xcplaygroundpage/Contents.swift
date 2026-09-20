@@ -32,4 +32,57 @@ func find(last k: Int,in head: ListNode) -> ListNode? {
     return d[idx - k]
 }
 
+//func find2(last k: Int,in head: ListNode) -> ListNode? {
+//    // 双指针创建一个窗口一起移动 空间优化到 O1
+//    var p: ListNode? = head, res: ListNode?, step = 0
+//    
+//    while let node = p {
+////        if let n = node.next {
+////            step += 1
+////        }
+//        
+//        if step < k {
+//            step += 1
+//        }
+//        else if step == k, res == nil {
+//            res = node
+//        }
+//        else if let r = res {
+//            res = r.next
+//        }
+//        
+//        p = node.next
+//    }
+//    
+//    return res
+//}
+
+func find2(last k: Int, in head: ListNode) -> ListNode? {
+    guard k > 0 else {
+        return nil
+    }
+    
+    var p: ListNode? = head
+    var res: ListNode? = head
+    var step = 0
+    
+    while let node = p {
+        if step < k {
+            step += 1
+        }
+        else {
+            res = res?.next
+        }
+        
+        p = node.next
+    }
+    
+    // k 大于链表长度
+    guard step == k else {
+        return nil
+    }
+    
+    return res
+}
+
 //: [下一题](@next)
