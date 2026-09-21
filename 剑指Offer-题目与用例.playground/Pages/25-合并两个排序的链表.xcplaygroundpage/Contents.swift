@@ -58,6 +58,49 @@ func combainListNode(a: ListNode?, b: ListNode?) -> ListNode? {
     
 }
 
+func hebing(a: ListNode?, b: ListNode?) -> ListNode? {
+    var aNode = a, bNode = b
+    var move: ListNode?
+    var head: ListNode?
+    
+    while let nodeA = aNode, let nodeB = bNode {
+        var selected: ListNode?
+        
+        if nodeA.val <= nodeB.val {
+            selected = nodeA
+            
+            if move == nil {
+                move = nodeA
+                head = nodeA
+            }
+            else {
+                move?.next = nodeA
+            }
+            
+            aNode = aNode?.next
+        }
+        else {
+            selected = nodeB
+            
+            if move == nil {
+                move = nodeB
+                head = nodeB
+            }
+            else {
+                move?.next = nodeB
+            }
+            
+            bNode = bNode?.next
+        }
+        
+        move = selected
+    }
+    
+    move?.next = aNode ?? bNode
+    
+    return head ?? aNode ?? bNode
+}
+
 /*:
 ## 合并两个有序链表解析
 
