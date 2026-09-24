@@ -25,6 +25,7 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof)
 */
 
+// 无法彻底理解，算了
 func allRoder(_ str: String) -> [String] {
     let chars = Array(str).sorted()
     var used = Array(repeating: false, count: chars.count)
