@@ -24,6 +24,60 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof)
 */
+func toString(_ tree: TreeNode?) -> String {
+    var res: [String] = []
+    
+    func pre(_ node: TreeNode?) {
+        guard let node = node else {
+            res.append("x")
+            return
+        }
+        res.append("\(node.val)")
+        pre(node.left)
+        pre(node.right)
+    }
+    
+    pre(tree)
+    
+    return res.joined(separator: ",")
+}
+
+func fromString(_ str: String?) -> TreeNode? {
+    guard
+        let str = str,
+        str.isEmpty == false
+    else {
+        return nil
+    }
+    
+    let strArr = str.components(separatedBy: ",")
+    var idx = 0
+    
+    guard strArr.isEmpty == false else {
+        return nil
+    }
+    
+    func buildTree() -> TreeNode? {
+        guard idx < strArr.count else {
+            return nil
+        }
+        let str = strArr[idx]
+        idx += 1
+        
+        if str == "x" {
+            return nil
+        }
+        
+        guard let val = Int(str) else { return nil }
+        let tree = TreeNode(val)
+        tree.left = buildTree() // 利用前序遍历的特点
+        tree.right = buildTree()
+        return tree
+    }
+    
+    return buildTree()
+}
+
 func serialize(_ root: TreeNode?) -> String {
     var result: [String] = []
     
