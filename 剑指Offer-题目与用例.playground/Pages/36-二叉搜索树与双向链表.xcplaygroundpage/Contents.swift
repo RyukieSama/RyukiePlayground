@@ -36,6 +36,37 @@
 //    }
 //}
 
+func buildCircleListNode2(_ root: TreeNode?) -> TreeNode? {
+    guard let root = root else { return nil }
+    var head: TreeNode?, lastHandle: TreeNode?
+    
+    func inorder(node: TreeNode?) {
+        guard let node = node else {
+            return
+        }
+        
+        inorder(node: node.left)
+        
+        if let lastHandle = lastHandle {
+            lastHandle.right = node
+            node.left = lastHandle
+        }
+        else {
+            head = node // 到了左最深的叶子
+        }
+        
+        lastHandle = node
+        inorder(node: node.right)
+    }
+    
+    inorder(node: root)
+    
+    head?.left = lastHandle
+    lastHandle?.right = head
+    
+    return head
+}
+
 func buildCircleListNode(_ root: TreeNode?) -> TreeNode? {
     guard let root else {
         return nil
