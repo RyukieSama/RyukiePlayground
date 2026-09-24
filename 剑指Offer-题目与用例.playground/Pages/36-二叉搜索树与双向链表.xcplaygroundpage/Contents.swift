@@ -25,5 +25,155 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof)
 */
+//class CircleListNode {
+//    let val: Int
+//    var pre: CircleListNode?
+//    var next: CircleListNode?
+//    init(val: Int, pre: CircleListNode? = nil, next: CircleListNode? = nil) {
+//        self.val = val
+//        self.pre = pre
+//        self.next = next
+//    }
+//}
+
+func buildCircleListNode(_ root: TreeNode?) -> TreeNode? {
+    guard let root else {
+        return nil
+    }
+    // 双向链表头节点
+    var head: TreeNode?
+    // 上一个已经处理的节点
+    var previous: TreeNode?
+    
+    func inorder(_ node: TreeNode?) {
+        guard let node else {
+            return
+        }
+        
+        inorder(node.left)
+        
+        if let previous {
+            previous.right = node
+            node.left = previous
+        }
+        else {
+            head = node
+        }
+        
+        previous = node
+        inorder(node.right)
+    }
+    
+    inorder(root)
+    
+    head?.left = previous
+    previous?.right = head
+    
+    return head
+}
+
+// 错了
+//func buildCircleListNode(_ searchTree: TreeNode?) -> TreeNode? {
+//    guard let searchTree = searchTree else { return nil }
+//    // 二叉搜索树 中序遍历结果是有序的
+//    let pre = buildCircleListNode(searchTree.left)
+//    let next = buildCircleListNode(searchTree.right)
+//    searchTree.left = pre
+//    searchTree.right = next
+//    var head = searchTree, last = searchTree
+//    while let preNode = head.left {
+//        head = preNode
+//    }
+//    
+//    while let lastNode = last.right {
+//        last = lastNode
+//    }
+//    
+//    head.left = last
+//    last.right = head
+//
+//    return head
+//}
+
+/*:
+## 二叉搜索树转循环双向链表解析
+
+### 核心性质
+
+二叉搜索树的中序遍历顺序是：
+
+```text
+左子树 → 当前节点 → 右子树
+```
+
+中序遍历得到的节点天然是从小到大排列的，因此可以在遍历过程中直接建立有序双向链表。
+
+### `head` 和 `previous`
+
+- `head`：保存链表中最小的节点，也就是中序遍历访问到的第一个节点。
+- `previous`：保存上一次访问的节点，用来连接当前节点。
+
+访问当前节点时：
+
+```swift
+previous.right = node
+node.left = previous
+previous = node
+```
+
+树节点的 `left` 被当作链表前驱，`right` 被当作链表后继。
+
+如果 `previous == nil`，说明当前节点是最小节点，需要保存为 `head`。
+
+### 示例
+
+对于：
+
+```text
+    4
+   / \
+  2   5
+ / \
+1   3
+```
+
+中序访问顺序为：
+
+```text
+1 → 2 → 3 → 4 → 5
+```
+
+连接后得到：
+
+```text
+1 <-> 2 <-> 3 <-> 4 <-> 5
+```
+
+### 构造循环
+
+中序遍历结束后，`previous` 指向最大节点。将头尾连接：
+
+```swift
+head?.left = previous
+previous?.right = head
+```
+
+这样就满足：
+
+```text
+最小节点.left → 最大节点
+最大节点.right → 最小节点
+```
+
+### 为什么不能递归返回子树头节点后再寻找尾节点
+
+如果子树已经连接成循环，再沿 `left` 或 `right` 查找尾节点，可能会一直在环中循环。使用 `previous` 在中序遍历过程中直接连接，可以避免重复查找和环路问题。
+
+### 复杂度
+
+- 时间复杂度：`O(n)`，每个节点访问一次。
+- 额外空间复杂度：`O(h)`，来自递归栈。
+- 不创建新节点，直接复用树节点的 `left` 和 `right` 指针。
+*/
 
 //: [下一题](@next)
