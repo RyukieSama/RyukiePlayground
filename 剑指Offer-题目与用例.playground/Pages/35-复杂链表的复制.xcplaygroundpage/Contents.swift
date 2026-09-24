@@ -49,6 +49,47 @@ class ListRandomNode {
     }
 }
 
+func copyRandomListNode2(_ listNode: ListRandomNode?) -> ListRandomNode? {
+    var newHead: ListRandomNode?
+    
+    // 构建临时链表 A-a-B-b-C-c
+    var tempList: ListRandomNode? = listNode
+    while let node = tempList {
+        if tempList == nil {
+            tempList = node
+        }
+        let oldNext = node.next
+        let new = ListRandomNode(val: node.val, next: oldNext)
+        node.next = new
+        
+        if newHead == nil {
+            newHead = new // 留一个线头
+        }
+        
+        tempList = oldNext
+    }
+    
+    // 补充其中的 random
+    var randomNode = listNode
+    while let old = randomNode, let new = old.next {
+        new.random = old.random?.next // 因为新的老的挨着在，可以方便的定位到
+        randomNode = new.next // 就是下一个老的
+    }
+    
+    // 拆分两个链表
+    var recoverOld: ListRandomNode? = listNode
+    
+    while let old = recoverOld, let new = old.next {
+        let nextOld = new.next
+        old.next = nextOld
+        new.next = nextOld?.next
+        
+        recoverOld = nextOld
+    }
+    
+    return newHead
+}
+
 func copyRandomListNode(_ node: ListRandomNode?) -> ListRandomNode? {
     let oldHead = node
     var newNode: ListRandomNode? = nil, newHead: ListRandomNode? = nil
