@@ -28,4 +28,42 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof)
 */
 
+func countOf(_ nums: [Int]) -> [Int] {
+    var res = 0
+    /**
+     异或过滤出，会过滤掉相同的数字
+     */
+    nums.forEach {
+        res ^= $0
+    }
+    
+    /**
+     必定两个不同数字，异或结果二进制位中一定有一位是 1，找到这一位
+     */
+    var p = 1
+    while res & p == 0 {
+        p <<= 1
+    }
+    
+    /**
+     由此，将数组分为两部分
+     该位为 1 的，设 x 为所有元素异或的结果
+     该位为 0 的，设 y 为所有元素异或的结果
+     */
+    var x = 0, y = 0
+    
+    nums.forEach {
+        if $0 & p > 0 {
+            // $0 这一位是1
+            x ^= $0
+        }
+        else {
+            // $0 这一位是0
+            y ^= $0
+        }
+    }
+    
+    return [x, y]
+}
+
 //: [下一题](@next)
