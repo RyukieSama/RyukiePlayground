@@ -24,6 +24,58 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof)
 */
 
+func transNumToString2(_ n: Int) -> Int {
+    let numberArr = Array(String(n)).map { Int(String($0))! }
+    var dp = Array(repeating: 0, count: numberArr.count)
+    
+    dp[0] = 1
+    
+    for idx in 1..<numberArr.count {
+        let last = numberArr[idx - 1]
+        let current = numberArr[idx]
+        let value = last * 10 + current
+        
+        dp[idx] = dp[idx - 1]
+        
+        if value >= 10 && value <= 25 {
+            if idx >= 2 {
+                dp[idx] += dp[idx - 2] // 因为这里用掉了 idx - 1 的数字，所以要用 idx - 2
+            }
+            else {
+                // 当前只有两位数字，合并方式只有一种
+                dp[idx] += 1
+            }
+        }
+    }
+    
+    return dp[numberArr.count - 1]
+}
+
+//func transNumToString2(_ n: Int) -> Int {
+//    let numberArr = Array("\(n)").map({ Int("\($0)") ?? 0 })
+//    var d: [Int] = Array(repeating: 0, count: numberArr.count), idx = 0
+//    
+//    while idx < numberArr.count {
+//        if idx == 0 {
+//            d[idx] = 1
+//        }
+//        else {
+//            let v = numberArr[idx]
+//            let lastV = numberArr[idx - 1]
+//            if let val = Int("\(lastV)\(v)"), val >= 0 && val <= 25 {
+//                d[idx] = d[idx - 1] + 1 // 拼接后 10 ~ 25 区间内才有两种
+//            }
+//            else {
+//                d[idx] = d[idx - 1]
+//            }
+//        }
+//        
+//        idx += 1
+//    }
+//    
+//    return d[numberArr.count - 1]
+//}
+
 //let map: [Int: String] = [
 //    0: "a",
 //    1: "b",
