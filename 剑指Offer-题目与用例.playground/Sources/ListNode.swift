@@ -1,11 +1,16 @@
 //
 //  ListNode.swift
-//  
+//
 //
 //  Created by RyukieSama on 2026/9/14.
 //
 
-public class ListNode {
+import Foundation
+
+public class ListNode: Equatable {
+    public static func == (lhs: ListNode, rhs: ListNode) -> Bool {
+        Unmanaged.passUnretained(lhs).toOpaque() == Unmanaged.passUnretained(rhs).toOpaque()
+    }
     public var val: Int
     public var next: ListNode?
     public init(_ val: Int) {
