@@ -28,4 +28,44 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof)
 */
 
+func maxGift(_ grid: [[Int]]) -> Int {
+    let height = grid.count
+    
+    guard
+        let firstLine = grid.first
+    else {
+        return 0
+    }
+    
+    let width = firstLine.count
+    
+    guard width > 0, height > 0 else {
+        return 0
+    }
+    
+    var dp: [[Int]] = Array(repeating: Array(repeating: 0, count: width), count: height)
+    
+    for y in 0..<height {
+        for x in 0..<width {
+            let val = grid[y][x]
+            
+            if x == 0, y == 0 {
+                dp[y][x] = val
+            }
+            else if y == 0 {
+                dp[y][x] = dp[y][x - 1] + val
+            }
+            else if x == 0 {
+                dp[y][x] = dp[y - 1][x] + val
+            }
+            else {
+                dp[y][x] = max(dp[y-1][x], dp[y][x-1]) + val
+            }
+            
+        }
+    }
+    
+    return dp[height - 1][width - 1]
+}
+
 //: [下一题](@next)
