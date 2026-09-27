@@ -42,4 +42,19 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/fan-zhuan-dan-ci-shun-xu-lcof)
 */
 
+func reversedWords(_ str: String) -> String {
+    let arr = str.components(separatedBy: " ")
+    guard arr.isEmpty == false else {
+        return ""
+    }
+    return arr.reversed().filter({ $0.isEmpty == false }).joined(separator: " ")
+}
+
+func reversedWords2(_ str: String) -> String {
+    str
+        .split(separator: " ") // 更简洁的方式是使用 split。它会自动忽略连续的分隔符和首尾空格，不需要再手动 filter：
+        .reversed()
+        .joined(separator: " ")
+}
+
 //: [下一题](@next)
