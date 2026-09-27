@@ -33,4 +33,24 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof)
 */
 
+func maxP(_ nums: [Int]) -> Int {
+    guard nums.count > 1 else {
+        return 0
+    }
+    
+    var profit = 0, minPrice = nums[0]
+    
+    for v in nums {
+        let deta = v - minPrice
+        if v <= minPrice {
+            minPrice = v
+        }
+        else if deta > profit {
+            profit = deta
+        }
+    }
+    
+    return profit
+}
+
 //: [下一题](@next)
