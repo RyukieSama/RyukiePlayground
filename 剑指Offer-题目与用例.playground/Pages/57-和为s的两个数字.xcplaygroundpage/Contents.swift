@@ -30,4 +30,34 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof)
 */
 
+func find(_ nums:[Int], _ sum: Int) -> [Int] {
+    guard nums.count > 1 else {
+        return []
+    }
+    // 双指针
+    var left = 0, right = nums.count - 1
+    
+    while left < right {
+        let leftV = nums[left], rightV = nums[right]
+        let s = leftV + rightV
+        /**
+         为什么可以这样移动：
+         - 如果 nums[left] + nums[right] < sum，当前最小值太小，right 再怎么移动只会让和更小，所以只能增大 left；
+         - 如果和大于 sum，当前最大值太大，只能减小 right。
+         */
+        if s < sum {
+            left += 1
+        }
+        else if s > sum {
+            right -= 1
+        }
+        else {
+            return [leftV, rightV]            
+        }
+    }
+    
+    return []
+}
+
+
 //: [下一题](@next)
