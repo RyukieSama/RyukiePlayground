@@ -28,4 +28,11 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/qiu-12n-lcof)
 */
 
+func calSum(_ n: Int) -> Int {
+    guard n >= 1 else {
+        return 0
+    }
+    return calSum(n-1) + n
+}
+
 //: [下一题](@next)
