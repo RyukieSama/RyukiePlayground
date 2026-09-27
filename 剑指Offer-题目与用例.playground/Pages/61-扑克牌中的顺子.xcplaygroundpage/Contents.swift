@@ -30,4 +30,31 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof)
 */
 
+
+func isStraight(_ nums: [Int]) -> Bool {
+    var seen: Set<Int> = []
+    var minValue = 14
+    var maxValue = 0
+    
+    for num in nums {
+        // 大小王可以补任意数字
+        if num == 0 {
+            continue
+        }
+        
+        // 非王牌不能重复
+        if seen.contains(num) {
+            return false
+        }
+        
+        seen.insert(num)
+        minValue = min(minValue, num)
+        maxValue = max(maxValue, num)
+    }
+    
+    // 王牌数量需要补足最大值和最小值之间的空缺
+    return maxValue - minValue < 5 // 因为一共有 5 张牌，如果它们能组成顺子，最大牌和最小牌之间最多只能跨越 4
+}
+
+
 //: [下一题](@next)
