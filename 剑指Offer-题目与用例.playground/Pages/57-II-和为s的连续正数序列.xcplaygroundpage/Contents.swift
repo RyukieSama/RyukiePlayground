@@ -29,6 +29,29 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof)
 */
+func find2(_ target: Int) -> [[Int]] {
+    var res: [[Int]] = []
+    
+    var left = 1, right = 2, sum = 3
+    
+    while left < right {
+        if sum == target {
+            res.append(Array(left...right))
+            right += 1
+            sum += right
+        }
+        else if sum < target {
+            right += 1
+            sum += right
+        }
+        else if sum > target {
+            sum -= left
+            left += 1
+        }
+    }
+    
+    return res
+}
 
 //func find(_ target: Int) -> [[Int]] {
 //    /**
@@ -145,5 +168,50 @@ func find(_ target: Int) -> [[Int]] {
 
 - 时间复杂度：`O(target)`；
 - 额外空间复杂度：`O(1)`，不计算保存结果的数组。
+*/
+/*:
+## `find2` 解析
+
+`find2` 使用滑动窗口表示一段连续正整数：
+
+`[left...right]`
+
+同时用 `sum` 保存窗口中所有数字的和。由于窗口中的数字始终是从 `left` 到 `right` 的连续整数，所以不需要额外检查连续性。
+
+### 三种情况
+
+- `sum == target`：当前窗口就是一个合法序列，加入结果；然后继续向右扩大窗口，寻找其他序列。
+- `sum < target`：窗口的和太小，右边界右移，并把新数字加入 `sum`。
+- `sum > target`：窗口的和太大，移除最左侧数字，再将 `left` 向右移动。
+
+对应的更新分别是：
+
+`right += 1; sum += right`
+
+以及：
+
+`sum -= left; left += 1`
+
+### 示例：`target = 9`
+
+窗口变化过程：
+
+```text
+[1,2]       sum = 3，小于 9，扩大
+[1,2,3]     sum = 6，小于 9，扩大
+[1,2,3,4]   sum = 10，大于 9，移除 1
+[2,3,4]     sum = 9，记录结果
+```
+
+找到 `[2,3,4]` 后继续扩大并收缩窗口，还能找到 `[4,5]`。
+
+### 为什么 `left` 必须递增
+
+当窗口和过大时，只有移除最左侧数字才能让总和变小。因此必须执行 `left += 1`。如果递减，窗口会向左扩大，可能导致死循环或出现非正数。
+
+### 复杂度
+
+- 时间复杂度：`O(target)`，左右指针都只向右移动。
+- 额外空间复杂度：`O(1)`，不计算结果数组。
 */
 //: [下一题](@next)
