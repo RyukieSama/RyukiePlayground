@@ -26,4 +26,80 @@ a.length <= 100000
 [LeetCode 原题](https://leetcode-cn.com/problems/gou-jian-cheng-ji-shu-zu-lcof)
 */
 
+func build(_ a: [Int]) -> [Int] {
+    guard a.isEmpty == false else {
+        return []
+    }
+    // B[i] = i 左边所有元素的乘积 × i 右边所有元素的乘积
+    var res = Array(repeating: 1, count: a.count)
+    
+    // 第一次遍历：计算每个位置左边所有元素的乘积
+    var leftProduct = 1
+    for i in a.indices {
+        // result[i] 先保存 i 左边所有元素的乘积
+        res[i] = leftProduct
+        leftProduct *= a[i]
+    }
+    
+    // 第二次遍历：乘上每个位置右边所有元素的乘积
+    var rightProduct = 1
+    for i in a.indices.reversed() {
+        // 再乘上 i 右边所有元素的乘积
+        res[i] *= rightProduct
+        rightProduct *= a[i]
+    }
+    
+    return res
+}
+
+
+/*:
+## 题目解析
+
+对于每个位置 `i`，目标是计算：
+
+`B[i] = A 中除了 A[i] 以外所有元素的乘积`
+
+可以将它拆成两部分：
+
+`B[i] = i 左边所有元素的乘积 × i 右边所有元素的乘积`
+
+这样就不需要使用除法，也能正确处理数组中存在 `0` 的情况。
+
+### 第一次遍历：记录左侧乘积
+
+从左到右遍历数组。`leftProduct` 表示当前下标左边所有元素的乘积，先把它放入 `result[i]`，再把当前元素乘进去，供下一个位置使用。
+
+对于 `[1,2,3,4,5]`，第一次遍历后得到：
+
+```text
+result = [1, 1, 2, 6, 24]
+```
+
+其中每个位置保存的都是它左边元素的乘积。没有左侧元素时，乘积取 `1`。
+
+### 第二次遍历：乘上右侧乘积
+
+从右到左遍历数组。`rightProduct` 表示当前下标右边所有元素的乘积，将它乘到 `result[i]` 中，再把当前元素乘进去，供左边的位置使用。
+
+最终得到：
+
+```text
+[120, 60, 40, 30, 24]
+```
+
+### 为什么能处理 0
+
+例如 `[1,2,0,4]`：
+
+- `0` 所在位置的结果是左侧乘积 `1×2` 乘右侧乘积 `4`，得到 `8`；
+- 其他位置的乘积都会包含 `0`，因此结果为 `0`。
+
+整个过程没有除法，所以不会遇到除数为 `0` 的问题。
+
+### 复杂度
+
+- 时间复杂度：`O(n)`，数组被遍历两次。
+- 额外空间复杂度：`O(1)`，只使用两个乘积变量；返回数组不计入额外空间。
+*/
 //: [下一题](@next)
