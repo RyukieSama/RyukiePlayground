@@ -26,6 +26,28 @@ a.length <= 100000
 [LeetCode 原题](https://leetcode-cn.com/problems/gou-jian-cheng-ji-shu-zu-lcof)
 */
 
+func build2(_ a: [Int]) -> [Int] {
+    guard a.isEmpty == false else {
+        return []
+    }
+    var res: [Int] = Array(repeating: 1, count: a.count)
+    // 先计算每个元素左边的乘积
+    var leftV = 1
+    for i in a.indices {
+        res[i] = leftV
+        leftV *= a[i]
+    }
+
+    // 再计算每个元素右边的乘积
+    var rightV = 1
+    for i in a.indices.reversed() {
+        res[i] *= rightV
+        rightV *= a[i]
+    }
+    return res
+}
+
+
 func build(_ a: [Int]) -> [Int] {
     guard a.isEmpty == false else {
         return []
