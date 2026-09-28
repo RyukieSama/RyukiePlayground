@@ -66,5 +66,110 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof)
 */
+import Foundation
 
+func strToInt(_ str: String) -> Int {
+    guard str.isEmpty == false else {
+        return 0
+    }
+    let numChars: [Character] = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    let spacer: Character = " ", syb: [Character] = ["-", "+"]
+    let chars = Array(str)
+    
+    
+    var res: [Character] = []
+    for chr in chars {
+        if let _ = res.first { // 有有效的首字符，可以开始拼数字了
+            if numChars.contains(chr) {
+                res.append(chr) // 存下
+            }
+            else {
+                // 无效字符，截断，直接看结果
+                break
+            }
+        }
+        else { // 找第一个非空字符
+            if numChars.contains(chr) { // 数字
+                res.append(chr)
+            }
+            else if syb.contains(chr) { // 符号
+                res.append(chr)
+            }
+            else if chr == spacer { // 空格
+                continue
+            }
+            else {
+                return 0
+            }
+        }
+    }
+    
+    return buildInt(String(res))
+}
+
+//func buildInt(_ str: String) -> Int {
+//    guard let v64 = Int64(str) else {
+//        return 0
+//    }
+//    
+//    let min = -(pow(2, 31)), max = pow(2, 31) - 1
+//    if v64 > max {
+//        return max
+//    }
+//    else if v64 < min {
+//        return min
+//    }
+//    return v64
+//}
+
+func buildInt(_ str: String) -> Int {
+    let chars = Array(str)
+
+    guard chars.isEmpty == false else {
+        return 0
+    }
+
+    var index = 0
+    var sign: Int64 = 1
+
+    // 处理正负号
+    if chars[index] == "-" {
+        sign = -1
+        index += 1
+    } else if chars[index] == "+" {
+        index += 1
+    }
+
+    // 字符串只有符号，没有数字
+    guard index < chars.count else {
+        return 0
+    }
+
+    let intMax = Int64(Int32.max)
+    let intMin = Int64(Int32.min)
+
+    // 负数允许的绝对值比正数多 1
+    let limit = sign > 0 ? intMax : intMax + 1
+    var value: Int64 = 0
+
+    while index < chars.count {
+        guard let asciiValue = chars[index].asciiValue,
+              asciiValue >= Character("0").asciiValue!,
+              asciiValue <= Character("9").asciiValue! else {
+            break
+        }
+
+        let digit = Int64(asciiValue - Character("0").asciiValue!)
+
+        // 在执行 value * 10 + digit 前检查溢出
+        if value > (limit - digit) / 10 {
+            return sign > 0 ? Int(intMax) : Int(intMin)
+        }
+
+        value = value * 10 + digit
+        index += 1
+    }
+
+    return Int(value * sign)
+}
 //: [下一题](@next)
