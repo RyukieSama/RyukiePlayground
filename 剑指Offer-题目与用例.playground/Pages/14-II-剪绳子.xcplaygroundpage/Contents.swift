@@ -37,6 +37,59 @@
 */
 let mod = 1000000007
 
+func cut20260929_tanxin(n: Int) -> Int {
+//    func qMi(_ base: Int, _ n: Int) -> Int { //错误
+//        var res = 1, n = n
+//        if n % 2 == 1 {
+//            res = base
+//            n -= 1
+//        }
+//        
+//        while n / 2 > 0 {
+//            res = (res * res) % mod
+//            n /= 2
+//        }
+//        
+//        return res
+//    }
+    
+    func qMi(_ n: Int, _ count: Int) -> Int {
+        var result = 1
+        var base = n % mod
+        var exponent = count
+        
+        while exponent > 0 {
+            if exponent % 2 == 1 {
+                result = result * base % mod
+            }
+            
+            base = base * base % mod
+            exponent /= 2
+        }
+        
+        return result
+    }
+    
+    if n <= 3 {
+        return n - 1
+    }
+    let treeN = n / 3, more = n % 3
+    var res = 1
+    
+    if more == 0 { // 全是3
+        res = qMi(3, treeN)
+    }
+    else if more == 1 { // 多个1 那就留个 4
+        res = qMi(3, treeN - 1) * 4
+    }
+    else if more == 2 { // 就这样吧
+        res = qMi(3, treeN) * 2
+    }
+    
+    return res % mod
+}
+
+
 func cut1(n: Int) -> Int {
     var res = 1
     
