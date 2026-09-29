@@ -23,6 +23,21 @@
 */
 let str = "We are happy."
 
+func rep_20260929(_ str: String) -> String {
+    var arr = Array(str.map({ String($0) }))
+    var idx = 0
+    
+    while idx < arr.count {
+        if arr[idx] == " " {
+            arr[idx] = "%20"
+        }
+        idx += 1
+    }
+    
+    return arr.joined()
+}
+
+
 func rep_20260914_01(_ str: String) -> String {
     guard !str.isEmpty else {
         return str
