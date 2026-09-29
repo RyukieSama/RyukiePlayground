@@ -24,6 +24,17 @@ l2.next = l3
 
 l3.next = nil
 
+func reNodes_20260929(_ node: ListNode?) -> [Int] {
+    var res: [Int] = [], node = node
+    
+    while let n = node {
+        res.append(n.val)
+        node = node?.next
+    }
+    
+    return res.reversed()
+}
+
 
 // ⚠️ 注意：题目允许空链表时，参数应考虑使用 ListNode?。
 // 当前参数是非可选的 ListNode，因此无法传入 nil。

@@ -40,6 +40,115 @@
 var preorder = [3,9,20,15,7]
 var inorder = [9,3,15,20,7]
 
+//func rebuildTree202609292_02X(pre: [Int], mid: [Int]) -> TreeNode? {
+//    // idx 下标，不用每次都递归都 firstindex，优化时间复杂度
+//    var midMap: [Int: Int] = [:]
+//    for (idx, v) in mid.enumerated() {
+//        midMap[v] = idx
+//    }
+//    
+//    // 错了，内部循递归的数组不是初始的下标对不上的
+//    func rebuild(pre: [Int], mid: [Int]) -> TreeNode? {
+//        guard
+//            let rootV = pre.first,
+//            mid.count == pre.count,
+//            let rootIdx = midMap[rootV]
+//        else {
+//            return nil
+//        }
+//        var tree = TreeNode(rootV)
+//        let leftCount = rootIdx
+//        tree.left = rebuild(pre: Array(pre[1..<(leftCount+1)]),
+//                            mid: Array(mid[0..<rootIdx]))
+//        tree.right = rebuild(pre: Array(pre[(leftCount+1)..<pre.count]),
+//                             mid: Array(mid[(rootIdx+1)..<mid.count]))
+//        return tree
+//    }
+//    
+//    return rebuild(pre: pre, mid: mid)
+//}
+
+// 正确的优化解法
+func rebuildTree202609292_02(
+    pre: [Int],
+    mid: [Int]
+) -> TreeNode? {
+    guard pre.count == mid.count,
+          pre.isEmpty == false else {
+        return nil
+    }
+
+    var middleIndexes: [Int: Int] = [:]
+
+    for (index, value) in mid.enumerated() {
+        middleIndexes[value] = index
+    }
+
+    var preorderIndex = 0
+
+    func rebuild(
+        middleLeft: Int,
+        middleRight: Int
+    ) -> TreeNode? {
+        guard middleLeft <= middleRight,
+              preorderIndex < pre.count else {
+            return nil
+        }
+
+        let rootValue = pre[preorderIndex]
+        preorderIndex += 1
+
+        guard let rootIndex = middleIndexes[rootValue],
+              rootIndex >= middleLeft,
+              rootIndex <= middleRight else {
+            return nil
+        }
+
+        let root = TreeNode(rootValue)
+
+        root.left = rebuild(
+            middleLeft: middleLeft,
+            middleRight: rootIndex - 1
+        )
+
+        root.right = rebuild(
+            middleLeft: rootIndex + 1,
+            middleRight: middleRight
+        )
+
+        return root
+    }
+
+    return rebuild(
+        middleLeft: 0,
+        middleRight: mid.count - 1
+    )
+}
+
+func rebuildTree20260929(pre: [Int], mid: [Int]) -> TreeNode? {
+    guard
+        let rootV = pre.first,
+        mid.count == pre.count,
+        let rootIdx = mid.firstIndex(of: rootV)
+    else {
+        return nil
+    }
+    /**
+     各个元素不同，才能在现有条件下重建
+     前序 确定根节点值
+     中序 确定左右
+     */
+    var root: TreeNode = TreeNode(rootV)
+    let leftCount = rootIdx//, rightCount = mid.count - leftCount - 1
+    
+//    root.left = rebuildTree20260929(pre: Array(pre[1...leftCount]), // 可能会崩溃
+    root.left = rebuildTree20260929(pre: Array(pre[1..<(leftCount+1)]),
+                                    mid: Array(mid[0..<leftCount]))
+    root.right = rebuildTree20260929(pre: Array(pre[(leftCount+1)..<pre.count]),
+                                     mid: Array(mid[(rootIdx + 1)..<mid.count]))
+    return root
+}
+
 //preorder = [1, 2]
 //inorder = [1, 2]
 
