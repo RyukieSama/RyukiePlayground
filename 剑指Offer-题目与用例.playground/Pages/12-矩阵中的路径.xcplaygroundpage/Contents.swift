@@ -39,6 +39,58 @@ board 和 word 仅由大小写英文字母组成
 
 let board: [[Character]] = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
 
+func findWords_20260929(board: [[Character]], words: String) -> Bool {
+    let height = board.count, width = board.first?.count ?? 0
+    guard height > 0, width > 0, words.isEmpty == false else {
+        return false
+    }
+    let strArr = Array(words)
+    var stepedMap = Array(repeating: Array(repeating: false, count: width), count: height)
+    var wordIndex = 0
+    
+    for y in 0..<height {
+        for x in 0..<width {
+            if fromHereCanFinish(x: x, y: y) {
+                return true
+            }
+        }
+    }
+    
+    func fromHereCanFinish(x: Int, y: Int) -> Bool {
+        guard wordIndex < strArr.count else {
+            return true
+        }
+        
+        guard
+            x >= 0, x < width, y >= 0, y < height,
+            board[y][x] == strArr[wordIndex],
+            stepedMap[y][x] == false
+        else {
+            return false
+        }
+        
+        stepedMap[y][x] = true
+        wordIndex += 1
+        
+        let canFin = fromHereCanFinish(x: x - 1, y: y)
+        || fromHereCanFinish(x: x, y: y - 1)
+        || fromHereCanFinish(x: x + 1, y: y)
+        || fromHereCanFinish(x: x, y: y + 1)
+        
+        if !canFin {
+            stepedMap[y][x] = false
+            wordIndex -= 1
+            return false
+        }
+        
+        return true
+    }
+    
+    
+    return false
+}
+
+
 func findWords(board: [[Character]], words: String) -> Bool {
     guard
         words.isEmpty == false,
