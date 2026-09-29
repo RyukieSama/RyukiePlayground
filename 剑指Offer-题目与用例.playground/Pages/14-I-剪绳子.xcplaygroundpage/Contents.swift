@@ -38,6 +38,20 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/integer-break/)
 */
 
+func cut20260929(n: Int) -> Int {
+    var d = Array(repeating: 0, count: n + 1)
+    d[2] = 1
+    
+    for length in 2...n {
+        for cut in 1..<length {
+            d[length] = max(d[length], cut * (length - cut), cut * d[length - cut])
+        }
+    }
+    
+    return d[n]
+}
+
+
 func cut(n: Int) -> Int {
     var d: [Int: Int] = [
         2: 1,
