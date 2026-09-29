@@ -26,6 +26,59 @@ import Foundation
 
 let nums = [3,4,5,1,2]
 
+func sol20260929(_ nums: [Int]) -> Int? {
+    guard nums.isEmpty == false else {
+        return nil
+    }
+
+    var left = 0
+    var right = nums.count - 1
+
+    while left < right {
+        let middle = left + (right - left) / 2
+
+        if nums[middle] > nums[right] {
+            left = middle + 1
+        } else if nums[middle] < nums[right] {
+            right = middle
+        } else {
+            right -= 1
+        }
+    }
+
+    return nums[left]
+}
+
+//func sol20260929(_ nums: [Int]) -> Int? {
+//    guard
+//        nums.count >= 2,
+//        let first = nums.first
+//    else {
+//        return nums.first
+//    }
+//    var left = 0, right = nums.count - 1
+//    
+//    while left < right {
+//        if nums[left] > nums[right], right - left == 1 {
+//            return nums[right]
+//        }
+//        
+//        let mid = left + (right - left) / 2
+//        let midV = nums[mid]
+//        if midV < first {
+//            // 在左边
+//            right = mid
+//        }
+//        else {
+//            // 在右边
+//            left = mid
+//        }
+//    }
+//    
+//    return nil
+//}
+
+
 func sol(_ nums: [Int]) -> Int? {
     if nums.count < 2 {
         return nums.first
