@@ -25,6 +25,34 @@
 */
 let datas = [2, 3, 1, 0, 2, 5, 3]
 
+// 萝卜坑
+func find0929(_ nums: [Int]) -> Int {
+    guard nums.count >= 2 else {
+        return -1
+    }
+    var nums = nums
+    var idx = 0
+    
+    while idx < nums.count {
+        let val = nums[idx]
+        if val != idx {
+            if nums[val] != val {
+                nums.swapAt(val, idx)
+            }
+            else {
+                return nums[val]
+            }
+        }
+        else {
+            idx += 1
+        }
+    }
+    
+    return -1
+}
+
+
+
 func find_20260914_01(_ nums: [Int]) -> Int {
     var nums = nums
     
