@@ -23,6 +23,26 @@
  [LeetCode 原题](https://leetcode.cn/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/)
  */
 
+class CQueue20260929 {
+    // 队列是先进先出的，栈是先进后出
+    private var stackA: [Int] = []
+    private var stackB: [Int] = []
+    
+    func appendTail(_ v: Int) {
+        stackA.append(v)
+    }
+    
+    func deleteHead() -> Int {
+        if stackB.isEmpty {
+            // b 没有就全搬过来，自然就倒过来了
+            while let va = stackA.popLast() {
+                stackB.append(va)
+            }
+        }
+        return stackB.popLast() ?? -1
+    }
+}
+
 class SQueue {
     // 注意题目，这里是两个栈，是后进先出的。要注意使用的时候不能想当然的用数组的特性,队列是先进先出
     var stackA: [Int] = [], stackB: [Int] = []
