@@ -36,6 +36,45 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof)
 */
+
+
+func botGoGoGo20260929(m: Int, n: Int, k: Int) -> Int {
+    let width = n, height = m
+    guard height > 0, width > 0, k >= 0 else { return 0 }
+    var result = 0, steped = Array(repeating: Array(repeating: false, count: width), count: height)
+    
+    func go(_ x: Int, _ y: Int) {
+        guard
+            x >= 0, y >= 0, x < width, y < height,
+            steped[y][x] == false,
+            digCount(a: x, b: y) <= k
+        else {
+            return
+        }
+        result += 1
+        steped[y][x] = true
+        
+        go(x-1, y)
+        go(x, y-1)
+        go(x+1, y)
+        go(x, y+1)
+    }
+    
+    func digCount(a: Int, b: Int) -> Int {
+        // 不要用字符串比较好
+        var res = 0
+        Array("\(a)\(b)").map({ Int(String($0)) ?? 0 }).forEach {
+            res += $0
+        }
+        return res
+    }
+    
+    go(0, 0)
+    
+    return result
+}
+
+
 func botGoGoGo(m: Int, n: Int, k: Int) -> Int {
     guard m > 0, n > 0 else { return 0 }
     guard k > 0 else { return 1 }
