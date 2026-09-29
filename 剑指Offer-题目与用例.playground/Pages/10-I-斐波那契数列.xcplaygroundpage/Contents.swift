@@ -35,6 +35,51 @@ var d: [Int: Int] = [
     1: 1
 ]
 
+// 循环更快
+func fib_20260929_2(_ n: Int) -> Int {
+    guard n > 1 else {
+        return n
+    }
+
+    let mod = 1_000_000_007
+    var previous = 0
+    var current = 1
+
+    for _ in 2...n {
+        let next = (previous + current) % mod
+        previous = current
+        current = next
+    }
+
+    return current
+}
+
+func fib_20260929(_ n: Int) -> Int {
+    switch n {
+    case 0, 1:
+        return n
+    default:
+        var result = 0
+        if let v1 = d[n-1] {
+            result = v1
+        }
+        else {
+            result += fib_20260929(n-1)
+        }
+        
+        if let v2 = d[n-2] {
+            result += v2
+        }
+        else {
+            result += fib_20260929(n-2)
+        }
+        
+        d[n] = result % 1000000007
+        return d[n] ?? -1
+    }
+}
+
+
 func fib(_ n: Int) -> Int {
     switch n {
     case 0:

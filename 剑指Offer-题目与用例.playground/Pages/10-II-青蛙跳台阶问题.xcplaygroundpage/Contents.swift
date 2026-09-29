@@ -30,6 +30,22 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof)
 */
 
+func jump20260929(_ n: Int) -> Int {
+    guard n >= 2 else {
+        return 1
+    }
+    
+    var pre = 1, current = 1
+    for _ in 2...n {
+        let val = (pre + current) % 1000000007
+        pre = current
+        current = val
+    }
+    
+    return current
+}
+
+
 var d: [Int: Int] = [:]
 
 func jump(_ n: Int) -> Int {
@@ -141,6 +157,8 @@ return result
 此外，全局字典 `d` 会保留多次调用之间的缓存。对于纯函数式实现，
 可以将它改为函数内部的 `memo`，减少共享可变状态。
 */
+
+
 // 只用两个值 结合循环 优化空间
 func loopJump(_ n: Int) -> Int {
     guard n > 2 else {
