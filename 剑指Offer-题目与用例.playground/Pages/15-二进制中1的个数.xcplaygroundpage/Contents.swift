@@ -38,6 +38,18 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/number-of-1-bits/)
 */
 
+
+func count20260930(_ n: UInt32) -> Int {
+    var count = 0, n = n
+    while n != 0 {
+        if n & 1 == 1 {
+            count += 1
+        }
+        n >>= 1
+    }
+    return count
+}
+
 // 主要考察位运算，不要用字符串
 
 //func count(n: Int) -> Int {

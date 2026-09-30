@@ -38,6 +38,23 @@
 let mod = 1000000007
 
 func cut20260929_tanxin(n: Int) -> Int {
+    func quicMi(_ base: Int, _ n: Int) -> Int {
+        var base = base
+        var currentN = n
+        var result = 1
+        
+        while currentN > 0 {
+            if currentN % 2 == 1 {
+                result = result * base % mod
+            }
+            
+            base = base * base % mod
+            currentN /= 2
+        }
+        
+        return result
+    }
+    
 //    func qMi(_ base: Int, _ n: Int) -> Int { //错误
 //        var res = 1, n = n
 //        if n % 2 == 1 {

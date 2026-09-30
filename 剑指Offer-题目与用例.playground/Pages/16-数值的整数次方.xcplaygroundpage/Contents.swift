@@ -40,6 +40,25 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof)
 */
 
+// 这个题目需要考虑负数幂的情况
+func quickMi(_ base: Double, _ count: Int) -> Double {
+    var result: Double = 1, base = base, currentCount = count
+    
+    if count < 0 {
+        base = 1 / base
+        currentCount = -currentCount // 改为分数的正数次幂
+    }
+    
+    while currentCount > 0 {
+        if currentCount % 2 == 1 {
+            result = result * base
+        }
+        base = base * base
+        currentCount /= 2
+    }
+    
+    return result
+}
 
 //func mi(n: Int, count: Int) -> Int {
 //    var res = 1, base = n, count = count
