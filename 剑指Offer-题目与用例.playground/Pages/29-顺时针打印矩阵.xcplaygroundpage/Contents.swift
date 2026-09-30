@@ -27,6 +27,86 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/spiral-matrix/)
 */
 
+func printGrid20260930(grid: [[Int]]) -> [Int] {
+    let width = grid.first?.count ?? 0, height = grid.count
+    guard width > 0, height > 0 else {
+        return []
+    }
+    var steped: [[Bool]] = Array(repeating: Array(repeating: false, count: width), count: height)
+    var x = 0, y = 0, d: Dir = .Right
+    var result: [Int] = []
+    steped[0][0] = true
+    result.append(grid[0][0])
+    
+    enum Dir {
+        case Right
+        case Down
+        case Left
+        case Up
+    }
+    
+    func nextStep(tryAgin: Bool = false) -> (Int, Int)? {
+        guard
+            x >= 0,
+            x < width,
+            y >= 0,
+            y < height
+        else {
+            return nil
+        }
+        
+        switch d {
+        case .Right:
+            if x + 1 < width, steped[y][x+1] == false {
+                x += 1
+                steped[y][x] = true
+            }
+            else {
+                d = .Down
+                return tryAgin ? nil : nextStep(tryAgin: true)
+            }
+        case .Down:
+            if y + 1 < height, steped[y+1][x] == false {
+                y += 1
+                steped[y][x] = true
+            }
+            else {
+                d = .Left
+                return tryAgin ? nil : nextStep(tryAgin: true)
+            }
+        case .Left:
+            if x - 1 >= 0, steped[y][x-1] == false {
+                x -= 1
+                steped[y][x] = true
+            }
+            else {
+                d = .Up
+                return tryAgin ? nil : nextStep(tryAgin: true)
+            }
+        case .Up:
+            if y - 1 >= 0, steped[y-1][x] == false {
+                y -= 1
+                steped[y][x] = true
+            }
+            else {
+                d = .Right
+                return tryAgin ? nil : nextStep(tryAgin: true)
+            }
+        }
+        
+        return (x, y)
+    }
+    
+    while let next = nextStep() {
+        result.append(grid[next.1][next.0])
+    }
+    
+    return result
+}
+
+
+
+
 func printGrid(grid: [[Int]]) -> [Int] {
     enum DIR {
         case right
