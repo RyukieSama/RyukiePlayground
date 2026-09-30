@@ -22,6 +22,68 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
 */
 
+func combainListNode20260930(a: ListNode?, b: ListNode?) -> ListNode? {
+    guard
+        let a = a,
+        let b = b
+    else {
+        return a ?? b
+    }
+    var nodeA: ListNode? = a, nodeB: ListNode? = b
+    var newNode: ListNode?, temp: ListNode?
+    
+    while nodeA != nil || nodeB != nil {
+        let valA = nodeA?.val, valB = nodeB?.val
+        
+        if temp == nil {
+            if let valA = valA, let valB = valB {
+                if valA >= valB {
+                    temp = nodeB
+                    nodeB = nodeB?.next
+                }
+                else {
+                    temp = nodeA
+                    nodeA = nodeA?.next
+                }
+            }
+            else if let a = nodeA {
+                temp = nodeA
+                nodeA = nodeA?.next
+            }
+            else if let b = nodeB {
+                temp = nodeB
+                nodeB = nodeB?.next
+            }
+            newNode = temp
+        }
+        else {
+            if let valA = valA, let valB = valB {
+                if valA >= valB {
+                    newNode?.next = nodeB
+                    nodeB = nodeB?.next
+                }
+                else {
+                    newNode?.next = nodeA
+                    nodeA = nodeA?.next
+                }
+            }
+            else if let a = nodeA {
+                newNode?.next = nodeA
+                nodeA = nodeA?.next
+            }
+            else if let b = nodeB {
+                newNode?.next = nodeB
+                nodeB = nodeB?.next
+            }
+            
+            newNode = newNode?.next
+        }
+    }
+    
+    return temp
+}
+
+
 func combainListNode(a: ListNode?, b: ListNode?) -> ListNode? {
     var node: ListNode?
     var aNode = a, bNode = b
