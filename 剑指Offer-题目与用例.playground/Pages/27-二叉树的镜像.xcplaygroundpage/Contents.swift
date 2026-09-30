@@ -38,6 +38,14 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/invert-binary-tree/)
 */
 
+func mirro20260930(_ tree: TreeNode?) -> TreeNode? {
+    guard let tree = tree else { return nil }
+    
+    return TreeNode(tree.val, mirro20260930(tree.right), mirro20260930(tree.left))
+}
+
+
+
 func mirror(tree: TreeNode?) -> TreeNode? {
     guard let tree = tree else { return nil }
     return TreeNode(tree.val, mirror(tree: tree.right), mirror(tree: tree.left))
