@@ -50,6 +50,27 @@ B是A的子结构， 即 A中有出现和B相同的结构和节点值。
 [LeetCode 原题](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof)
 */
 
+func bIsSubTreeOfA20260930(aTree: TreeNode?, bTree: TreeNode?) -> Bool {
+    guard let aTree = aTree, let bTree = bTree else { return false }
+//    func checkNode(a: TreeNode, b: TreeNode) -> Bool {
+    func checkNode(a: TreeNode?, b: TreeNode?) -> Bool {
+//        guard a.val == b.val else {
+//            return false
+//        }
+//        return false
+        guard let b = b else { return true } // B 匹配完成
+        guard let a = a else { return false } // A 不够
+        if a.val == b.val {
+            return checkNode(a: a.left, b: b.left) && checkNode(a: a.right, b: b.right)
+        }
+        return false
+        
+    }
+    return checkNode(a: aTree, b: bTree) || bIsSubTreeOfA20260930(aTree: aTree.left, bTree: bTree) || bIsSubTreeOfA20260930(aTree: aTree.right, bTree: bTree)
+}
+
+
+
 func bIsSubTree(aTree: TreeNode?, bTree: TreeNode?) -> Bool {
     guard let aTree = aTree, let bTree = bTree else { return false } // 空树不是任何树的子树
         
