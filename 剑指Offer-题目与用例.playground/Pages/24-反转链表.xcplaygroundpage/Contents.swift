@@ -26,6 +26,19 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/reverse-linked-list/)
 */
+func reverseListNode20260930(_ head: ListNode?) -> ListNode? {
+    guard let head = head else { return nil }
+    var left = head, right = head.next
+    left.next = nil // 这是尾巴
+    while let node = right {
+        let next = node.next
+        node.next = left
+        left = node
+        right = next
+    }
+    
+    return left
+}
 
 func reverseListNode(_ head: ListNode?) -> ListNode? {
     var left = head, right = head?.next
