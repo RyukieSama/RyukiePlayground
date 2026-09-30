@@ -36,6 +36,25 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/shan-chu-lian-biao-de-jie-dian-lcof)
 */
+func del20260930(nodeVal: Int, from head: ListNode) -> ListNode? {
+    if nodeVal == head.val {
+        return head.next
+    }
+    var node = head
+    
+    while let next = node.next {
+        if next.val == nodeVal {
+            node.next = next.next
+            break
+        }
+        else {
+            node = next
+        }
+    }
+    
+    return head
+}
+
 
 //func del(node: ListNode, from head: ListNode) -> ListNode? {
 //    var res: ListNode? = nil
