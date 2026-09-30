@@ -22,6 +22,38 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof)
 */
+func reOrder20260930(_ nums: inout [Int]) -> [Int] {
+    guard nums.count > 1 else {
+        return nums
+    }
+    
+    var left = 0, right = nums.count - 1
+    
+    while left < right {
+        let leftV = nums[left], rightV = nums[right]
+        let leftIsJ = leftV & 1 == 1, rightIsJ = rightV & 1 == 1
+        
+        if !leftIsJ, rightIsJ {
+            nums.swapAt(left, right)
+            left += 1
+            right -= 1
+        }
+        else if leftIsJ, rightIsJ {
+            left += 1
+        }
+        else if !leftIsJ, !rightIsJ {
+            right -= 1
+        }
+        else {
+            left += 1
+            right -= 1
+        }
+    }
+    
+    return nums
+}
+
+
 
 func reOrder(_ nums: [Int]) -> [Int] {
     guard nums.count > 1 else {
