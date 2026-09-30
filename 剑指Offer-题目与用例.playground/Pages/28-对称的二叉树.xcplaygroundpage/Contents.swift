@@ -42,6 +42,17 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/symmetric-tree/)
 */
 
+func duicheng20260930(_ tree: TreeNode?) -> Bool {
+    func mi(_ a: TreeNode?, _ b: TreeNode?) -> Bool {
+        guard let a = a, let b = b else { return a == nil && b == nil }
+        return a.val == b.val && mi(a.left, b.right) && mi(a.right, b.left)
+    }
+    return mi(tree?.left, tree?.right)
+}
+
+
+
+
 func isDuicheng(tree: TreeNode?) -> Bool {
 //    guard tree?.left?.val == tree?.right?.val else { // 这部分可简化掉
 //        return false
