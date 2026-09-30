@@ -19,6 +19,32 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof)
 */
+func find20260930(last k: Int,in head: ListNode) -> ListNode? {
+    guard k >= 1 else {
+        return nil
+    }
+    var right: ListNode? = head, left: ListNode? = nil, step = 1
+    
+    while let node = right {
+        if step < k {
+            right = node.next
+            step += 1
+        }
+        else if step == k, left == nil {
+            left = head
+        }
+        else if right?.next != nil {
+            right = right?.next
+            left = left?.next
+        }
+        else {
+            return left
+        }
+    }
+    
+    return left
+}
+
 
 func find(last k: Int,in head: ListNode) -> ListNode? {
     var d: [Int: ListNode] = [:], node: ListNode? = head, idx = 1
