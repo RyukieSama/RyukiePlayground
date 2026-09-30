@@ -22,6 +22,33 @@ n 为正整数
 [LeetCode 原题](https://leetcode-cn.com/problems/da-yin-cong-1dao-zui-da-de-nwei-shu-lcof)
 */
 
+func printNums20260930(n: Int) -> [String] {
+    guard n > 0 else {
+        return []
+    }
+    var result: [String] = [], digs = Array(repeating: "0", count: n)
+    
+    
+    func dd(idx: Int) {
+        guard idx < n else {
+            let num = digs.joined().drop { $0 == "0" }
+            if num.isEmpty == false {
+                result.append(String(num))
+            }
+            return
+        }
+        
+        for v in 0...9 {
+            digs[idx] = "\(v)"
+            dd(idx: idx + 1)
+        }
+    }
+    
+    dd(idx: 0)
+    
+    return result
+}
+
 
 func printNum(n: Int) -> [String] {
     guard n > 0 else { return [] }
@@ -32,7 +59,7 @@ func printNum(n: Int) -> [String] {
     
     func dfs(_ index: Int) {
         guard index < n else {
-            let number = digits.joined().drop { $0 == "0" }
+            let number = digits.joined().drop { $0 == "0" } // 从开头开始丢弃满足条件的元素，直到第一次遇到不满足条件的元素，然后保留后面的所有内容。
             if number.isEmpty == false {
                 result.append(String(number))
             }
