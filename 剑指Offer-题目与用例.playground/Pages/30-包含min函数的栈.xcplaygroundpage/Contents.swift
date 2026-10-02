@@ -28,6 +28,40 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/min-stack/)
 */
+class MinStack20260930 {
+    private var data: [Int] = []
+    // 用来记录每次操作，每次操作时的最小值，方便回溯找最小
+    private var records: [Int] = []
+    
+    func push(_ v: Int) {
+        data.append(v)
+//        if let top = data.last, top < v {
+        if let top = records.last, top < v {
+            records.append(top)
+        }
+        else {
+            records.append(v)
+        }
+    }
+    
+    func min() -> Int? {
+        records.last
+    }
+    
+    func pop() {
+//        records.removeLast()
+//        data.removeLast() // 可能崩溃
+        records.popLast()
+        data.popLast()
+    }
+    
+    func top() -> Int? {
+        data.last
+    }
+}
+
+
+
 class MinStack {
     // 注意是 栈 后进先出
     private var datas: [Int] = []
