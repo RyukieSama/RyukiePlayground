@@ -1,5 +1,63 @@
 //: [上一题](@previous)
 
+/*:
+# 31-栈的压入、弹出序列
+
+## 题目
+
+输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。
+
+例如，序列 `[1,2,3,4,5]` 是某栈的压栈序列，序列 `[4,5,3,2,1]` 是该压栈序列对应的一个弹出序列，但 `[4,3,5,1,2]` 不可能是该压栈序列的弹出序列。
+
+## 用例 1
+
+**输入：** `pushed = [1,2,3,4,5], popped = [4,5,3,2,1]`
+
+**输出：** `true`
+
+**解释：** 可以按照先压入 `1、2、3、4`，弹出 `4`，再压入 `5`，最后依次弹出 `5、3、2、1` 的顺序完成。
+
+## 用例 2
+
+**输入：** `pushed = [1,2,3,4,5], popped = [4,3,5,1,2]`
+
+**输出：** `false`
+
+**解释：** 弹出 `4、3、5` 后，`2` 仍然在 `1` 的上方，因此不可能先弹出 `1` 再弹出 `2`。
+
+## 约束
+
+- `0 <= pushed.length == popped.length <= 1000`
+- `0 <= pushed[i], popped[i] < 1000`
+- `pushed` 是 `popped` 的排列。
+- `pushed` 中的所有元素互不相同。
+
+## 来源
+
+[LeetCode 原题](https://leetcode.cn/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/)
+*/
+
+
+
+func isPop20261002(pushed: [Int], popped: [Int]) -> Bool {
+    guard pushed.count == popped.count else {
+        return false
+    }
+    var stack: [Int] = [], popIdx = 0
+    
+    for val in pushed {
+        stack.append(val)
+        
+        while let top = stack.last,
+              popIdx < popped.count,
+              top == popped[popIdx] {
+            stack.popLast()
+            popIdx += 1
+        }
+    }
+    
+    return stack.isEmpty && popIdx == popped.count
+}
 
 //func isPop(pushed: [Int], popped: [Int]) -> Bool {
 //    // 要还原过程，看结果是否匹配
