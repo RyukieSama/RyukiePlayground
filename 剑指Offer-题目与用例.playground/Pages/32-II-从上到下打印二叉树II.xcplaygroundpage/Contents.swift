@@ -40,6 +40,39 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/)
 */
 
+func printUpDown20261002(_ tree: TreeNode?) -> [[Int]] {
+    guard let tree = tree else { return [] }
+    var result: [[Int]] = [], temp: [Int] = []
+    var queue: [TreeNode] = [tree]
+    var currentLineCount = 1, nextLineCount = 0
+    
+    while let node = queue.first {
+        queue.removeFirst()
+        temp.append(node.val)
+        currentLineCount -= 1
+        
+        if let left = node.left {
+            nextLineCount += 1
+            queue.append(left)
+        }
+        
+        if let right = node.right {
+            nextLineCount += 1
+            queue.append(right)
+        }
+        
+        if currentLineCount == 0 {
+            currentLineCount = nextLineCount
+            nextLineCount = 0
+            result.append(temp)
+            temp = []
+        }
+    }
+    
+    return result
+}
+
+
 func printUpDown(_ tree: TreeNode?) -> [[Int]] {
     var result: [[Int]] = []
     var queue: [TreeNode] = []
