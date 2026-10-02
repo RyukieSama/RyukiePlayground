@@ -39,6 +39,31 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof)
 */
+func isSearchTree20261002(_ nums: [Int]) -> Bool {
+    // 左 右 中 最后一个是根节点
+    guard
+        nums.count > 1,
+        let last = nums.last
+    else {
+        return true
+    }
+    var idx = 0
+    // 找到第一个大于根节点的就是 左右子树后序的分界线
+    while idx < nums.count && nums[idx] < last {
+        idx += 1
+    }
+    let left: [Int] = (idx > 0) ? Array(nums[0..<idx]) : [], right: [Int] = Array(nums[idx..<nums.count - 1])
+    
+    for rv in right {
+        if rv < last {
+            return false
+        }
+    }
+    
+    return isSearchTree20261002(left) && isSearchTree20261002(right)
+}
+
+
 /**
  左子树所有节点值 < 当前节点值
  右子树所有节点值 > 当前节点值
