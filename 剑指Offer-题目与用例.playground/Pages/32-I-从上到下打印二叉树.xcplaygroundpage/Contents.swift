@@ -38,6 +38,39 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof)
 */
 
+func printUpDown20261002(_ tree: TreeNode?) -> [Int] {
+    var result: [Int] = []
+    
+    guard let tree = tree else { return result }
+    var queue: [TreeNode] = [tree]
+    
+    while let node = queue.first {
+        queue.removeFirst()
+        result.append(node.val)
+        
+        if let left = node.left {
+            queue.append(left)
+        }
+        
+        if let right = node.right {
+            queue.append(right)
+        }
+    }
+    
+    return result
+}
+
+
+//func printUpDown20261002(_ tree: TreeNode?) -> [Int] { // 这成中序遍历了
+//    var result: [Int] = []
+//    
+//    guard let tree = tree else { return result }
+//    result += printUpDown20261002(tree.left)
+//    result.append(tree.val)
+//    result += printUpDown20261002(tree.right)
+//    return result
+//}
+
 
 func printUpDown(_ tree: TreeNode?) -> [Int] {
     var res: [Int] = []
