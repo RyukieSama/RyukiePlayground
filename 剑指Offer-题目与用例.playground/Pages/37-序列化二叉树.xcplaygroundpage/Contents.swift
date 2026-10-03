@@ -24,6 +24,55 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof)
 */
+import Foundation
+
+func toString20261003(_ tree: TreeNode?) -> String {
+    var result: [String] = []
+    
+    func buildString(_ node: TreeNode?) {
+        guard let node = node else {
+            result.append("NULL")
+            return
+        }
+        result.append("\(node.val)")
+        buildString(node.left)
+        buildString(node.right)
+    }
+    
+    buildString(tree)
+    
+    return result.joined(separator: "¥")
+}
+
+func fromString20261003(_ str: String?) -> TreeNode? {
+    guard let str = str else { return nil }
+//    let array = str.components(separatedBy: "¥")
+    let array = str.split(separator: "¥")
+    guard array.isEmpty == false else { return nil }
+    var idx = 0
+    
+    func build() -> TreeNode? {
+        guard idx < array.count else { return nil }
+        
+//        defer { idx += 1 }
+        
+        let str = array[idx]
+        idx += 1
+        
+        if str == "NULL" { return nil }
+        
+        guard let val = Int(str) else { return nil }
+        
+        let tree = TreeNode(val)
+        tree.left = build()
+        tree.right = build()
+        return tree
+    }
+        
+    return build()
+}
+
+
 func toString(_ tree: TreeNode?) -> String {
     var res: [String] = []
     
