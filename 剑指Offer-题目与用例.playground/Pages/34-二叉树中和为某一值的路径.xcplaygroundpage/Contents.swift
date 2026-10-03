@@ -21,6 +21,39 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof)
 */
+
+func route20261003(of sum: Int, in tree: TreeNode?) -> [[Int]] {
+    guard let tree = tree else { return [] }
+    var result: [[Int]] = [], path: [Int] = []
+    
+    func findPath(_ node: TreeNode?, _ count: Int) {
+        guard let node = node else { return }
+        let isLeaf = node.left == nil && node.right == nil
+        
+        path.append(node.val)
+        
+        if isLeaf {
+            if count - node.val == 0 {
+                result.append(path)
+            }
+//            else {
+//                path.popLast()
+//            }
+        }
+        else {
+            findPath(node.left, count - node.val)
+            findPath(node.right, count - node.val)
+        }
+        
+        // 当前节点的所有工作完成，返回父节点前撤销选择
+        path.popLast()
+    }
+    
+    findPath(tree, sum)
+    
+    return result
+}
+
 // 注意题目要求一直到叶子节点
 func route(of sum: Int, in tree: TreeNode?) -> [[Int]] {
     guard let tree = tree else { return [] }
