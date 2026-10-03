@@ -25,6 +25,40 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof)
 */
+
+func buildCircleListNode20261003(_ root: TreeNode?) -> TreeNode? {
+    guard let tree = root else { return nil }
+    // 中序遍历得到省序
+    var queue: [TreeNode] = []
+    
+    func buildQueue(_ node: TreeNode?) {
+        guard let node = node else {
+            return
+        }
+        buildQueue(node.left)
+        queue.append(node)
+        buildQueue(node.right)
+    }
+    
+    buildQueue(tree)
+    
+    for idx in queue.indices {
+        let node = queue[idx]
+        if idx + 1 < queue.count {
+            node.right = queue[idx+1]
+        }
+        if idx - 1 >= 0 {
+            node.left = queue[idx-1]
+        }
+    }
+    
+    queue.last?.right = queue.first
+    queue.first?.left = queue.last
+    
+    return queue.first
+}
+
+
 //class CircleListNode {
 //    let val: Int
 //    var pre: CircleListNode?
