@@ -25,6 +25,22 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/majority-element/)
 */
 
+func find20261003(_ nums: [Int]) -> Int? {
+    guard nums.isEmpty == false else {
+        return nil
+    }
+    var votes = 0, val: Int?
+    
+    for n in nums {
+        if votes == 0 {
+            val = n
+        }
+        votes += (n == val) ? 1 : -1
+    }
+    
+    return val
+}
+
 func vote(nums: [Int]) -> Int? {
     guard nums.isEmpty == false else {
         return nil
