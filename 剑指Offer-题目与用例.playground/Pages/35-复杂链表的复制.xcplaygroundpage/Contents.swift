@@ -49,6 +49,50 @@ class ListRandomNode {
     }
 }
 
+func copyRandomListNode20261003(_ listNode: ListRandomNode?) -> ListRandomNode? {
+    guard let listNode = listNode else { return nil }
+    
+    // A-a-B-b-C-c-D-d 这样合并再拆分
+    var moving: ListRandomNode? = listNode
+    while let node = moving {
+        let newNode = ListRandomNode(val: node.val)
+        newNode.next = node.next
+        node.next = newNode
+        moving = newNode.next
+    }
+    
+    // 处理 random 指向
+    moving = listNode // 指向恢复
+    while let node = moving {
+        let newNode = node.next
+        let oldRandom = node.random
+        newNode?.random = oldRandom?.next
+        
+        moving = node.next?.next
+    }
+    
+    // 把新的链表拆分出来
+    moving = listNode // 指向恢复
+    var newHead: ListRandomNode?
+    while let node = moving {
+        let newNode = node.next
+        
+        if newHead == nil {
+            newHead = newNode
+        }
+        
+        // A-a-B-b - a-b A-B
+        node.next = node.next?.next
+        newNode?.next = newNode?.next?.next
+        
+        // 来到了 B
+        moving = node.next
+    }
+    
+    return newHead
+}
+
+
 func copyRandomListNode2(_ listNode: ListRandomNode?) -> ListRandomNode? {
     var newHead: ListRandomNode?
     
