@@ -28,6 +28,26 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof)
 */
 
+func findLostNum20261004(_ nums: [Int]) -> Int {
+    var left = 0,
+//        right = nums.count - 1 // [0, 1, 2] 无法返回 3
+        right = nums.count
+    
+    while left < right {
+        let mid = left + (right - left) / 2
+        if nums[mid] == mid {
+//            left = mid // 不 +1 会死循环
+            left = mid + 1 // mid 之前都正常，缺失数字在右侧
+        }
+        else { // nums[mid] > mid
+            right = mid
+        }
+    }
+    
+    return left
+}
+
+
 // O(logn)
 func findLostNum(_ nums: [Int]) -> Int {
     var left = 0, right = nums.count - 1
