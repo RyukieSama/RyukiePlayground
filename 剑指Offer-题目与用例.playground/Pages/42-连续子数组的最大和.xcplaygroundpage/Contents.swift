@@ -26,6 +26,22 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/maximum-subarray/)
 */
 
+func maxSumOfSubArray20261004(_ nums: [Int]) -> Int {
+    guard nums.isEmpty == false else {
+        return 0
+    }
+    var currentNumPreMaxSum = 0, result = 0
+    
+    for n in nums {
+//        currentNumPreMaxSum = max(currentNumPreMaxSum, currentNumPreMaxSum + n)
+        currentNumPreMaxSum = max(n, currentNumPreMaxSum + n)
+        result = max(result, currentNumPreMaxSum)
+    }
+    
+    return result
+}
+
+
 func maxSumOfSubArray2(_ nums: [Int]) -> Int {
     guard let first = nums.first else { return 0 }
     var currentSum = first, result = first
