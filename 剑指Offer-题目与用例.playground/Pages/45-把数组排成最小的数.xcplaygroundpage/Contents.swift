@@ -28,6 +28,15 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof)
 */
+import Foundation
+
+func makeMinNum20261004(_ nums: [Int]) -> String {
+    // 直接比较拼接字符串的大小
+    let sorted = nums.sorted {
+        "\($0)\($1)" < "\($1)\($0)"
+    }
+    return sorted.map({"\($0)"}).joined()
+}
 
 // 更简单的写法
 func makeMinNum2(_ nums: [Int]) -> String {
