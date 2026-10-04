@@ -31,6 +31,24 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof)
 */
 
+func mi20261004(nums: inout [Int], k: Int) -> [Int] {
+    guard k >= 0, k <= nums.count else {
+        return []
+    }
+    
+    for j in 0..<k {
+//    for j in nums.indices {// 这里不用全部循环
+        for i in j+1..<nums.count {
+            if nums[j] > nums[i] {
+                nums.swapAt(j, i)
+            }
+        }
+    }
+    
+    return Array(nums[0..<k])
+}
+
+
 func min(nums: inout [Int], k: Int) -> [Int] {
     guard k > 0, k <= nums.count else {
         return []
