@@ -24,6 +24,35 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof)
 */
 
+import Foundation
+
+func transNumToString20261004(_ n: Int) -> Int {
+    let numbers = Array("\(n)").map({ Int(String($0)) ?? 0 })
+    var d: [Int] = Array(repeating: 0, count: numbers.count)
+    d[0] = 1
+    
+    for idx in 1..<numbers.count {
+        let last = numbers[idx-1]
+        let cur = numbers[idx]
+        let val = last * 10 + cur
+        
+        if val >= 10, val <= 25 {
+            if idx >= 2 {
+                d[idx] =  d[idx - 1] + d[idx-2]
+            }
+            else {
+                d[idx] =  d[idx - 1] + 1
+            }
+        }
+        else {
+            // 没法儿拆
+            d[idx] = d[idx - 1]
+        }
+    }
+    
+    return d[numbers.count - 1]
+}
+
 func transNumToString2(_ n: Int) -> Int {
     let numberArr = Array(String(n)).map { Int(String($0))! }
     var dp = Array(repeating: 0, count: numberArr.count)
