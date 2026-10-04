@@ -28,6 +28,40 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/number-of-digit-one/)
 */
 
+func countOfOne20261004(_ n: Int) -> Int {
+    var res = 0, dig = 1
+    
+    while dig <= n {
+        let leftPart = n / dig / 10
+        let rightPart = n % dig
+        let currentPart = n / dig % 10
+        
+        // 算出每一位为 1 多次数
+        switch currentPart {
+        case 0:
+            /**
+             123 0 5
+             */
+            res += leftPart * dig
+        case 1:
+            /**
+             123 1 5
+             */
+            res += leftPart * dig + rightPart + 1
+        default:
+            /**
+             123 4 5
+             */
+            res += leftPart * dig + dig
+        }
+        
+        dig *= 10
+    }
+    
+    return res
+}
+
+
 func countOfOne2(_ n: Int) -> Int {
     var res = 0, dig = 1
     
