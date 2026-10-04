@@ -32,6 +32,29 @@
 
 import Foundation
 
+func numOf202610042(order: Int) -> Int {
+    var currentDig = 1,
+    digLength = 1,
+    currentDigRangeTotalLength = 10,
+    rangeStartNumber = 0,
+    order = order
+    
+    while order >= currentDigRangeTotalLength {
+        order -= currentDigRangeTotalLength
+        
+        currentDig *= 10
+        digLength += 1
+        rangeStartNumber = currentDig
+        
+        currentDigRangeTotalLength = digLength * currentDig * 9
+    }
+    
+    let inWhichNumber = rangeStartNumber + order / digLength
+    let chars = Array("\(inWhichNumber)")
+    let idx = order % digLength
+    return Int(String(chars[idx])) ?? 0
+}
+
 func numOf20261004(order: Int) -> Int {
     /**
      0~9
