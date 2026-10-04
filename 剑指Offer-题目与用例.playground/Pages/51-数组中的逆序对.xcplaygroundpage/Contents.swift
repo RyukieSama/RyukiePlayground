@@ -22,6 +22,26 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof)
 */
 
+import Foundation
+
+func coupeIn20261004(_ nums: [Int]) -> Int {
+    // 性能无法满足题目上限
+    guard nums.isEmpty == false else {
+        return 0
+    }
+    var result = 0
+    
+    for j in nums.indices {
+        for i in j+1..<nums.count {
+            if nums[j] > nums[i] {
+                result += 1
+            }
+        }
+    }
+    
+    return result
+}
+
 // 这道题应该使用归并排序统计逆序对，时间复杂度为 O(n log n)。
 func coupeIn2(_ nums: [Int]) -> Int {
     guard nums.count >= 2 else {

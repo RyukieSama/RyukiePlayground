@@ -27,6 +27,7 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof)
 */
+import Foundation
 
 func findChr(_ str: String) -> String {
     var chars = Array(str).map({ String($0) })
