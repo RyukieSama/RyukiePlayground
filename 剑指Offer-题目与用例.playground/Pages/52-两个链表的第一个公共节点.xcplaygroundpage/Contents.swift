@@ -60,7 +60,7 @@ func listNodeCross20261004(_ a: ListNode?, _ b: ListNode?) -> ListNode? {
     var p1 = a, p2 = b
     
     while p1 != p2 {
-        p1 = p1 != nil ? p1?.next : b
+        p1 = p1 != nil ? p1?.next : b // 注意条件，虽然看起来简单，但是写错很多次了
         p2 = p2 != nil ? p2?.next : a
     }
     

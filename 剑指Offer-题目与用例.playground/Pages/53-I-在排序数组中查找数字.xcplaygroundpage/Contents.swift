@@ -33,6 +33,51 @@ nums 是一个非递减数组
 
 [LeetCode 原题](https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof)
 */
+import Foundation
+
+func countOfNum20261004(_ target: Int, in nums: [Int]) -> Int {
+    guard nums.isEmpty == false else {
+        return 0
+    }
+    
+    // ⚠️ 但“第一个大于 target 的位置”可能是数组末尾之后，也就是 nums.count。
+    
+    // 找到第一个大于等于 target 的
+    func findFirst() -> Int {
+//        var left = 0, right = nums.count - 1
+        var left = 0, right = nums.count
+        while left < right {
+            let mid = left + (right - left) / 2
+            if nums[mid] >= target {
+                right = mid
+            }
+            else {
+                left = mid + 1
+            }
+        }
+        return left
+    }
+    
+    // 找到第一个大于 target 的
+    func findFirstBiger() -> Int {
+//        var left = 0, right = nums.count - 1
+        var left = 0, right = nums.count
+        while left < right {
+            let mid = left + (right - left) / 2
+            if nums[mid] > target {
+                right = mid
+            }
+            else {
+                left = mid + 1
+            }
+        }
+        return left
+    }
+
+    return findFirstBiger() - findFirst()
+}
+
+
 
 /**
  O(logn) 二分
