@@ -54,18 +54,32 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/)
 */
-// O(m+n) O(1)
-func listNodeCross(_ a: ListNode?, _ b: ListNode?) -> ListNode? {
-    guard let a = a, let b = b else {
-        return nil
+import Foundation
+
+func listNodeCross20261004(_ a: ListNode?, _ b: ListNode?) -> ListNode? {
+    var p1 = a, p2 = b
+    
+    while p1 != p2 {
+        p1 = p1 != nil ? p1?.next : b
+        p2 = p2 != nil ? p2?.next : a
     }
-    var pa = a, pb = b
-    while pa != pb {
-        pa = pa.next ?? b
-        pb = pb.next ?? a
-    }
-    return pa
+    
+    return p1
 }
+
+
+// O(m+n) O(1)
+//func listNodeCrossX(_ a: ListNode?, _ b: ListNode?) -> ListNode? {
+//    guard let a = a, let b = b else {
+//        return nil
+//    }
+//    var pa = a, pb = b
+//    while pa != pb { // 死循环
+//        pa = pa.next ?? b
+//        pb = pb.next ?? a
+//    }
+//    return pa
+//}
 
 /*:
 ## 题目解析
