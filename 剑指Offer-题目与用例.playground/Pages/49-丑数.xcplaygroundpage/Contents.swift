@@ -27,6 +27,41 @@ n 不超过1690。
 
 [LeetCode 原题](https://leetcode-cn.com/problems/ugly-number-ii/)
 */
+
+import Foundation
+
+func ugly20261004(_ n: Int) -> Int {
+    guard n > 0 else {
+        return 0
+    }
+    // 容器
+    var d: [Int] = Array(repeating: 1, count: n)
+    // 丑数 2*V  3*V  5*V
+    
+    // 下一个要 * x 的下标
+    var p2 = 0, p3 = 0, p5 = 0
+    
+//    for idx in 0..<n {
+    for idx in 1..<n {
+        let valA = d[p2] * 2, valB = d[p3] * 3, valC = d[p5] * 5
+        let minVal = min(valA, valB, valC)
+        
+        if minVal == valA {
+            p2 += 1
+        }
+        if minVal == valB {
+            p3 += 1
+        }
+        if minVal == valC {
+            p5 += 1
+        }
+        
+        d[idx] = minVal
+    }
+    
+    return d[n-1]
+}
+
 //
 //func ugly(_ n: Int) -> Int {
 //    var num: Int = 1
