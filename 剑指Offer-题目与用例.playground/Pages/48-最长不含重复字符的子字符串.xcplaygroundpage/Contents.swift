@@ -32,6 +32,30 @@ s.length <= 40000
 
 [LeetCode 原题](https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof)
 */
+import Foundation
+
+func maxSubString20261004(_ str: String) -> Int {
+    // 使用窗口右移
+    let chars = Array(str)
+    var result = 0
+    var window: Set<Character> = []
+    var left = 0
+    
+    for right in 0..<chars.count {
+        let c = chars[right]
+        while window.contains(c) {
+            // 如果有重复的就右移
+//            window.popFirst()
+            window.remove(chars[left])
+            left += 1
+        }
+        window.insert(c)
+        result = max(result, right - left + 1)
+    }
+    
+    return result
+}
+
 
 func maxSubString(_ str: String) -> Int {
     let chars = Array(str)
