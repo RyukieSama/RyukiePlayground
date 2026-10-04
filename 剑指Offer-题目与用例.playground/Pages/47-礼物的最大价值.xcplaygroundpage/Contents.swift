@@ -27,6 +27,38 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof)
 */
+import Foundation
+
+
+func maxGift20261004(_ grid: [[Int]]) -> Int {
+    let width = grid.first?.count ?? 0, height = grid.count
+    guard width > 0, height > 0 else {
+        return 0
+    }
+    // 到达该处可以达到的最大值
+    var dp: [[Int]] = Array(repeating: Array(repeating: 0, count: width), count: height)
+    
+    for y in 0..<height {
+        for x in 0..<width {
+            let val = grid[y][x]
+            
+            if x == 0, y == 0 {
+                dp[y][x] = val
+            }
+            else if x == 0 {
+                dp[y][x] = val + dp[y-1][x]
+            }
+            else if y == 0 {
+                dp[y][x] = val + dp[y][x-1]
+            }
+            else {
+                dp[y][x] = max(dp[y-1][x], dp[y][x-1]) + val
+            }
+        }
+    }
+    
+    return dp[height-1][width-1]
+}
 
 func maxGift(_ grid: [[Int]]) -> Int {
     let height = grid.count
