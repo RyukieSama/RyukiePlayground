@@ -30,6 +30,48 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/nth-digit/)
 */
 
+import Foundation
+
+func numOf20261004(order: Int) -> Int {
+    /**
+     0~9
+     10 个数 占 1x10位
+     
+     10～99
+     90 个数 占 2x90位
+     
+     100～999
+     900 个数 占 3x900位
+     。。。
+     
+     x 位
+     N = 10的（x-1）次方（就是dig） * 9 个数  占 count = x*N
+     */
+    var digLength = 1,
+        currentDigRangeTotalLength = 10, // 当前范围总共的长度
+        dig = 1,
+        rangStartNum = 0,
+        order = order
+    
+    while order >= currentDigRangeTotalLength {
+        order -= currentDigRangeTotalLength // 减去上次的长度
+
+        digLength += 1
+        dig *= 10
+        rangStartNum = dig
+        
+        currentDigRangeTotalLength = dig * 9 * digLength
+    }
+    
+    // 找到属于哪个数
+    let lastNumber = rangStartNum + order / digLength
+    // 找到具体数字
+    let chars = Array("\(lastNumber)")
+    let idx = order % digLength
+    return Int(String(chars[idx])) ?? 0
+}
+
+
 func numOf(order: Int) -> Int {
     /**
      1位 0～9   10个数 10 长度 = 10
