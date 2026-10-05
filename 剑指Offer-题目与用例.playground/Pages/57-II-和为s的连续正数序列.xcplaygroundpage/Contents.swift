@@ -29,6 +29,33 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof)
 */
+import Foundation
+
+func find_20261005(_ target: Int) -> [[Int]] {
+    var result: [[Int]] = []
+    var left = 1, right = 2, sum = left + right
+    
+    while left < right {
+        if sum < target {
+            right += 1
+            sum += right
+        }
+        else if sum > target {
+            sum -= left
+            left += 1
+        }
+        else {
+            result.append(Array(left...right))
+            
+            // 扩大窗口，继续试着找
+            right += 1
+            sum += right
+        }
+    }
+    
+    return result
+}
+
 func find2(_ target: Int) -> [[Int]] {
     var res: [[Int]] = []
     

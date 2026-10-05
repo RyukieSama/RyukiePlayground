@@ -29,6 +29,31 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof)
 */
+import Foundation
+
+func find20261005(_ nums:[Int], _ sum: Int) -> [Int] {
+    guard nums.count >= 2 else {
+        return []
+    }
+    // 元素都是正数，简单一些
+    var left = 0, right = nums.count - 1
+    
+    while left < right {
+        let LV = nums[left], RV = nums[right]
+        let temp = LV + RV
+        
+        if temp > sum {
+            right -= 1
+        }
+        else if temp < sum {
+            left += 1
+        }
+        else {
+            return [LV, RV]
+        }
+    }
+    return []
+}
 
 func find(_ nums:[Int], _ sum: Int) -> [Int] {
     guard nums.count > 1 else {
