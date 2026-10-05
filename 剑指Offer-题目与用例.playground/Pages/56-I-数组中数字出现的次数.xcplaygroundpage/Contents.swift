@@ -27,6 +27,48 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof)
 */
+import Foundation
+
+func countOf20261005(_ nums: [Int]) -> [Int] {
+    guard nums.isEmpty == false else {
+        return []
+    }
+    /**
+     位运算 相同的数字异或的结果 == 0，所以一次循环可以过滤出 a b 异或的结果
+     a b 不同 所以异或结果一定有一位是 1
+     
+     再把数组分成两部分，一部分这位是 1 一部分这位是 0
+     两部分分别异或 就能过滤出来 a 和 b
+     */
+    
+    var result = 0
+    
+    nums.forEach {
+        result ^= $0
+    }
+    // 这时的 result 是 a b 异或的结果
+    
+    var one = 1
+    while result & one == 0 {
+        // 找 1 位
+        one <<= 1
+    }
+    
+    var a = 0, b = 0
+    nums.forEach {
+//        if $0 ^ one == 0 { // 这是判断两个数是否相等了
+        if $0 & one == 0 {
+            // 这位是 1 的元素
+            a ^= $0
+        }
+        else {
+            b ^= $0
+        }
+    }
+    
+    return [a, b]
+}
+
 
 func countOf(_ nums: [Int]) -> [Int] {
     var res = 0
