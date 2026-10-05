@@ -27,8 +27,33 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof)
 */
+import Foundation
+
+func isBalance202610052(_ tree: TreeNode?) -> Bool {
+    
+}
+
+
+func isBalance20261005(_ tree: TreeNode?) -> Bool {
+    guard let tree = tree else {
+        return true
+    }
+    
+    func deep(_ node: TreeNode?) -> Int {
+        guard let node = node else { return 0 }
+        return max(deep(node.left), deep(node.right)) + 1
+    }
+    
+    let leftDeep = deep(tree.left), rightDeep = deep(tree.right)
+    
+    return (abs(leftDeep - rightDeep) <= 1)
+    && isBalance20261005(tree.left)
+    && isBalance20261005(tree.right)
+}
 
 /**
+看不懂
+ 
  一次递归同时判断平衡和计算高度
  
  逻辑是：

@@ -35,6 +35,15 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof)
 */
+import Foundation
+
+func deep20261005(of tree: TreeNode?) -> Int {
+    guard let tree = tree else { return 0 }
+    let leftDeep = deep20261005(of: tree.left)
+    let rightDeep = deep20261005(of: tree.right)
+    return max(leftDeep, rightDeep) + 1
+}
+
 
 //func deep(of tree: TreeNode?, val: inout Int) -> Int {
 //    guard
