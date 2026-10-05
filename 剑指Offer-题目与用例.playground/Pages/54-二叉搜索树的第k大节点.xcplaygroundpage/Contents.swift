@@ -46,6 +46,34 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof)
 */
 
+
+import Foundation
+
+func find20261005(k: Int, in tree: TreeNode?) -> TreeNode? {
+    guard let tree = tree, k >= 1 else {
+        return nil
+    }
+    var temp: [TreeNode] = []
+    
+    func reOrder(node: TreeNode?) {
+        guard let node = node else {
+            return
+        }
+        reOrder(node: node.left)
+        temp.append(node)
+        reOrder(node: node.right)
+    }
+    
+    reOrder(node: tree)
+    
+    guard k <= temp.count else {
+        return nil
+    }
+    
+    return temp[temp.count - k]
+}
+
+
 //func find(k: Int, in tree: TreeNode?) -> TreeNode? {
 //    guard let tree = tree else { return nil }
 //    // 二叉搜索树中序遍历的结果就是有序的 左 中 右
