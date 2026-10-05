@@ -30,6 +30,35 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof)
 */
 
+func find20261005(_ nums: [Int]) -> Int {
+    /**
+     一位位遍历
+     每一位的 1 的个数对 3 取模，就是结果数字这一位的值
+     */
+    // 根据约束，确定 30 位
+    var result = 0
+    
+    for dig in 0...30 {
+        let flag = 1 << dig
+        var oneCount = 0
+        
+        for val in nums {
+            if val & flag != 0 {
+                // 这位是 1
+                oneCount += 1
+            }
+        }
+        
+        if oneCount % 3 != 0 {
+            // 说明这是 1
+            result |= flag
+        }
+        
+    }
+    
+    return result
+}
+
 func find(_ nums: [Int]) -> Int {
     /**
      二进制位，每一位的 1 的个数和对 3 取余数。
