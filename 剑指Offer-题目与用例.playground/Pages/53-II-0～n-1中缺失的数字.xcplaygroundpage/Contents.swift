@@ -27,6 +27,31 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof)
 */
+import Foundation
+
+func findLostNum20261005(_ nums: [Int]) -> Int {
+    var left = 0, right = nums.count
+    
+//    while left <= right {
+    while left < right {
+        let mid = left + (right - left) / 2
+//        if nums[mid] != mid {
+//            right = mid - 1
+//        }
+//        else {
+//            left = mid
+//        }
+        if mid == nums[mid] {
+            left = mid + 1
+        }
+        else {
+            right = mid
+        }
+    }
+    
+    return left
+}
+
 
 func findLostNum20261004(_ nums: [Int]) -> Int {
     var left = 0,
