@@ -38,6 +38,30 @@
 [LeetCode 原题](https://leetcode.cn/problems/c32eOV/)
 */
 
+func find20261006(_ head: ListNode?) -> ListNode? {
+    // 先找是否存在环
+    var fast: ListNode? = head, slow: ListNode? = head
+    
+    while fast != nil, fast?.next != nil {
+        fast = fast?.next?.next
+        slow = slow?.next
+        
+        if slow == fast {
+            // 从头节点和环内相遇点同时出发，每次各走一步，相遇处就是环入口
+            var node = head
+            while node != slow {
+                node = node?.next
+                slow = slow?.next
+            }
+            return node
+        }
+    }
+    
+    // 能出 while 循环，那就一定没环
+    return nil
+}
+
+
 func find2(_ head: ListNode?) -> ListNode? {
     var fast = head, slow = head
     

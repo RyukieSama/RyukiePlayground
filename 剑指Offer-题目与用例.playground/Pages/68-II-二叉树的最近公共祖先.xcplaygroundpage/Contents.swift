@@ -53,7 +53,7 @@ func find202601006(_ root: TreeNode, a: TreeNode, b: TreeNode) -> TreeNode? {
     }
     
     if let _ = leftResult, let _ = rightResult {
-        return root
+        return root // 说明分别在两边
     }
     
     return leftResult ?? rightResult
