@@ -33,6 +33,26 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof)
 */
 
+func max20261006(_ nums: [Int]) -> Int {
+    guard nums.count > 1 else {
+        return 0
+    }
+    var result = 0, minVal = nums[0]
+    
+    for idx in 1..<nums.count {
+        let val = nums[idx], deta = val - minVal
+        if val < minVal {
+            minVal = val
+        }
+        else if deta > 0 {
+            result = max(result, deta)
+        }
+    }
+    
+    return result
+}
+
+
 func maxP(_ nums: [Int]) -> Int {
     guard nums.count > 1 else {
         return 0
