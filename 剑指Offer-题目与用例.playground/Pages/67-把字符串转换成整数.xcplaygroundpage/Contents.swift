@@ -68,6 +68,85 @@
 */
 import Foundation
 
+func strToInt20261006(_ str: String) -> Int {
+    let strArray = Array(str).map({ String($0) })
+    var firstStr: String?, numsArray: [String] = []
+    
+    for s in strArray {
+        if firstStr == nil { // 有效首位
+            if s == " " {
+                continue
+            }
+            else if s == "+" || s == "-" {
+                firstStr = s
+            }
+            else if let sVal = Int(s) {
+                firstStr = s
+                if sVal != 0 {
+                    numsArray.append(s)
+                }
+//                if sVal == 0 {
+//                    continue // 不能跳 "0  123" 应该返回0 ，这样写会继续解析
+//                }
+//                else {
+//                    firstStr = s
+//                    numsArray.append(s)
+//                }
+            }
+            else {
+                break
+            }
+        }
+        else if let sVal = Int(s), let firstStr = firstStr {
+            // 注意处理 +000001 情况
+            if (firstStr == "+" || firstStr == "-") && numsArray.isEmpty && sVal == 0 {
+                continue
+            }
+            else {
+                numsArray.append(s)
+            }
+        }
+        else { // 非法，跳出
+            break
+        }
+    }
+    
+    let resString = numsArray.joined()
+    
+    guard numsArray.isEmpty == false else {
+        return 0
+    }
+    
+//    guard var resNum = Int64(resString) else {
+//        return 0
+//    }
+    
+    // "999999999999999999999999999" numsArray 中只会有数字，因此转换失败意味着超过 Int64
+    guard var resNum = Int64(resString) else {
+        return firstStr == "-"
+            ? Int(Int32.min)
+            : Int(Int32.max)
+    }
+    
+    if firstStr == "-" {
+        resNum *= -1
+    }
+    
+    let maxValue = Int64(Int32.max)
+    let minValue = Int64(Int32.min)
+
+    if resNum > maxValue {
+        return Int(Int32.max)
+    }
+
+    if resNum < minValue {
+        return Int(Int32.min)
+    }
+
+    return Int(resNum)
+}
+
+
 func strToInt(_ str: String) -> Int {
     guard str.isEmpty == false else {
         return 0
