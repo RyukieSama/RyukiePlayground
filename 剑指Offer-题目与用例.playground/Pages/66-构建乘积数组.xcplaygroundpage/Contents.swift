@@ -26,6 +26,49 @@ a.length <= 100000
 [LeetCode 原题](https://leetcode-cn.com/problems/gou-jian-cheng-ji-shu-zu-lcof)
 */
 
+func build20261006_2(_ nums: [Int]) -> [Int] {
+    guard nums.isEmpty == false else {
+        return []
+    }
+    var result: [Int] = Array(repeating: 1, count: nums.count)
+    
+    // 计算每个下标左侧的乘积
+    var leftVal = 1
+    for idx in nums.indices {
+        result[idx] = leftVal
+        leftVal *= nums[idx]
+    }
+    
+    // 计算每个下标右侧的乘积，要从最右开始累积
+    var rightVal = 1
+    for idx in nums.indices.reversed() {
+        result[idx] *= rightVal
+        rightVal *= nums[idx]
+    }
+    
+    return result
+}
+
+
+// 时间复杂度太高，不好
+func build20261006(_ nums: [Int]) -> [Int] {
+    guard nums.isEmpty == false else {
+        return []
+    }
+    var result: [Int] = []
+    for j in nums.indices {
+        var res = 1
+        for i in nums.indices {
+            if i != j {
+                res *= nums[i]
+            }
+        }
+        result.append(res)
+    }
+    return result
+}
+
+
 func build2(_ a: [Int]) -> [Int] {
     guard a.isEmpty == false else {
         return []
