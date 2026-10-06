@@ -31,6 +31,42 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/sqrtx/)
 */
+func sol20261006(_ x: Int) -> Int {
+    guard x >= 2 else {
+        return x
+    }
+    
+    // 二分找
+    var left = 1, right = x / 2 // 注意不要从 0 开始
+    var result = 1
+    
+    while left <= right {
+        let mid = left + (right - left) / 2
+//        if mid * mid < x { // mid * mid 有潜在的整数溢出风险
+////            left += 1
+//            left = mid + 1
+//            result = mid // “平方根向下取整”，不一定能找到刚好满足,一定要记录
+//        }
+//        else if mid * mid > x {
+////            right -= 1
+//            right = mid - 1
+//        }
+//        else {
+//            return mid
+//        }
+        
+        if mid <= x / mid { // 不回溢出
+            result = mid
+            left = mid + 1
+        }
+        else {
+            right = mid - 1
+        }
+    }
+    
+    return result
+}
+
 
 func sol(_ x: Int) -> Int {
     // 0 和 1 的平方根就是自身
