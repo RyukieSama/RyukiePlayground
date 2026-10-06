@@ -38,6 +38,17 @@ p、q 为不同节点且均存在于给定的二叉搜索树中。
 [LeetCode 原题](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof)
 */
 
+func find20261006(_ root: TreeNode, a: TreeNode, b: TreeNode) -> TreeNode {
+    if root.val > a.val, root.val > b.val, let left = root.left {
+        return find20261006(left, a: a, b: b)
+    }
+    if root.val < a.val, root.val < b.val, let right = root.right {
+        return find20261006(right, a: a, b: b)
+    }
+    return root
+}
+
+
 func find(_ root: TreeNode, a: TreeNode, b: TreeNode) -> TreeNode {
     let rootInMid = (a.val < root.val && b.val > root.val)
     || (b.val < root.val && a.val > root.val)

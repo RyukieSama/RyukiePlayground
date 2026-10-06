@@ -37,6 +37,28 @@ p、q 为不同节点且均存在于给定的二叉树中。
 
 [LeetCode 原题](https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof)
 */
+import Foundation
+
+func find202601006(_ root: TreeNode, a: TreeNode, b: TreeNode) -> TreeNode? {
+    if root == a || root == b { return root }
+    
+    var leftResult: TreeNode?, rightResult: TreeNode?
+    
+    if let left = root.left {
+        leftResult = find202601006(left, a: a, b: b)
+    }
+    
+    if let right = root.right {
+        rightResult = find202601006(right, a: a, b: b)
+    }
+    
+    if let _ = leftResult, let _ = rightResult {
+        return root
+    }
+    
+    return leftResult ?? rightResult
+}
+
 
 func find(_ root: TreeNode, a: TreeNode, b: TreeNode) -> TreeNode? {
     // 当前节点就是目标节点之一时，向上返回当前节点。
