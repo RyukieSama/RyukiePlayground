@@ -31,7 +31,33 @@
 [LeetCode 原题](https://leetcode.cn/problems/reverse-linked-list-ii/)
 */
 
-// 虚拟头节点 + 头插法
+func reBetween20261006( _ head: ListNode?, left: Int, right: Int) -> ListNode? {
+    guard left < right else { return head }
+    let fakeHead = ListNode(0)
+    fakeHead.next = head
+    
+    // 定位到反转区域前一个
+    var areaPreNode: ListNode? = fakeHead
+    for _ in 1..<left {
+        areaPreNode = areaPreNode?.next
+    }
+    
+    // 始终是反转区间的尾节点
+    guard let areaTail = areaPreNode?.next else { return head }
+    
+    // 降反转区间内的依次移到区间头部
+    for _ in 0..<(right - left) {
+        guard let toBeMove = areaTail.next else { break }
+        areaTail.next = toBeMove.next // 区间尾节点指向下下个
+        toBeMove.next = areaPreNode?.next // 把药移动的插到头部
+        areaPreNode?.next = toBeMove // 再把前置区域和反转区域链接起来
+    }
+    
+    return fakeHead.next
+}
+
+
+// 虚拟头节点 + 头插法 注意看题，是翻转区间，不是抠出来
 func reBetween( _ head: ListNode?, left: Int, right: Int) -> ListNode? {
     guard left < right else {
         return head
@@ -59,6 +85,7 @@ func reBetween( _ head: ListNode?, left: Int, right: Int) -> ListNode? {
             break
         }
 
+        // 这里不好理解，需要辅助梳理流程理解
         current.next = moving.next
         moving.next = pre?.next
         pre?.next = moving
