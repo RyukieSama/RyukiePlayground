@@ -28,11 +28,22 @@
 [LeetCode 原题](https://leetcode-cn.com/problems/qiu-12n-lcof)
 */
 
-func calSum(_ n: Int) -> Int {
-    guard n >= 1 else {
-        return 0
-    }
-    return calSum(n-1) + n
+func calSum20261006(_ n: Int) -> Int {
+    var result = n
+    
+    _ = n > 0 && { // 代替逻辑判断与三元运算
+        result += calSum20261006(n-1)
+        return true
+    }()
+    
+    return result
 }
+
+//func calSum(_ n: Int) -> Int {
+//    guard n >= 1 else { // guard 也应该不能用
+//        return 0
+//    }
+//    return calSum(n-1) + n
+//}
 
 //: [下一题](@next)
