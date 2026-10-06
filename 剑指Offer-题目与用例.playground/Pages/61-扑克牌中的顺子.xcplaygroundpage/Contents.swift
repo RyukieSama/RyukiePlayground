@@ -29,7 +29,24 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof)
 */
-
+func isStraight20261006(_ nums: [Int]) -> Bool {
+    // 用于过滤重复的情况
+    var numSet: Set<Int> = []
+//    var minVal = 0, maxVal = 13// 注意这里的初始值设置
+    var minVal = 14, maxVal = 0 // 这么设置是为了后面的值能进来
+    
+    for n in nums {
+        if n == 0 { continue }
+        if numSet.contains(n) { return false } // 有重复的，就不是顺子
+        numSet.insert(n)
+        
+        minVal = min(minVal, n)
+        maxVal = max(maxVal, n)
+    }
+    
+    // 要是顺子差值只能在 4 以内
+    return maxVal - minVal <= 4
+}
 
 func isStraight(_ nums: [Int]) -> Bool {
     var seen: Set<Int> = []
