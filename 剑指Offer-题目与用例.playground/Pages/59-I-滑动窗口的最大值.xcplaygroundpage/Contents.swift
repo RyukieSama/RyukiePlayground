@@ -33,6 +33,60 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof)
 */
+import Foundation
+
+func maxWindow20261006(_ nums: [Int], k: Int) -> [Int] {
+    guard nums.isEmpty == false, k <= nums.count, k >= 1 else {
+        return []
+    }
+    var left = 0, right = k - 1
+    // 当前窗口最大值的下标， key 是 right 的值
+    var windowMaxValIdxOfRightIdx: [Int: Int] = [:]
+    var result: [Int] = []
+    
+//    while left < right {
+    while right < nums.count {
+        let rightVal = nums[right]
+        if let lastMaxIdx = windowMaxValIdxOfRightIdx[right - 1], lastMaxIdx >= left {
+            // 还在范围内
+            if rightVal > nums[lastMaxIdx] {
+                windowMaxValIdxOfRightIdx[right] = right
+                result.append(nums[right])
+            }
+            else {
+                windowMaxValIdxOfRightIdx[right] = lastMaxIdx
+                result.append(nums[lastMaxIdx])
+            }
+        }
+        else { // 上一个最大不在范围内了，或者为空
+            var maxVal: Int?
+            
+            for idx in left...right {
+                let val = nums[idx]
+                if let mv = maxVal {
+                    if val > mv {
+                        maxVal = val
+                        windowMaxValIdxOfRightIdx[right] = idx
+                    }
+                }
+                else {
+                    maxVal = val
+                    windowMaxValIdxOfRightIdx[right] = idx
+                }
+            }
+            
+            if let maxVal = maxVal {
+                result.append(maxVal)
+            }
+        }
+        
+        left += 1
+        right += 1
+    }
+    
+    return result
+}
+
 /**
 单调队列
  O(n)
