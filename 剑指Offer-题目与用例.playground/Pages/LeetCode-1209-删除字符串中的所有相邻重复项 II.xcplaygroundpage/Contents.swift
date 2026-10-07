@@ -37,6 +37,50 @@
 
 [LeetCode 原题](https://leetcode.cn/problems/remove-all-adjacent-duplicates-in-string-ii/)
 */
+func cut20261007(_ str: String, k: Int) -> String {
+    guard k >= 2, str.count >= k else {
+        return str
+    }
+    var stack: [Character] = []
+    stack.reserveCapacity(str.count)
+    
+    func needCut(_ chr: Character) -> Int? {
+        guard let last = stack.last, chr == last else {
+            return nil
+        }
+        /**
+         检查是否连续重复够了
+         */
+        var deta = k - 1, idx = stack.count - 1
+        var removeCount: Int = 0
+        while deta > 0, idx >= 0 {
+            if stack[idx] == chr {
+                removeCount += 1
+                idx -= 1
+                deta -= 1
+            }
+            else {
+                return nil
+            }
+        }
+        
+        return removeCount
+    }
+    
+    for chr in str {
+        if stack.count >= k - 1, let removeCount = needCut(chr), removeCount > 0 {
+            for _ in 0..<removeCount {
+                stack.removeLast()
+            }
+        }
+        else {
+            stack.append(chr)
+        }
+    }
+    
+    return String(stack)
+}
+
 
 func cut(_ str: String, k: Int) -> String {
     var stack: [(character: Character, count: Int)] = []
