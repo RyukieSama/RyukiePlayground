@@ -27,6 +27,46 @@
 [LeetCode 原题](https://leetcode.cn/problems/remove-all-adjacent-duplicates-in-string/)
 */
 
+import Foundation
+
+func cut20261007(_ str: String) -> String {
+    var stack: [Character] = []
+    stack.reserveCapacity(str.count) // 这句代码会根据字符串长度提前为数组预留存储空间，减少 append 过程中的扩容和元素搬移。
+    
+    for chr in str {
+        if let last = stack.last, chr == last {
+//            stack.dropLast() // 会返回一个“去掉末尾元素后的新集合”
+            stack.removeLast()
+        }
+        else {
+            stack.append(chr)
+        }
+    }
+    return String(stack)
+}
+
+//func cut20261007(_ str: String) -> String {
+//    var charArray = Array(str)
+//    guard charArray.count >= 2 else {
+//        return str
+//    }
+//    var left = 0, right = 1
+//    
+//    while right < charArray.count {
+//        let val = charArray[left], next = charArray[right]
+//        if val == next {
+//            charArray.remove(at: right)
+//        }
+//        else {
+//            left += 1
+//            right += 1
+//        }
+//    }
+//    
+//    return String(charArray)
+//}
+
+
 func cut(_ str: String) -> String {
     var stack: [Character] = []
     stack.reserveCapacity(str.count)
