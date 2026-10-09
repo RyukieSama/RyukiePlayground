@@ -21,7 +21,23 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof)
 */
+import Foundation
+
 let str = "We are happy."
+
+func rep_20261009(_ str: String) -> String {
+    guard str.isEmpty == false else {
+        return ""
+    }
+    var chars = Array(str).map({ String("\($0)") }), idx = 0
+    while idx < chars.count {
+        if chars[idx] == " " {
+            chars[idx] = "%20"
+        }
+        idx += 1
+    }
+    return chars.joined()
+}
 
 func rep_20260929(_ str: String) -> String {
     var arr = Array(str.map({ String($0) }))

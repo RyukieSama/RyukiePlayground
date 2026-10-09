@@ -54,6 +54,34 @@ let matrix = [
     [18,21, 23, 26, 30]
   ]
 
+func find_20261009(arr: [[Int]], tar: Int) -> Bool {
+    // 从右上角开始
+    let width = arr.first?.count ?? 0, height = arr.count
+    
+    guard width > 0, height > 0 else {
+        return false
+    }
+    
+    var x = width - 1, y = 0
+    
+    while x >= 0, y >= 0, x < width, y < height {
+        let val = arr[y][x]
+        
+        if val > tar {
+            x -= 1
+        }
+        else if val < tar {
+            y += 1
+        }
+        else {
+            return true
+        }
+    }
+    
+    return false
+}
+
+
 func find_20260929(arr: [[Int]], tar: Int) -> Bool {
     let height = arr.count
     guard let wid = arr.first?.count, height >= 1, wid >= 1 else {

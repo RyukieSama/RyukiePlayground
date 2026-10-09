@@ -25,6 +25,30 @@
 */
 let datas = [2, 3, 1, 0, 2, 5, 3]
 
+func find20261009(_ nums: [Int]) -> Int {
+    var nums = nums
+    guard nums.count >= 2 else {
+        return -1
+    }
+    var idx = 0
+    while idx < nums.count {
+        let val = nums[idx]
+        if val != idx {
+            // 不在坑里，要交换
+            if nums[val] == val { // 坑被占用了
+                return val
+            }
+            else {
+                nums.swapAt(idx, val)
+            }
+        }
+        else {
+            idx += 1
+        }
+    }
+    return -1
+}
+
 // 萝卜坑
 func find0929(_ nums: [Int]) -> Int {
     guard nums.count >= 2 else {
