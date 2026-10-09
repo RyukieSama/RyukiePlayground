@@ -24,6 +24,18 @@ l2.next = l3
 
 l3.next = nil
 
+func reNodes_20261009(_ node: ListNode?) -> [Int] {
+    var result: [Int] = [], node = node
+    
+    while let n = node {
+        result.append(n.val)
+        node = n.next
+    }
+    
+    return result.reversed()
+}
+
+
 func reNodes_20260929(_ node: ListNode?) -> [Int] {
     var res: [Int] = [], node = node
     

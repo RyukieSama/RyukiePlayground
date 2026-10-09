@@ -40,6 +40,37 @@
 var preorder = [3,9,20,15,7]
 var inorder = [9,3,15,20,7]
 
+func rebuildTree20261009(pre: [Int], mid: [Int]) -> TreeNode? {
+    guard let root = pre.first, mid.count == pre.count else {
+        return nil
+    }
+    var node = TreeNode(root)
+    if let rootIdxInMid = mid.firstIndex(of: root) {
+        let leftCount = rootIdxInMid,
+            rightCount = mid.count - rootIdxInMid - 1
+        var leftPre: [Int] = [],
+            rightPre: [Int] = [],
+            leftIn: [Int] = [],
+            rightIn: [Int] = []
+        
+        if leftCount > 0 {
+            leftPre = Array(pre[1..<leftCount+1])
+            leftIn = Array(mid[0..<leftCount])
+        }
+        
+        if rightCount > 0 {
+            rightPre = Array(pre[leftCount+1..<pre.count])
+            rightIn = Array(mid[rootIdxInMid+1..<mid.count])
+        }
+        
+        node.left = rebuildTree20261009(pre: leftPre, mid: leftIn)
+        node.right = rebuildTree20261009(pre: rightPre, mid: rightIn)
+    }
+    
+    return node
+}
+
+
 //func rebuildTree202609292_02X(pre: [Int], mid: [Int]) -> TreeNode? {
 //    // idx 下标，不用每次都递归都 firstindex，优化时间复杂度
 //    var midMap: [Int: Int] = [:]
