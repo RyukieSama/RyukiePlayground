@@ -22,6 +22,25 @@
  
  [LeetCode 原题](https://leetcode.cn/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/)
  */
+import Foundation
+
+class CQueue20261013 {
+    private var queueA: [Int] = []
+    private var queueB: [Int] = []
+    
+    func appendTail(_ val: Int) {
+        queueA.append(val)
+    }
+    
+    func deleteHead() -> Int {
+        if queueA.isEmpty == false, queueB.isEmpty {
+            while let last = queueA.popLast() {
+                queueB.append(last)
+            }
+        }
+        return queueB.popLast() ?? -1
+    }
+}
 
 class CQueue20260929 {
     // 队列是先进先出的，栈是先进后出

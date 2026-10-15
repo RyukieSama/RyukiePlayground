@@ -35,6 +35,39 @@ var d: [Int: Int] = [
     1: 1
 ]
 
+func fib_20261014_2(_ n: Int) -> Int {
+    guard n > 1 else {
+        return n
+    }
+    
+    let mod = 1_000_000_007
+    var pre = 0, cur = 1
+    
+    for _ in 2...n {
+        let v = (pre + cur) % mod
+        pre = cur
+        cur = v
+    }
+    
+    return cur
+}
+
+func fib_20261014(_ n: Int) -> Int {
+    if let cached = d[n] {
+        return cached
+    }
+
+    let mod = 1_000_000_007
+    let result = (
+        fib_20261014(n - 1) +
+        fib_20261014(n - 2)
+    ) % mod
+
+    d[n] = result
+    return result
+}
+
+
 // 循环更快
 func fib_20260929_2(_ n: Int) -> Int {
     guard n > 1 else {

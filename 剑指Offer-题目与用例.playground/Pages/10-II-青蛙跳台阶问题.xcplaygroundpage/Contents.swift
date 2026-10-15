@@ -29,6 +29,33 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof)
 */
+import Foundation
+
+
+func jump_20261015(_ n: Int) -> Int {
+    guard n > 1 else {
+        return 1
+    }
+    var pre = 1, cur = 1
+    for _ in 2...n {
+        let nex = (pre + cur) % 1000000007
+        pre = cur
+        cur = nex
+    }
+    return cur
+}
+
+var d20261015: [Int: Int] = [
+    0: 1,
+    1: 1
+]
+
+func jump_20261015_2(_ n: Int) -> Int {
+    if let cache = d20261015[n] { return cache }
+    let result = (jump_20261015_2(n-1) + jump_20261015_2(n-2)) % 1000000007
+    d20261015[n] = result
+    return result
+}
 
 func jump20260929(_ n: Int) -> Int {
     guard n >= 2 else {
