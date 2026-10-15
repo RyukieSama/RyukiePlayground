@@ -26,6 +26,28 @@ import Foundation
 
 let nums = [3,4,5,1,2]
 
+func sol20261015(_ nums: [Int]) -> Int? {
+    guard nums.count > 1 else {
+        return nums.first
+    }
+    var left = 0, right = nums.count - 1
+    
+    while left < right {
+        let mid = left + (right - left) / 2
+        if nums[mid] > nums[right] {
+            left = mid + 1
+        }
+        else if nums[mid] < nums[right] {
+            right = mid
+        }
+        else {// 相等时不能判断方向，只能安全地排除一个重复元素：
+            right -= 1
+        }
+    }
+    
+    return nums[left]
+}
+
 func sol20260929(_ nums: [Int]) -> Int? {
     guard nums.isEmpty == false else {
         return nil
@@ -156,13 +178,53 @@ if nums[p1] > nums[p2] {
 
 ### 关于二分查找
 
-这道题的重点通常是使用二分查找。没有重复数字时，可以根据中间值和右边界的关系，
-每次排除一半区间，时间复杂度为 `O(log n)`。
+二分过程中始终保证：最小值一定在闭区间 `[left, right]` 中。
+每次将中间值 `nums[mid]` 与右边界 `nums[right]` 比较，通过两者的关系缩小候选区间。
 
-但本题允许重复数字。当 `nums[mid] == nums[right]` 时，无法判断最小值位于哪一侧，
-通常只能执行 `right -= 1`，因此最坏情况会退化为 `O(n)`。
+#### `nums[mid] > nums[right]`
 
-当前线性扫描版本虽然不是二分法，但逻辑直观，并且在最坏情况下已经达到允许的线性复杂度。
+`mid` 位于旋转点前面较大的递增段，最小值一定在 `mid` 右边。
+`mid` 本身不可能是最小值，因此可以将它一起排除：
+
+```swift
+left = mid + 1
+```
+
+#### `nums[mid] < nums[right]`
+
+`mid` 已经位于旋转点后面较小的递增段。最小值可能是 `mid`，
+也可能在 `mid` 左边，所以不能将 `mid` 排除：
+
+```swift
+right = mid
+```
+
+这里不能写成 `right = mid - 1`，因为 `mid` 自己可能就是最小值。
+
+#### `nums[mid] == nums[right]`
+
+当两者相等时，无法判断最小值在 `mid` 左边还是右边。但可以安全地排除右边界：
+
+```swift
+right -= 1
+```
+
+即使 `nums[right]` 是最小值，区间内的 `nums[mid]` 也有相同的值，
+因此删掉这一个重复的右边界不会丢失最小值。
+
+#### 示例推演
+
+以 `[3, 4, 5, 1, 2]` 为例：
+
+| `left` | `right` | `mid` | 比较 | 操作 |
+| ---: | ---: | ---: | --- | --- |
+| 0 | 4 | 2 | `5 > 2` | `left = mid + 1 = 3` |
+| 3 | 4 | 3 | `1 < 2` | `right = mid = 3` |
+
+此时 `left == right == 3`，候选区间只剩一个元素，返回 `nums[3]`，结果为 `1`。
+
+没有大量重复元素时，二分查找的时间复杂度为 `O(log n)`。
+如果大量出现 `nums[mid] == nums[right]`，只能逐个缩小右边界，最坏会退化为 `O(n)`。
 
 ### 小细节
 
