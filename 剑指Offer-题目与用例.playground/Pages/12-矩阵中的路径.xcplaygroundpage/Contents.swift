@@ -39,6 +39,68 @@ board 和 word 仅由大小写英文字母组成
 
 let board: [[Character]] = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
 
+func findWords_20261019(board: [[Character]], words: String) -> Bool {
+    /**
+     需要回溯法
+     */
+    let height = board.count,
+        width = board.first?.count ?? 0,
+        wordsChars: [Character] = Array(words)
+    guard
+        height > 0,
+        width > 0,
+        wordsChars.isEmpty == false
+    else {
+        return false
+    }
+    var checkedMap: [[Bool]] = Array(repeating: Array(repeating: false, count: width),
+                                     count: height)
+    var wordIndex = 0
+    
+    for y in 0..<height {
+        for x in 0..<width {
+            if canFind(x, y) {
+                return true
+            }
+        }
+    }
+    
+    // 从这里开始是否可以找全
+    func canFind(_ x: Int, _ y: Int) -> Bool {
+        guard wordIndex < wordsChars.count else {
+            return true // 找完啦
+        }
+        
+        guard
+            x >= 0,
+            y >= 0,
+            x < width,
+            y < height,
+            checkedMap[y][x] == false,
+            wordsChars[wordIndex] == board[y][x]
+        else {
+            return false
+        }
+        
+        checkedMap[y][x] = true
+        wordIndex += 1
+        
+        guard
+            canFind(x - 1, y) || canFind(x, y - 1) || canFind(x + 1, y) || canFind(x, y + 1)
+        else {
+            // 回溯
+            checkedMap[y][x] = false
+            wordIndex -= 1
+            return false
+        }
+        
+        return true
+    }
+    
+    return false
+}
+
+
 func findWords_20260929(board: [[Character]], words: String) -> Bool {
     let height = board.count, width = board.first?.count ?? 0
     guard height > 0, width > 0, words.isEmpty == false else {
