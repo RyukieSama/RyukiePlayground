@@ -37,6 +37,44 @@
 */
 let mod = 1000000007
 
+func cut_20261020_tanxin(n: Int) -> Int {
+    guard n > 3 else {
+        return n - 1
+    }
+    
+    let count = n / 3
+    
+    func quicMi(_ base: Int, _ count: Int) -> Int {
+        var base = base, result = 1, count = count
+        
+        while count > 0 {
+            if count % 2 == 1 {
+                result = result * base % mod
+            }
+            
+            base = base * base % mod
+            count /= 2
+        }
+        
+        return result
+    }
+    
+    var result = 0, delta = n % 3
+    
+    switch delta {
+    case 2:
+        // 不剪
+        result = quicMi(3, count) * 2
+    case 1:
+        // 4 少个三 要个 4
+        result = quicMi(3, count - 1) * 4
+    default:
+        result = quicMi(3, count)
+    }
+    
+    return result % mod
+}
+
 func cut20260929_tanxin(n: Int) -> Int {
     func quicMi(_ base: Int, _ n: Int) -> Int {
         var base = base
