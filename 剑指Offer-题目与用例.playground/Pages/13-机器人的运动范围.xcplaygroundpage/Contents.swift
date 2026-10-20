@@ -36,7 +36,50 @@
 
 [LeetCode 原题](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof)
 */
-
+func botGoGoGo20261020(height: Int, width: Int, k: Int) -> Int {
+    guard height >= 1, width >= 1, k >= 0 else {
+        return 0
+    }
+    var x = 0, y = 0, checked = Array(repeating: Array(repeating: false, count: width), count: height), count = 0
+    
+    func digSum(x: Int, y: Int) -> Int {
+        var result = 0, x = x, y = y
+        
+        while x != 0 {
+            result += x % 10
+            x /= 10
+        }
+        
+        while y != 0 {
+            result += y % 10
+            y /= 10
+        }
+        
+        return result
+    }
+    
+    func go(_ x: Int, _ y: Int) {
+        guard
+            x >= 0, y >= 0, x < width, y < height,
+            checked[y][x] == false,
+            digSum(x: x, y: y) <= k
+        else {
+            return
+        }
+        
+        count += 1
+        checked[y][x] = true
+        
+        go(x - 1, y)
+        go(x, y - 1)
+        go(x + 1, y)
+        go(x, y + 1)
+    }
+    
+    go(0, 0)
+    
+    return count
+}
 
 func botGoGoGo20260929(m: Int, n: Int, k: Int) -> Int {
     let width = n, height = m
