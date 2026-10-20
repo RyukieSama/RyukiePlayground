@@ -39,6 +39,56 @@ board 和 word 仅由大小写英文字母组成
 
 let board: [[Character]] = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
 
+func findWords_20261020(board: [[Character]], words: String) -> Bool {
+    let width = board.first?.count ?? 0, height = board.count, words = Array(words)
+    guard width > 0, height > 0, words.isEmpty == false else {
+        return false
+    }
+    var checked: [[Bool]] = Array(repeating: Array(repeating: false, count: width), count: height)
+    var index = 0
+    
+    for y in 0..<height {
+        for x in 0..<width {
+            if canFindWords(x, y) {
+                return true
+            }
+        }
+    }
+    
+    func canFindWords(_ x: Int, _ y: Int) -> Bool {
+        guard index < words.count else { // 这个要先判断
+            return true // 找完了
+        }
+        
+        guard x >= 0, y >= 0, x < width, y < height else {
+            return false
+        }
+        
+        guard
+            checked[y][x] == false,
+            words[index] == board[y][x]
+        else {
+            return false
+        }
+        
+        checked[y][x] = true
+        index += 1
+        // 一定顺序不要错了，不能在递归之后
+        
+        let done = canFindWords(x - 1, y) || canFindWords(x, y - 1) || canFindWords(x + 1, y) || canFindWords(x, y + 1)
+        
+        if done == false {
+            checked[y][x] = false
+            index -= 1
+            return false
+        }
+        
+        return true
+    }
+    
+    return false
+}
+
 func findWords_20261019(board: [[Character]], words: String) -> Bool {
     /**
      需要回溯法
